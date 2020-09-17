@@ -21,4 +21,7 @@
     <string name="str_verfication_in_progress">验证中</string>
     <string name="str_toast">Toast</string>
     <string name="str_time_format">yyyy-MM-dd</string>
+    <string name="str_already_read">已读</string>
+    <string name="str_not_read">未读</string>
+    <string name="str_article">文章</string>
 </resources>

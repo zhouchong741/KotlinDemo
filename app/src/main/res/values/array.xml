@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="read_array">
+        <item>已读</item>
+        <item>未读</item>
+    </array>
+</resources>

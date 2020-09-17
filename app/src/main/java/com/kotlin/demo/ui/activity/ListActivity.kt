@@ -68,6 +68,10 @@ class ListActivity : BaseActivity() {
             VerificationActivity.startActivity(this)
         }
 
+        btnArticle.setOnClickListener {
+            ArticleActivity.startActivity(this)
+        }
+
         // for test
         var time = TimeUtils.getHHmmss()
         logD(TAG, time)
@@ -100,7 +104,9 @@ class ListActivity : BaseActivity() {
             val response = result.getOrNull()
             if (response == null) {
                 ResponseHandler.getFailureTips(result.exceptionOrNull()).let {
-                    if (viewModel.dataList.isNullOrEmpty()) loadFailed(it) else ToastUtils.showToast(this, it)
+                    if (viewModel.dataList.isNullOrEmpty()) loadFailed(it) else ToastUtils.showToast(
+                        this,
+                        it)
                 }
                 refreshLayout.closeHeaderOrFooter()
                 return@Observer

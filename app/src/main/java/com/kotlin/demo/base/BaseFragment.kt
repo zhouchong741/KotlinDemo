@@ -58,7 +58,6 @@ open class BaseFragment : Fragment(), RequestLifecycle {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(
@@ -126,7 +125,7 @@ open class BaseFragment : Fragment(), RequestLifecycle {
     fun onCreateView(view: View): View {
         rootView = view
         loading = view.findViewById(R.id.loading_layout)
-        if (!EventBus.getDefault().isRegistered(this)) EventBus.getDefault().register(this)
+//        if (!EventBus.getDefault().isRegistered(this)) EventBus.getDefault().register(this)
         return view
     }
 
