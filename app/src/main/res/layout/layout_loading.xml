@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/loading_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="@drawable/material_card"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <com.kotlin.demo.wigets.loading.LoadingView
+        android:id="@+id/common_loading_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:eastArcExternalColor="@color/ff9900" />
+
+    <TextView
+        android:id="@+id/loading_msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_10dp"
+        android:text="@string/waitting_tips"
+        android:textColor="@color/color_FF333333"
+        android:textSize="@dimen/text_14sp" />
+
+</LinearLayout>

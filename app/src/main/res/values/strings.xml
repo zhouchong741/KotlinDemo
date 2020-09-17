@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">KotlinDemo</string>
+
+    <string name="network_error">网络错误</string>
+    <string name="error_view_tip">点击屏幕重试</string>
+    <string name="json_data_error">数据解析异常</string>
+    <string name="network_connect_error">网络连接异常</string>
+    <string name="network_connect_timeout">网络连接超时</string>
+    <string name="no_route_to_host">无法连接到服务器</string>
+    <string name="unknown_error">未知错误</string>
+
+    <string name="not_open_yet">暂未开发</string>
+    <string name="str_ganhuo">干货</string>
+    <string name="str_meizi">妹子</string>
+    <string name="detail">详情</string>
+    <string name="str_verfication">验证码</string>
+    <string name="str_clear">清除</string>
+    <string name="str_input_complete">输入完成</string>
+    <string name="waitting_tips">请稍后...</string>
+    <string name="str_verfication_code">验证码</string>
+    <string name="str_verfication_in_progress">验证中</string>
+    <string name="str_toast">Toast</string>
+    <string name="str_time_format">yyyy-MM-dd</string>
+</resources>
