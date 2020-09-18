@@ -82,12 +82,12 @@ class GanHuoActivity : BaseActivity() {
             }
             loadFinished()
             if (response.itemList.isNullOrEmpty() && viewModel.dataList.isEmpty()) {
-                //首次进入页面时，获取数据条目为0时处理。
+                // 首次进入页面时，获取数据条目为0时处理。
                 refreshLayout.closeHeaderOrFooter()
                 return@Observer
             }
             if (response.itemList.isNullOrEmpty() && viewModel.dataList.isNotEmpty()) {
-                //上拉加载数据时，返回数据条目为0时处理。
+                // 上拉加载数据时，返回数据条目为0时处理。
                 refreshLayout.finishLoadMoreWithNoMoreData()
                 return@Observer
             }

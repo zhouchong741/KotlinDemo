@@ -5,14 +5,14 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentPagerAdapter
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
-import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.flyco.tablayout.listener.CustomTabEntity
 import com.flyco.tablayout.listener.OnTabSelectListener
 import com.kotlin.demo.R
 import com.kotlin.demo.base.BaseActivity
+import com.kotlin.demo.entity.TabEntity
 import com.kotlin.demo.ui.fragment.AlreadyReadFragment
 import com.kotlin.demo.ui.fragment.NotReadFragment
 import com.kotlin.demo.util.CommonUtils
@@ -45,11 +45,14 @@ class ArticleActivity : BaseActivity() {
     private fun initView() {
         tvTitle.text = CommonUtils.getString(R.string.str_article)
         val titles: Array<String> = resources.getStringArray(R.array.read_array)
-        tabLayout.setTabData(titles)
+        val tabs: ArrayList<CustomTabEntity> = arrayListOf()
+        tabs.add(TabEntity(titles[0], 0))
+        tabs.add(TabEntity(titles[1], 0))
+        tabLayout.setTabData(tabs)
         fragmentList = arrayListOf()
 
-        val alreadyReadFragment = AlreadyReadFragment.newInstance()
-        val notReadFragment = NotReadFragment.newInstance()
+        val alreadyReadFragment = AlreadyReadFragment(this)
+        val notReadFragment = NotReadFragment(this)
 
         fragmentList!!.add(alreadyReadFragment)
         fragmentList!!.add(notReadFragment)

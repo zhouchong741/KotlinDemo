@@ -84,7 +84,7 @@ open class BaseFragment : Fragment(), RequestLifecycle {
         super.onResume()
         // 当Fragment在屏幕上可见并且没有加载过数据时调用
         if (!mHasLoadedData) {
-            loadDataOnce()
+            loadDataFirst()
             mHasLoadedData = true
         }
     }
@@ -132,7 +132,7 @@ open class BaseFragment : Fragment(), RequestLifecycle {
     /**
      * 页面首次可见时调用一次该方法，在这里可以请求网络数据等。
      */
-    open fun loadDataOnce() {
+    open fun loadDataFirst() {
 
     }
     /**

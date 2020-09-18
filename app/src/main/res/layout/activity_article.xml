@@ -9,16 +9,17 @@
 
     <include layout="@layout/layout_title_bar" />
 
-    <com.flyco.tablayout.SegmentTabLayout
+    <com.flyco.tablayout.CommonTabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="@dimen/dimen_48dp"
         app:tl_bar_color="@color/white"
         app:tl_indicator_color="@color/colorAccent"
         app:tl_indicator_corner_radius="0dp"
+        app:tl_indicator_width="@dimen/dimen_35dp"
         app:tl_tab_padding="@dimen/dimen_15dp"
-        app:tl_textSelectColor="@color/white"
-        app:tl_textUnselectColor="@color/colorAccent"
+        app:tl_textSelectColor="@color/colorAccent"
+        app:tl_textUnselectColor="@color/color_black"
         app:tl_textsize="@dimen/text_15sp" />
 
     <androidx.viewpager.widget.ViewPager

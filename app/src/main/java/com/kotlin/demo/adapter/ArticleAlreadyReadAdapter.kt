@@ -5,15 +5,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.kotlin.demo.GankBaseApplication
 import com.kotlin.demo.R
 import com.kotlin.demo.util.GlideUtils.load
 import com.kotlin.demo.extension.inflate
 import com.kotlin.demo.model.GanHuoModel
-import com.kotlin.demo.ui.activity.GanHuoActivity
+import com.kotlin.demo.ui.activity.ArticleActivity
 import com.kotlin.demo.ui.activity.WebViewActivity
-import com.kotlin.demo.util.CommonUtils
-import com.kotlin.demo.util.ToastUtils
 
 /**
  * @author: zhouchong
@@ -23,8 +20,12 @@ import com.kotlin.demo.util.ToastUtils
  * 迭代版本:
  * 迭代说明:
  */
-class GanHuoAdapter(private var dataList: List<GanHuoModel.Item>, private val mGanHuoActivity: GanHuoActivity) :
-    RecyclerView.Adapter<GanHuoAdapter.ViewHolder>() {
+class ArticleAlreadyReadAdapter(
+    private var dataList: List<GanHuoModel.Item>,
+    private val articleActivity: ArticleActivity,
+) :
+    RecyclerView.Adapter<ArticleAlreadyReadAdapter.ViewHolder>() {
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(R.layout.item_ganhuo.inflate(parent))
@@ -34,13 +35,13 @@ class GanHuoAdapter(private var dataList: List<GanHuoModel.Item>, private val mG
         holder.tvTitle.text = dataList[position].title
         holder.tvType.text = dataList[position].type
 
-        if (dataList[position].images.isNotEmpty()){
+        if (dataList[position].images.isNotEmpty()) {
             holder.ivImg.load(dataList[position].images[0])
         }
 
         holder.itemView.setOnClickListener {
 //            ToastUtils.showToast(GankBaseApplication.context, CommonUtils.getString(R.string.not_open_yet))
-            WebViewActivity.startActivity(mGanHuoActivity,
+            WebViewActivity.startActivity(articleActivity,
                 dataList[position].url,
                 dataList[position].title)
         }
