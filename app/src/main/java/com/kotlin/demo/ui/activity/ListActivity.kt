@@ -73,7 +73,7 @@ class ListActivity : BaseActivity() {
         }
 
         // for test
-        var time = TimeUtils.getHHmmss()
+        val time = TimeUtils.getHHmmss()
         logD(TAG, time)
     }
 

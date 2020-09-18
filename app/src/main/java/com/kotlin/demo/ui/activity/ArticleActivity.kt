@@ -4,10 +4,13 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
 import com.flyco.tablayout.listener.CustomTabEntity
 import com.flyco.tablayout.listener.OnTabSelectListener
 import com.kotlin.demo.R
@@ -20,79 +23,122 @@ import kotlinx.android.synthetic.main.activity_article.*
 import kotlinx.android.synthetic.main.layout_title_bar.*
 
 class ArticleActivity : BaseActivity() {
-    private var fragmentList: ArrayList<Fragment>? = null
+    // 通用 统一定义 Fragment
+    private var fragmentList: Array<Fragment> =
+        arrayOf(AlreadyReadFragment(this), NotReadFragment(this))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_article)
-
-        initView()
-        addEvents()
+//        initView1()
+        initView2()
     }
 
-    private fun addEvents() {
+    /**
+     * ViewPager xml 需要使用 ViewPager
+     */
+//    private fun initView1() {
+//        tvTitle.text = CommonUtils.getString(R.string.str_article)
+//        val titles: Array<String> = resources.getStringArray(R.array.read_array)
+//        val tabs: ArrayList<CustomTabEntity> = arrayListOf()
+//        tabs.add(TabEntity(titles[0], 0))
+//        tabs.add(TabEntity(titles[1], 0))
+//        tabLayout.setTabData(tabs)
+//
+//        tabLayout.setOnTabSelectListener(object : OnTabSelectListener {
+//            override fun onTabSelect(position: Int) {
+//                viewPager.currentItem = position
+//            }
+//
+//            override fun onTabReselect(position: Int) {
+//
+//            }
+//        })
+//
+//        viewPager.adapter = MyPagerAdapter(supportFragmentManager)
+//        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+//            override fun onPageScrolled(
+//                position: Int,
+//                positionOffset: Float,
+//                positionOffsetPixels: Int,
+//            ) {}
+//
+//            override fun onPageSelected(position: Int) {
+//                tabLayout.currentTab = position
+//            }
+//
+//            override fun onPageScrollStateChanged(state: Int) {
+//
+//            }
+//        })
+//        viewPager.offscreenPageLimit = fragmentList.size
+//        viewPager.currentItem = 0
+//    }
+
+//    @Suppress("DEPRECATION")
+//    inner class MyPagerAdapter(supportFragmentManager: FragmentManager) :
+//        FragmentStatePagerAdapter(supportFragmentManager) {
+//
+//        override fun getCount() = fragmentList.size
+//
+//        override fun getItem(position: Int) = fragmentList[position]
+//
+//        override fun getItemPosition(`object`: Any) = PagerAdapter.POSITION_NONE
+//    }
+
+    /**
+     * ViewPager2 xml 需要使用 ViewPager2
+     */
+    private fun initView2() {
+        tvTitle.text = CommonUtils.getString(R.string.str_article)
+
+        val titles: Array<String> = resources.getStringArray(R.array.read_array)
+        val createTitles = ArrayList<CustomTabEntity>().apply {
+            add(TabEntity(titles[0], 0))
+            add(TabEntity(titles[1], 0))
+        }
+        val adapter: ViewPager2Adapter by lazy {
+            ViewPager2Adapter(this).apply {
+                addFragments(
+                    fragmentList
+                )
+            }
+        }
+        viewPager.offscreenPageLimit = 1
+        viewPager.adapter = adapter
+        tabLayout.setTabData(createTitles)
+        // 监听
         tabLayout.setOnTabSelectListener(object : OnTabSelectListener {
             override fun onTabSelect(position: Int) {
-                viewPager.currentItem = position
+                viewPager?.currentItem = position
             }
 
             override fun onTabReselect(position: Int) {
 
             }
         })
+
+        viewPager.registerOnPageChangeCallback(PageChangeCallback())
     }
 
-    private fun initView() {
-        tvTitle.text = CommonUtils.getString(R.string.str_article)
-        val titles: Array<String> = resources.getStringArray(R.array.read_array)
-        val tabs: ArrayList<CustomTabEntity> = arrayListOf()
-        tabs.add(TabEntity(titles[0], 0))
-        tabs.add(TabEntity(titles[1], 0))
-        tabLayout.setTabData(tabs)
-        fragmentList = arrayListOf()
+    inner class ViewPager2Adapter(fragmentActivity: FragmentActivity) :
+        FragmentStateAdapter(fragmentActivity) {
+        private val fragments = mutableListOf<Fragment>()
 
-        val alreadyReadFragment = AlreadyReadFragment(this)
-        val notReadFragment = NotReadFragment(this)
+        fun addFragments(fragment: Array<Fragment>) {
+            fragments.addAll(fragment)
+        }
 
-        fragmentList!!.add(alreadyReadFragment)
-        fragmentList!!.add(notReadFragment)
+        override fun getItemCount() = fragments.size
 
-        viewPager.adapter = MyPagerAdapter(supportFragmentManager)
-        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-            override fun onPageScrolled(
-                position: Int,
-                positionOffset: Float,
-                positionOffsetPixels: Int,
-            ) {
-
-            }
-
-            override fun onPageSelected(position: Int) {
-                tabLayout.currentTab = position
-            }
-
-            override fun onPageScrollStateChanged(state: Int) {
-
-            }
-        })
-        viewPager.offscreenPageLimit = fragmentList!!.size
-        viewPager.currentItem = 0
+        override fun createFragment(position: Int) = fragments[position]
     }
 
-    @Suppress("DEPRECATION")
-    inner class MyPagerAdapter(
-        supportFragmentManager: FragmentManager,
-    ) : FragmentStatePagerAdapter(supportFragmentManager) {
-        override fun getCount(): Int {
-            return fragmentList!!.size
-        }
-
-        override fun getItem(position: Int): Fragment {
-            return fragmentList!![position]
-        }
-
-        override fun getItemPosition(`object`: Any): Int {
-            return PagerAdapter.POSITION_NONE
+    // 回调
+    inner class PageChangeCallback : ViewPager2.OnPageChangeCallback() {
+        override fun onPageSelected(position: Int) {
+            super.onPageSelected(position)
+            tabLayout?.currentTab = position
         }
     }
 

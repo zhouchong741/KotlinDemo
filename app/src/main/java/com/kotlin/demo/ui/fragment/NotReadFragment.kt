@@ -129,8 +129,4 @@ class NotReadFragment(private val articleActivity: ArticleActivity) : BaseFragme
             }
         })
     }
-
-    companion object {
-        fun newInstance() = NotReadFragment(articleActivity = ArticleActivity())
-    }
 }

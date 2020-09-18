@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".ui.activity.ArticleActivity"></activity>
+        <activity android:name=".ui.activity.ArticleActivity"/>
         <activity
             android:name=".ui.activity.ImageDetailActivity"
             android:launchMode="singleTask"

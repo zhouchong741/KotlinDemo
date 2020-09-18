@@ -130,10 +130,4 @@ class AlreadyReadFragment(private val articleActivity: ArticleActivity) : BaseFr
 
         })
     }
-
-
-    companion object {
-        fun newInstance() = AlreadyReadFragment(articleActivity = ArticleActivity())
-    }
-
 }
