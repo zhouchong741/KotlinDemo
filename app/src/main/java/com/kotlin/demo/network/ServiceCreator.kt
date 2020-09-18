@@ -2,7 +2,11 @@ package com.kotlin.demo.network
 
 import com.google.gson.GsonBuilder
 import com.kotlin.demo.callback.GsonTypeAdapterFactory
+import com.kotlin.demo.extension.logD
+import com.kotlin.demo.extension.logJson
+import com.kotlin.demo.util.CommonUtils
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
@@ -16,13 +20,14 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
  * 迭代说明:
  */
 object ServiceCreator {
-    const val BASE_URL = "https://gank.io"
 
-    private val httpClient = OkHttpClient.Builder().build()
+    private val TAG: String = this.javaClass.simpleName
+
+    const val BASE_URL = "https://gank.io"
 
     private val builder = Retrofit.Builder()
         .baseUrl(BASE_URL)
-        .client(httpClient)
+        .client(getHttpClient())
         .addConverterFactory(ScalarsConverterFactory.create())
         .addConverterFactory(
             GsonConverterFactory.create(
@@ -35,5 +40,22 @@ object ServiceCreator {
     private val retrofit = builder.build()
 
     fun <T> create(serviceClass: Class<T>): T = retrofit.create(serviceClass)
+
+
+    private fun getHttpClient(): OkHttpClient {
+        val level = HttpLoggingInterceptor.Level.BODY
+        // 打印日志
+        val loggingInterceptor = HttpLoggingInterceptor { message ->
+            if (message!!.contains("http") || message.contains("data")){
+                logJson(CommonUtils.appName, message, TAG)
+            }
+        }
+        loggingInterceptor.level = level
+
+        val httpClient = OkHttpClient.Builder()
+
+        httpClient.addInterceptor(loggingInterceptor)
+        return httpClient.build()
+    }
 
 }

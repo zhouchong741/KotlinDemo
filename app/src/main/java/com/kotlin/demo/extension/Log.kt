@@ -2,6 +2,10 @@ package com.kotlin.demo.extension
 
 import android.util.Log
 import com.kotlin.demo.BuildConfig
+import org.json.JSONArray
+import org.json.JSONException
+import org.json.JSONObject
+
 
 /**
  * 日志调试工具类。
@@ -67,3 +71,44 @@ fun logE(tag: String, msg: String?, tr: Throwable) {
     }
 }
 
+
+val LINE_SEPARATOR: String = System.getProperty("line.separator")
+
+fun printLine(tag: String?, isTop: Boolean) {
+    if (isTop) {
+        Log.d(tag,
+            "╔═══════════════════════════════════════════════════════════════════════════════════════")
+    } else {
+        Log.d(tag,
+            "╚═══════════════════════════════════════════════════════════════════════════════════════")
+    }
+}
+
+fun logJson(tag: String?, msg: String, headString: String) {
+    var message: String
+    message = try {
+        when {
+            msg.startsWith("{") -> {
+                val jsonObject = JSONObject(msg)
+                // 最重要的方法，就一行，返回格式化的json字符串，其中的数字4是缩进字符数
+                jsonObject.toString(4)
+            }
+            msg.startsWith("[") -> {
+                val jsonArray = JSONArray(msg)
+                jsonArray.toString(4)
+            }
+            else -> {
+                msg
+            }
+        }
+    } catch (e: JSONException) {
+        msg
+    }
+    printLine(tag, true)
+    message = headString + LINE_SEPARATOR + message
+    val lines: Array<String> = message.split(LINE_SEPARATOR).toTypedArray()
+    for (line in lines) {
+        Log.d(tag, "║ $line")
+    }
+    printLine(tag, false)
+}
