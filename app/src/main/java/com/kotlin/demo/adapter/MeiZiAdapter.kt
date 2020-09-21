@@ -10,6 +10,7 @@ import com.kotlin.demo.R
 import com.kotlin.demo.util.GlideUtils.load
 import com.kotlin.demo.extension.inflate
 import com.kotlin.demo.model.MeiZiModel
+import com.kotlin.demo.util.GlideUtils
 
 /**
  * @author: zhouchong
@@ -31,7 +32,8 @@ class MeiZiAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         if (dataList[position].images.isNotEmpty()) {
-            holder.ivMeiZi.load(dataList[position].images[0], 4f)
+            load(mMeiZiActivity, holder.ivMeiZi, dataList[position].images[0])
+//            holder.ivMeiZi.load(dataList[position].images[0], 4f)
         }
 
         holder.itemView.setOnClickListener {

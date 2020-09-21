@@ -97,6 +97,7 @@ class ArticleActivity : BaseActivity() {
             add(TabEntity(titles[0], 0))
             add(TabEntity(titles[1], 0))
         }
+        // lazy 只获取 不赋值 常量
         val adapter: ViewPager2Adapter by lazy {
             ViewPager2Adapter(this).apply {
                 addFragments(
@@ -104,6 +105,9 @@ class ArticleActivity : BaseActivity() {
                 )
             }
         }
+        // 等同于下面的写法
+//        val adapter =  ViewPager2Adapter(this)
+//        adapter.addFragments(fragmentList)
         viewPager.offscreenPageLimit = 1
         viewPager.adapter = adapter
         tabLayout.setTabData(createTitles)

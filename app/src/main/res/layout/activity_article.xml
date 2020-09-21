@@ -22,13 +22,13 @@
         app:tl_textUnselectColor="@color/color_black"
         app:tl_textsize="@dimen/text_15sp" />
 
-  <!--  <androidx.viewpager.widget.ViewPager
+    <!--  <androidx.viewpager.widget.ViewPager
+          android:id="@+id/viewPager"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent" />
+  -->
+    <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
--->
-    <androidx.viewpager2.widget.ViewPager2
-        android:layout_width="match_parent"
-        android:id="@+id/viewPager"
-        android:layout_height="match_parent"/>
 </LinearLayout>

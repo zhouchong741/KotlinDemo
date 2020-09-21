@@ -32,16 +32,13 @@ class TabEntity : CustomTabEntity {
         mUnSelectedIcon = unSelectedIcon
     }
 
-    override fun getTabTitle(): String {
-        return mTitle!!
-    }
+    override fun getTabTitle() = mTitle!!
 
-    override fun getTabSelectedIcon(): Int {
-        return mSelectedIcon
-    }
 
-    override fun getTabUnselectedIcon(): Int {
-        return mUnSelectedIcon
-    }
+    override fun getTabSelectedIcon() = mSelectedIcon
+
+
+    override fun getTabUnselectedIcon() = mUnSelectedIcon
+
 
 }

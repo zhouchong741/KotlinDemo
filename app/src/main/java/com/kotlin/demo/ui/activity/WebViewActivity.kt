@@ -52,9 +52,12 @@ class WebViewActivity : BaseActivity() {
 
     companion object {
         fun startActivity(context: Activity, link: String, title: String) {
-            val intent = Intent(context, WebViewActivity::class.java)
-            intent.putExtra("LINK_URL", link)
-            intent.putExtra("TITLE", title)
+            val intent: Intent by lazy {
+                Intent(context, WebViewActivity::class.java).apply {
+                    putExtra("LINK_URL", link)
+                    putExtra("TITLE", title)
+                }
+            }
             context.startActivity(intent)
         }
     }

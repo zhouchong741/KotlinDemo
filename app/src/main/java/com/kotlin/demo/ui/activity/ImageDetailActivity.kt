@@ -26,14 +26,12 @@ class ImageDetailActivity : BaseActivity() {
     }
 
     companion object {
-        fun startActivity(context: Activity) {
-            val intent = Intent(context, ImageDetailActivity::class.java)
-            context.startActivity(intent)
-        }
-
         fun startActivity(context: Activity, data: String) {
-            val intent = Intent(context, ImageDetailActivity::class.java)
-            intent.putExtra("IMG_URL", data)
+            val intent: Intent by lazy {
+                Intent(context, ImageDetailActivity::class.java).apply {
+                    putExtra("IMG_URL", data)
+                }
+            }
             context.startActivity(intent)
         }
     }
