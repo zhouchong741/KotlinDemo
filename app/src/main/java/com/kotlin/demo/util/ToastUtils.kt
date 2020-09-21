@@ -16,9 +16,6 @@ import java.time.Duration
  * 迭代说明:
  */
 
-/**
- * 可设定位置
- */
 object ToastUtils {
 
     /**

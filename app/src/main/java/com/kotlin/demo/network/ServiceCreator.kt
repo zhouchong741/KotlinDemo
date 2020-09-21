@@ -5,6 +5,7 @@ import com.kotlin.demo.callback.GsonTypeAdapterFactory
 import com.kotlin.demo.extension.logD
 import com.kotlin.demo.extension.logJson
 import com.kotlin.demo.util.CommonUtils
+import com.kotlin.demo.util.StringUtils
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -46,7 +47,11 @@ object ServiceCreator {
         val level = HttpLoggingInterceptor.Level.BODY
         // 打印日志
         val loggingInterceptor = HttpLoggingInterceptor { message ->
-            if (message!!.contains("http") || message.contains("data")){
+            if (message!!.contains("OK")) {
+                logJson(CommonUtils.appName, StringUtils.cutStartWith(message), TAG)
+            }
+
+            if (message.contains("data")) {
                 logJson(CommonUtils.appName, message, TAG)
             }
         }

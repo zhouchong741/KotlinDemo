@@ -6,12 +6,8 @@ import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 
-
 /**
- * 日志调试工具类。
- *
- * @author vipyinzhiwei
- * @since  2020/4/29
+ * 日志打印工具类
  */
 private const val VERBOSE = 1
 private const val DEBUG = 2
@@ -39,11 +35,6 @@ fun logD(tag: String, msg: String?) {
 fun getMethodName(tag: String): String {
     val stackTrace = Thread.currentThread().stackTrace
     val targetElement = stackTrace[4]
-//    var className: String = targetElement.className
-//    val classInfo: List<String> = className.split(".")
-//    if (classInfo.isNotEmpty()){
-//        className =classInfo[classInfo.size -1] + ".java"
-//    }
     val methodName: String = targetElement.methodName
     val lineNum: Int = targetElement.lineNumber
     return "[(${tag}:${lineNum})#${methodName})]";
@@ -104,11 +95,11 @@ fun logJson(tag: String?, msg: String, headString: String) {
     } catch (e: JSONException) {
         msg
     }
-    printLine(tag, true)
+    printLine(getMethodName(tag!!), true)
     message = headString + LINE_SEPARATOR + message
     val lines: Array<String> = message.split(LINE_SEPARATOR).toTypedArray()
     for (line in lines) {
-        Log.d(tag, "║ $line")
+        Log.d(getMethodName(tag), "║ $line")
     }
-    printLine(tag, false)
+    printLine(getMethodName(tag), false)
 }
