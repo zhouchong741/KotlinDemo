@@ -15,6 +15,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
+        <activity android:name=".ui.activity.LoginActivity"></activity>
         <activity android:name=".ui.activity.article.ArticleActivity" />
         <activity
             android:name=".ui.activity.ImageDetailActivity"
@@ -22,12 +23,8 @@
             android:screenOrientation="portrait" />
         <activity android:name=".ui.activity.meizi.MeiZiActivity" />
         <activity android:name=".ui.activity.ganhuo.GanHuoActivity" />
-        <activity android:name=".ui.activity.main.MainActivity">
-
-        </activity>
-        <activity android:name=".ui.activity.main.Main2Activity">
-
-        </activity>
+        <activity android:name=".ui.activity.main.MainActivity"></activity>
+        <activity android:name=".ui.activity.main.Main2Activity"></activity>
         <activity android:name=".ui.activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

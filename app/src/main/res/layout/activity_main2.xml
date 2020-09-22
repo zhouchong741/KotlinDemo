@@ -15,6 +15,7 @@
 
     <com.flyco.tablayout.CommonTabLayout
         android:id="@+id/bottomTabLayout"
+        android:foreground="?android:attr/selectableItemBackground"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_48dp"
         android:background="@color/white"
