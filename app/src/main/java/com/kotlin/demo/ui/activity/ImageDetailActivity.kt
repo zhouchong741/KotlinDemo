@@ -1,6 +1,7 @@
 package com.kotlin.demo.ui.activity
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import com.kotlin.demo.R
@@ -26,7 +27,7 @@ class ImageDetailActivity : BaseActivity() {
     }
 
     companion object {
-        fun startActivity(context: Activity, data: String) {
+        fun startActivity(context: Context, data: String) {
             val intent: Intent by lazy {
                 Intent(context, ImageDetailActivity::class.java).apply {
                     putExtra("IMG_URL", data)

@@ -1,19 +1,10 @@
 package com.kotlin.demo.ui.activity
 
-import android.app.Activity
+import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
-import android.opengl.Visibility
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.webkit.WebChromeClient
-import android.webkit.WebView
-import android.webkit.WebViewClient
-import android.widget.ProgressBar
 import com.kotlin.demo.R
 import com.kotlin.demo.base.BaseActivity
-import com.kotlin.demo.wigets.webview.ProgressWebView
 import kotlinx.android.synthetic.main.activity_web_view.*
 import kotlinx.android.synthetic.main.layout_title_bar.*
 
@@ -51,7 +42,7 @@ class WebViewActivity : BaseActivity() {
     }
 
     companion object {
-        fun startActivity(context: Activity, link: String, title: String) {
+        fun startActivity(context: Context, link: String, title: String) {
             val intent: Intent by lazy {
                 Intent(context, WebViewActivity::class.java).apply {
                     putExtra("LINK_URL", link)

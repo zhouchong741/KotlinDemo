@@ -15,6 +15,7 @@ import com.kotlin.demo.R
 import com.kotlin.demo.base.BaseActivity
 import com.kotlin.demo.entity.TabEntity
 import com.kotlin.demo.ui.fragment.*
+import com.kotlin.demo.util.ToastUtils
 import kotlinx.android.synthetic.main.activity_main2.*
 
 /**
@@ -26,6 +27,8 @@ import kotlinx.android.synthetic.main.activity_main2.*
  * 迭代说明:
  */
 class Main2Activity : BaseActivity() {
+
+    private var doubleDuration = 0L
 
     private var fragmentList: Array<Fragment> =
         arrayOf(MainFragment(),
@@ -89,6 +92,18 @@ class Main2Activity : BaseActivity() {
         override fun onPageSelected(position: Int) {
             super.onPageSelected(position)
             bottomTabLayout.currentTab = position
+        }
+    }
+
+    /**
+     * 连续退出页面
+     */
+    override fun onBackPressed() {
+        if ((System.currentTimeMillis() - doubleDuration) > 2 * 1000) {
+            doubleDuration = System.currentTimeMillis()
+            ToastUtils.showToast(this, getString(R.string.str_back_double_press))
+        } else {
+            super.onBackPressed()
         }
     }
 
