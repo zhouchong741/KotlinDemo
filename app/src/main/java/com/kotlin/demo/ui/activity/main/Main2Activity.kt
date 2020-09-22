@@ -6,7 +6,6 @@ import android.content.res.TypedArray
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.flyco.tablayout.listener.CustomTabEntity
@@ -14,7 +13,10 @@ import com.flyco.tablayout.listener.OnTabSelectListener
 import com.kotlin.demo.R
 import com.kotlin.demo.base.BaseActivity
 import com.kotlin.demo.entity.TabEntity
-import com.kotlin.demo.ui.fragment.*
+import com.kotlin.demo.ui.fragment.GanHuoFragment
+import com.kotlin.demo.ui.fragment.MainFragment
+import com.kotlin.demo.ui.fragment.MeiZiFragment
+import com.kotlin.demo.ui.fragment.MineFragment
 import com.kotlin.demo.util.ToastUtils
 import kotlinx.android.synthetic.main.activity_main2.*
 
@@ -39,7 +41,6 @@ class Main2Activity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
-
         initView()
     }
 
