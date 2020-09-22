@@ -98,6 +98,15 @@ object CommonUtils {
     }
 
     /**
+     * 获取颜色
+     * @param resId
+     * @return
+     */
+    fun getColor(resId: Int): Int {
+        return GankBaseApplication.context.resources.getColor(resId)
+    }
+
+    /**
      * 获取资源文件中定义的字符串。
      *
      * @param resId

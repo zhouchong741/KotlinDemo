@@ -17,6 +17,8 @@ import com.kotlin.demo.ui.fragment.GanHuoFragment
 import com.kotlin.demo.ui.fragment.MainFragment
 import com.kotlin.demo.ui.fragment.MeiZiFragment
 import com.kotlin.demo.ui.fragment.MineFragment
+import com.kotlin.demo.util.CommonUtils
+import com.kotlin.demo.util.StatusBarUtils
 import com.kotlin.demo.util.ToastUtils
 import kotlinx.android.synthetic.main.activity_main2.*
 
@@ -41,6 +43,7 @@ class Main2Activity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
+//        StatusBarUtils.setStatusBarColor(this, CommonUtils.getColor(R.color.colorAccent))
         initView()
     }
 
