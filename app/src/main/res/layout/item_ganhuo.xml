@@ -50,7 +50,6 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginEnd="@dimen/dimen_10dp"
-            android:scaleType="centerCrop"
             android:src="@mipmap/ic_launcher"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

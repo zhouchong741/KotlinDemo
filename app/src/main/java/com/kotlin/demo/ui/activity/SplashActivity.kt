@@ -58,7 +58,8 @@ class SplashActivity : BaseActivity() {
                 ObjectAnimator.ofPropertyValuesHolder(
                     ivHeader,
                     PropertyValuesHolder.ofFloat("alpha", 0f, 1f),
-                    PropertyValuesHolder.ofFloat("translationY", 0f, 100f)
+                    PropertyValuesHolder.ofFloat("ScaleX", 1f, 1.5f),
+                    PropertyValuesHolder.ofFloat("ScaleY", 1f, 1.5f),
                 ).apply {
                     interpolator = AccelerateInterpolator()
                     duration = durationTime
