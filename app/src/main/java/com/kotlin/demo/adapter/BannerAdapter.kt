@@ -9,7 +9,7 @@ import com.kotlin.demo.R
 import com.kotlin.demo.util.GlideUtils.load
 import com.kotlin.demo.extension.inflate
 import com.kotlin.demo.model.BannerModel
-import com.kotlin.demo.ui.activity.MainActivity
+import com.kotlin.demo.ui.activity.main.MainActivity
 import com.kotlin.demo.ui.activity.WebViewActivity
 
 /**

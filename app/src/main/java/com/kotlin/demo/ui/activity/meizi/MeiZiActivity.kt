@@ -1,4 +1,4 @@
-package com.kotlin.demo.ui.activity
+package com.kotlin.demo.ui.activity.meizi
 
 import android.content.Context
 import android.content.Intent

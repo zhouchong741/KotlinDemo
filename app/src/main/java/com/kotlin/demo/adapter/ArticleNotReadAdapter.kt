@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kotlin.demo.R
 import com.kotlin.demo.extension.inflate
 import com.kotlin.demo.model.MeiZiModel
-import com.kotlin.demo.ui.activity.ArticleActivity
+import com.kotlin.demo.ui.activity.article.ArticleActivity
 import com.kotlin.demo.ui.activity.ImageDetailActivity
 import com.kotlin.demo.util.GlideUtils.load
 

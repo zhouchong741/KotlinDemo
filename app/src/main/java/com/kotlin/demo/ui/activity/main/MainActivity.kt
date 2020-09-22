@@ -1,4 +1,4 @@
-package com.kotlin.demo.ui.activity
+package com.kotlin.demo.ui.activity.main
 
 import android.content.Context
 import android.content.Intent
@@ -14,6 +14,10 @@ import com.kotlin.demo.adapter.BannerAdapter
 import com.kotlin.demo.base.BaseActivity
 import com.kotlin.demo.extension.logD
 import com.kotlin.demo.gank.BannerViewModel
+import com.kotlin.demo.ui.activity.article.ArticleActivity
+import com.kotlin.demo.ui.activity.ganhuo.GanHuoActivity
+import com.kotlin.demo.ui.activity.meizi.MeiZiActivity
+import com.kotlin.demo.ui.activity.VerificationActivity
 import com.kotlin.demo.util.InjectUtil
 import com.kotlin.demo.util.ResponseHandler
 import com.kotlin.demo.util.TimeUtils

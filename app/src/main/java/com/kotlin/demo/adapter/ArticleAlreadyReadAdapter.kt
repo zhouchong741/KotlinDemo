@@ -9,7 +9,7 @@ import com.kotlin.demo.R
 import com.kotlin.demo.util.GlideUtils.load
 import com.kotlin.demo.extension.inflate
 import com.kotlin.demo.model.GanHuoModel
-import com.kotlin.demo.ui.activity.ArticleActivity
+import com.kotlin.demo.ui.activity.article.ArticleActivity
 import com.kotlin.demo.ui.activity.WebViewActivity
 
 /**

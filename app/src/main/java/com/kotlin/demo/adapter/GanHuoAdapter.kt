@@ -5,15 +5,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.kotlin.demo.GankBaseApplication
 import com.kotlin.demo.R
 import com.kotlin.demo.util.GlideUtils.load
 import com.kotlin.demo.extension.inflate
 import com.kotlin.demo.model.GanHuoModel
-import com.kotlin.demo.ui.activity.GanHuoActivity
+import com.kotlin.demo.ui.activity.ganhuo.GanHuoActivity
 import com.kotlin.demo.ui.activity.WebViewActivity
-import com.kotlin.demo.util.CommonUtils
-import com.kotlin.demo.util.ToastUtils
 
 /**
  * @author: zhouchong

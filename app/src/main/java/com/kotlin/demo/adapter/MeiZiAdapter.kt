@@ -5,12 +5,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.kotlin.demo.ui.activity.ImageDetailActivity
-import com.kotlin.demo.ui.activity.MeiZiActivity
+import com.kotlin.demo.ui.activity.meizi.MeiZiActivity
 import com.kotlin.demo.R
 import com.kotlin.demo.util.GlideUtils.load
 import com.kotlin.demo.extension.inflate
 import com.kotlin.demo.model.MeiZiModel
-import com.kotlin.demo.util.GlideUtils
 
 /**
  * @author: zhouchong

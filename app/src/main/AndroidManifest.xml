@@ -15,14 +15,14 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".ui.activity.ArticleActivity"/>
+        <activity android:name=".ui.activity.article.ArticleActivity"/>
         <activity
             android:name=".ui.activity.ImageDetailActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.MeiZiActivity" />
-        <activity android:name=".ui.activity.GanHuoActivity" />
-        <activity android:name=".ui.activity.MainActivity">
+        <activity android:name=".ui.activity.meizi.MeiZiActivity" />
+        <activity android:name=".ui.activity.ganhuo.GanHuoActivity" />
+        <activity android:name=".ui.activity.main.MainActivity">
 
         </activity>
         <activity android:name=".ui.activity.SplashActivity" >

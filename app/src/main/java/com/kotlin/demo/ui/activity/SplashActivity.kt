@@ -6,6 +6,7 @@ import android.view.animation.AccelerateInterpolator
 import com.kotlin.demo.R
 import com.kotlin.demo.base.BaseActivity
 import com.kotlin.demo.impl.AnimatorListenerImpl
+import com.kotlin.demo.ui.activity.main.MainActivity
 import com.kotlin.demo.util.SharePreferenceUtils
 import com.kotlin.demo.util.SharePreferenceUtils.edit
 import kotlinx.android.synthetic.main.activity_splash.*
