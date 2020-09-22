@@ -6,11 +6,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.kotlin.demo.R
-import com.kotlin.demo.util.GlideUtils.load
+import com.kotlin.demo.base.BaseActivity
 import com.kotlin.demo.extension.inflate
 import com.kotlin.demo.model.BannerModel
-import com.kotlin.demo.ui.activity.main.MainActivity
 import com.kotlin.demo.ui.activity.WebViewActivity
+import com.kotlin.demo.util.GlideUtils.load
 
 /**
  * @author: zhouchong
@@ -20,7 +20,7 @@ import com.kotlin.demo.ui.activity.WebViewActivity
  * 迭代版本:
  * 迭代说明:
  */
-class BannerAdapter(private var dataList: List<BannerModel.Item>, private val mMainActivity: MainActivity) :
+class BannerAdapter(private var dataList: List<BannerModel.Item>, private val mMainActivity: BaseActivity) :
     RecyclerView.Adapter<BannerAdapter.TestViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,

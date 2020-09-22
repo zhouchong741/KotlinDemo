@@ -28,7 +28,7 @@ import kotlinx.android.synthetic.main.activity_main2.*
 class Main2Activity : BaseActivity() {
 
     private var fragmentList: Array<Fragment> =
-        arrayOf(MainFragment(this),
+        arrayOf(MainFragment(),
             GanHuoFragment(this),
             MeiZiFragment(this),
             MineFragment(this))
