@@ -1,20 +1,16 @@
 package com.kotlin.demo.adapter
 
-import android.app.Activity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.kotlin.demo.GankBaseApplication
 import com.kotlin.demo.R
 import com.kotlin.demo.util.GlideUtils.load
 import com.kotlin.demo.extension.inflate
 import com.kotlin.demo.model.BannerModel
-import com.kotlin.demo.ui.activity.ListActivity
+import com.kotlin.demo.ui.activity.MainActivity
 import com.kotlin.demo.ui.activity.WebViewActivity
-import com.kotlin.demo.util.CommonUtils
-import com.kotlin.demo.util.ToastUtils
 
 /**
  * @author: zhouchong
@@ -24,7 +20,7 @@ import com.kotlin.demo.util.ToastUtils
  * 迭代版本:
  * 迭代说明:
  */
-class BannerAdapter(private var dataList: List<BannerModel.Item>, val mListActivity: ListActivity) :
+class BannerAdapter(private var dataList: List<BannerModel.Item>, private val mMainActivity: MainActivity) :
     RecyclerView.Adapter<BannerAdapter.TestViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -43,7 +39,7 @@ class BannerAdapter(private var dataList: List<BannerModel.Item>, val mListActiv
 
         holder.ivBanner.setOnClickListener {
 //            ToastUtils.showToast(GankBaseApplication.context, CommonUtils.getString(R.string.not_open_yet))
-            WebViewActivity.startActivity(mListActivity,
+            WebViewActivity.startActivity(mMainActivity,
                 dataList[position].url,
                 dataList[position].title)
         }

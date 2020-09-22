@@ -1,152 +1,142 @@
 package com.kotlin.demo.ui.activity
 
-import android.animation.*
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
-import android.view.animation.AccelerateInterpolator
-import android.view.animation.Animation
-import android.view.animation.RotateAnimation
-import android.view.animation.ScaleAnimation
-import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.PagerSnapHelper
+import androidx.recyclerview.widget.RecyclerView
+import com.kotlin.demo.GankBaseApplication
 import com.kotlin.demo.R
-import com.kotlin.demo.impl.AnimatorListenerImpl
+import com.kotlin.demo.adapter.BannerAdapter
+import com.kotlin.demo.base.BaseActivity
+import com.kotlin.demo.extension.logD
+import com.kotlin.demo.gank.BannerViewModel
+import com.kotlin.demo.util.InjectUtil
+import com.kotlin.demo.util.ResponseHandler
+import com.kotlin.demo.util.TimeUtils
+import com.kotlin.demo.util.ToastUtils
+import com.scwang.smart.refresh.layout.constant.RefreshState
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.Job
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
-    private val job by lazy { Job() }
+    private val TAG: String = this.javaClass.simpleName
 
-    private val durationTime = 4000L
+    private lateinit var adapter: BannerAdapter
+
+    private val viewModel by lazy {
+        ViewModelProvider(this, InjectUtil.getBannerFactory()).get(
+            BannerViewModel::class.java
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-//        tvHello.startAnimation(scaleAnimation)
-//        tvHello.startAnimation(rotateAnimation)
-        setAnim
-    }
-
-    private val rotateAnimation by lazy {
-        RotateAnimation(
-            0f,
-            180f,
-            Animation.RELATIVE_TO_SELF,
-            0.5f,
-            Animation.RELATIVE_TO_SELF,
-            0.5f
-        ).apply {
-            duration = durationTime
-            fillAfter = true
+        val linerLayoutManager = LinearLayoutManager(this)
+        recyclerView.layoutManager = linerLayoutManager
+        linerLayoutManager.orientation = RecyclerView.HORIZONTAL
+        adapter = BannerAdapter(viewModel.dataList, this)
+        recyclerView.adapter = adapter
+        // 画廊效果
+        val pagerSnapHelper = PagerSnapHelper()
+        pagerSnapHelper.findTargetSnapPosition(object : RecyclerView.LayoutManager() {
+            override fun generateDefaultLayoutParams(): RecyclerView.LayoutParams {
+                TODO("Not yet implemented")
+            }
+        }, changingConfigurations, changingConfigurations)
+        pagerSnapHelper.attachToRecyclerView(recyclerView)
+        // 监听
+        refreshLayout.setOnRefreshListener {
+            viewModel.onRefresh()
         }
-    }
 
-    private val scaleAnimation by lazy {
-        ScaleAnimation(
-            1f,
-            2f,
-            1f,
-            2f,
-            Animation.RELATIVE_TO_SELF,
-            0.5f,
-            Animation.RELATIVE_TO_SELF,
-            0.5f
-        ).apply {
-            duration = durationTime
-            fillAfter = true
+        observe()
+
+        // btn
+        btnGanHuo.setOnClickListener {
+            GanHuoActivity.startActivity(this)
         }
+
+        btnMeizi.setOnClickListener {
+            MeiZiActivity.startActivity(this)
+        }
+
+        btnVerification.setOnClickListener {
+            VerificationActivity.startActivity(this)
+        }
+
+        btnArticle.setOnClickListener {
+            ArticleActivity.startActivity(this)
+        }
+
+        // for test
+        val time = TimeUtils.getHHmmss()
+        logD(TAG, time)
     }
 
+    override fun loadDataFirst() {
+        super.loadDataFirst()
+        startLoading()
+    }
 
-    private val setAnim by lazy {
-        AnimatorSet().apply {
-            playTogether(
-                ObjectAnimator.ofPropertyValuesHolder(
-                    tvHello,
-                    PropertyValuesHolder.ofFloat("alpha", 0f, 1f),
-                    PropertyValuesHolder.ofFloat("ScaleX", 1f, 2f),
-                    PropertyValuesHolder.ofFloat("ScaleY", 1f, 2f),
-                    PropertyValuesHolder.ofFloat("translationY", 0f, 100f).apply {
-                        interpolator = AccelerateInterpolator()
-                        duration = durationTime
-                    }
-                ),
-                ObjectAnimator.ofPropertyValuesHolder(
-                    ivHeader,
-                    PropertyValuesHolder.ofFloat("alpha", 0f, 1f),
-                    PropertyValuesHolder.ofFloat("translationY", 0f, 100f)
-                ).apply {
-                    interpolator = AccelerateInterpolator()
-                    duration = durationTime
-                }
+    override fun startLoading() {
+        super.startLoading()
+        // 初始化请求数据
+        viewModel.onRefresh()
+    }
+
+    override fun loadFailed(msg: String?) {
+        super.loadFailed(msg)
+        showLoadErrorView(
+            msg ?: GankBaseApplication.context.getString(
+                R.string.unknown_error
             )
-            addPauseListener(object : Animator.AnimatorPauseListener {
-                override fun onAnimationPause(p0: Animator?) {
-                    Toast.makeText(applicationContext, "pause", Toast.LENGTH_SHORT).show()
+        ) {
+            startLoading()
+        }
+    }
+
+    private fun observe() {
+        viewModel.dataListLiveData.observe(this, Observer { result ->
+            val response = result.getOrNull()
+            if (response == null) {
+                ResponseHandler.getFailureTips(result.exceptionOrNull()).let {
+                    if (viewModel.dataList.isNullOrEmpty()) loadFailed(it) else ToastUtils.showToast(
+                        this,
+                        it)
                 }
-
-                override fun onAnimationResume(p0: Animator?) {
-
+                refreshLayout.closeHeaderOrFooter()
+                return@Observer
+            }
+            loadFinished()
+            if (response.itemList.isNullOrEmpty() && viewModel.dataList.isEmpty()) {
+                refreshLayout.closeHeaderOrFooter()
+                return@Observer
+            }
+            when (refreshLayout.state) {
+                RefreshState.None, RefreshState.Refreshing -> {
+                    viewModel.dataList.clear()
+                    viewModel.dataList.addAll(response.itemList)
+                    adapter.notifyDataSetChanged()
                 }
-            })
-
-//            addListener(object : Animator.AnimatorListener {
-//                override fun onAnimationRepeat(animation: Animator?) {
-//                }
-//
-//                override fun onAnimationEnd(animation: Animator?) {
-//                    Toast.makeText(applicationContext, "end", Toast.LENGTH_SHORT).show()
-//                }
-//
-//                override fun onAnimationCancel(animation: Animator?) {
-//                }
-//
-//                override fun onAnimationStart(animation: Animator?) {
-//                    Toast.makeText(applicationContext, "start", Toast.LENGTH_SHORT).show()
-//                }
-//            })
-
-
-            addChangeListener {
-                onStart = {
-                    Toast.makeText(applicationContext, "start", Toast.LENGTH_SHORT).show()
+                else -> {
                 }
             }
-            start()
-        }
-    }
 
+            refreshLayout.closeHeaderOrFooter()
 
-    private fun AnimatorSet.addChangeListener(action: AnimatorListenerImpl.() -> Unit) {
-        AnimatorListenerImpl().apply { action }.let { builder ->
-            addListener(object : Animator.AnimatorListener {
-                override fun onAnimationRepeat(animation: Animator?) {
-                    animation?.let { builder.onRepeat?.invoke(animation) }
-                }
-
-                override fun onAnimationEnd(animation: Animator?) {
-                    animation?.let { builder.onEnd?.invoke(animation) }
-                }
-
-                override fun onAnimationCancel(animation: Animator?) {
-                    animation?.let { builder.onCancel?.invoke(animation) }
-                }
-
-                override fun onAnimationStart(animation: Animator?) {
-                    animation?.let { builder.onStart?.invoke(animation) }
-                }
-            })
-        }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        job.cancel()
+        })
     }
 
     companion object {
-
+        fun startActivity(context: Context) {
+            context.startActivity(Intent(context, MainActivity::class.java))
+        }
     }
-}
 
+}
