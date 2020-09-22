@@ -90,8 +90,8 @@ class ArticleActivity : BaseActivity() {
 
         val titles: Array<String> = resources.getStringArray(R.array.read_array)
         val createTitles = ArrayList<CustomTabEntity>().apply {
-            add(TabEntity(titles[0], 0))
-            add(TabEntity(titles[1], 0))
+            add(TabEntity(titles[0], 0, 0))
+            add(TabEntity(titles[1], 0, 0))
         }
         // lazy 只获取 不赋值 常量
         val adapter: ViewPager2Adapter by lazy {

@@ -4,4 +4,25 @@
         <item>已读</item>
         <item>未读</item>
     </array>
+
+    <array name="title_array">
+        <item>@string/str_main</item>
+        <item>@string/str_ganhuo</item>
+        <item>@string/str_meizi</item>
+        <item>@string/str_mine</item>
+    </array>
+
+    <array name="select_icon_array">
+        <item>@mipmap/ic_select_main</item>
+        <item>@mipmap/ic_select_article</item>
+        <item>@mipmap/ic_select_meizi</item>
+        <item>@mipmap/ic_select_mine</item>
+    </array>
+
+    <array name="unselect_icon_array">
+        <item>@mipmap/ic_unselect_main</item>
+        <item>@mipmap/ic_unselect_article</item>
+        <item>@mipmap/ic_unselect_meizi</item>
+        <item>@mipmap/ic_unselect_mine</item>
+    </array>
 </resources>

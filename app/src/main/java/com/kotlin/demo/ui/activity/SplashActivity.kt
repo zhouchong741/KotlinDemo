@@ -6,6 +6,7 @@ import android.view.animation.AccelerateInterpolator
 import com.kotlin.demo.R
 import com.kotlin.demo.base.BaseActivity
 import com.kotlin.demo.impl.AnimatorListenerImpl
+import com.kotlin.demo.ui.activity.main.Main2Activity
 import com.kotlin.demo.ui.activity.main.MainActivity
 import com.kotlin.demo.util.SharePreferenceUtils
 import com.kotlin.demo.util.SharePreferenceUtils.edit
@@ -36,7 +37,7 @@ class SplashActivity : BaseActivity() {
                 isFirstEnterApp = false
             }
         } else {
-            MainActivity.startActivity(this@SplashActivity)
+            Main2Activity.startActivity(this@SplashActivity)
             finish()
         }
     }

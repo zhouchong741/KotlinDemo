@@ -24,4 +24,6 @@
     <string name="str_already_read">已读</string>
     <string name="str_not_read">未读</string>
     <string name="str_article">文章</string>
+    <string name="str_main">首页</string>
+    <string name="str_mine">我的</string>
 </resources>
