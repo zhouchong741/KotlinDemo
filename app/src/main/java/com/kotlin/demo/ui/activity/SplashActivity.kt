@@ -3,13 +3,11 @@ package com.kotlin.demo.ui.activity
 import android.animation.*
 import android.os.Bundle
 import android.view.animation.AccelerateInterpolator
-import android.view.animation.Animation
-import android.view.animation.RotateAnimation
-import android.view.animation.ScaleAnimation
-import android.widget.Toast
 import com.kotlin.demo.R
 import com.kotlin.demo.base.BaseActivity
 import com.kotlin.demo.impl.AnimatorListenerImpl
+import com.kotlin.demo.util.SharePreferenceUtils
+import com.kotlin.demo.util.SharePreferenceUtils.edit
 import kotlinx.android.synthetic.main.activity_splash.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
@@ -21,47 +19,24 @@ class SplashActivity : BaseActivity() {
     private val job by lazy { Job() }
 
     private val durationTime = 4000L
+    private val delayTime = 5000L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-//        tvHello.startAnimation(scaleAnimation)
-//        tvHello.startAnimation(rotateAnimation)
-        setAnim
-        CoroutineScope(job).launch {
-            delay(durationTime)
+        // 首次进入判断
+        if (isFirstEnterApp) {
+            setAnim
+            CoroutineScope(job).launch {
+                delay(delayTime)
+                MainActivity.startActivity(this@SplashActivity)
+                finish()
+                isFirstEnterApp = false
+            }
+        } else {
             MainActivity.startActivity(this@SplashActivity)
-        }
-    }
-
-    private val rotateAnimation by lazy {
-        RotateAnimation(
-            0f,
-            180f,
-            Animation.RELATIVE_TO_SELF,
-            0.5f,
-            Animation.RELATIVE_TO_SELF,
-            0.5f
-        ).apply {
-            duration = durationTime
-            fillAfter = true
-        }
-    }
-
-    private val scaleAnimation by lazy {
-        ScaleAnimation(
-            1f,
-            2f,
-            1f,
-            2f,
-            Animation.RELATIVE_TO_SELF,
-            0.5f,
-            Animation.RELATIVE_TO_SELF,
-            0.5f
-        ).apply {
-            duration = durationTime
-            fillAfter = true
+            finish()
         }
     }
 
@@ -87,42 +62,9 @@ class SplashActivity : BaseActivity() {
                     duration = durationTime
                 }
             )
-            addPauseListener(object : Animator.AnimatorPauseListener {
-                override fun onAnimationPause(p0: Animator?) {
-                    Toast.makeText(applicationContext, "pause", Toast.LENGTH_SHORT).show()
-                }
-
-                override fun onAnimationResume(p0: Animator?) {
-
-                }
-            })
-
-//            addListener(object : Animator.AnimatorListener {
-//                override fun onAnimationRepeat(animation: Animator?) {
-//                }
-//
-//                override fun onAnimationEnd(animation: Animator?) {
-//                    Toast.makeText(applicationContext, "end", Toast.LENGTH_SHORT).show()
-//                }
-//
-//                override fun onAnimationCancel(animation: Animator?) {
-//                }
-//
-//                override fun onAnimationStart(animation: Animator?) {
-//                    Toast.makeText(applicationContext, "start", Toast.LENGTH_SHORT).show()
-//                }
-//            })
-
-
-            addChangeListener {
-                onStart = {
-                    Toast.makeText(applicationContext, "start", Toast.LENGTH_SHORT).show()
-                }
-            }
             start()
         }
     }
-
 
     private fun AnimatorSet.addChangeListener(action: AnimatorListenerImpl.() -> Unit) {
         AnimatorListenerImpl().apply { action }.let { builder ->
@@ -152,7 +94,9 @@ class SplashActivity : BaseActivity() {
     }
 
     companion object {
-
+        var isFirstEnterApp: Boolean
+            get() = SharePreferenceUtils.sharedPreferences.getBoolean("is_first_enter_app", true)
+            set(value) = edit { putBoolean("is_first_enter_app", value) }
     }
 }
 
