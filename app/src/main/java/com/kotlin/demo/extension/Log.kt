@@ -2,6 +2,7 @@ package com.kotlin.demo.extension
 
 import android.util.Log
 import com.kotlin.demo.BuildConfig
+import com.kotlin.demo.util.CommonUtils
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
@@ -37,7 +38,7 @@ fun getMethodName(tag: String): String {
     val targetElement = stackTrace[4]
     val methodName: String = targetElement.methodName
     val lineNum: Int = targetElement.lineNumber
-    return "[(${tag}:${lineNum})#${methodName})]";
+    return "${CommonUtils.appName} [(${tag}:${lineNum})#${methodName})]";
 }
 
 fun logI(tag: String, msg: String?) {

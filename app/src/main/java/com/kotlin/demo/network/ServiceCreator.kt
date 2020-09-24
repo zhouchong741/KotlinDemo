@@ -42,7 +42,6 @@ object ServiceCreator {
 
     fun <T> create(serviceClass: Class<T>): T = retrofit.create(serviceClass)
 
-
     private fun getHttpClient(): OkHttpClient {
         val level = HttpLoggingInterceptor.Level.BODY
         // 打印日志

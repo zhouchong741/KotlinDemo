@@ -13,6 +13,7 @@ import com.flyco.tablayout.listener.OnTabSelectListener
 import com.kotlin.demo.R
 import com.kotlin.demo.base.BaseActivity
 import com.kotlin.demo.entity.TabEntity
+import com.kotlin.demo.extension.logD
 import com.kotlin.demo.ui.fragment.GanHuoFragment
 import com.kotlin.demo.ui.fragment.MainFragment
 import com.kotlin.demo.ui.fragment.MeiZiFragment
@@ -21,6 +22,7 @@ import com.kotlin.demo.util.CommonUtils
 import com.kotlin.demo.util.StatusBarUtils
 import com.kotlin.demo.util.ToastUtils
 import kotlinx.android.synthetic.main.activity_main2.*
+import kotlinx.coroutines.*
 
 /**
  * @author: zhouchong
@@ -31,9 +33,9 @@ import kotlinx.android.synthetic.main.activity_main2.*
  * 迭代说明:
  */
 class Main2Activity : BaseActivity() {
-
+    private val job by lazy { Job() }
+    private val TAG = this.javaClass.simpleName
     private var doubleDuration = 0L
-
     private var fragmentList: Array<Fragment> =
         arrayOf(MainFragment(),
             GanHuoFragment(this),
@@ -45,6 +47,34 @@ class Main2Activity : BaseActivity() {
         setContentView(R.layout.activity_main2)
 //        StatusBarUtils.setStatusBarColor(this, CommonUtils.getColor(R.color.colorAccent))
         initView()
+
+        // 协程
+        CoroutineScope(job).launch(Dispatchers.Main) {
+            ioCode()
+            uiCode()
+            ioCode1()
+            uiCode1()
+        }
+    }
+
+    private suspend fun ioCode() {
+        withContext(Dispatchers.IO) {
+            logD(TAG, "IO")
+        }
+    }
+
+    private fun uiCode() {
+        logD(TAG, "MAIN")
+    }
+
+    private suspend fun ioCode1() {
+        withContext(Dispatchers.IO) {
+            logD(TAG, "IO1")
+        }
+    }
+
+    private fun uiCode1() {
+        logD(TAG, "MAIN1")
     }
 
     private fun initView() {
@@ -82,7 +112,7 @@ class Main2Activity : BaseActivity() {
 
     inner class ViewPager2Adapter(fragmentActivity: FragmentActivity) :
         FragmentStateAdapter(fragmentActivity) {
-        private val fragments = mutableListOf<Fragment>()
+        private val fragments = arrayListOf<Fragment>()
         fun addFragment(fragment: Array<Fragment>) {
             fragments.addAll(fragment)
         }

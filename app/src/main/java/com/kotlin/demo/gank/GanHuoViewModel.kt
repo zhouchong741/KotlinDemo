@@ -7,6 +7,7 @@ import androidx.lifecycle.liveData
 import com.kotlin.demo.model.GanHuoModel
 import com.kotlin.demo.network.MainPageRepository
 import com.kotlin.demo.network.api.MainPageService
+import kotlinx.coroutines.Dispatchers
 
 class GanHuoViewModel(private val repository: MainPageRepository) : ViewModel() {
     var dataList = ArrayList<GanHuoModel.Item>()
@@ -16,7 +17,7 @@ class GanHuoViewModel(private val repository: MainPageRepository) : ViewModel() 
     private var requestParamLiveData = MutableLiveData<String>()
 
     val dataListLiveData = Transformations.switchMap(requestParamLiveData) { url ->
-        liveData {
+        liveData(Dispatchers.IO) {
             val result = try {
                 val ganhuo = repository.refreshGanHuo(url)
                 Result.success(ganhuo)
