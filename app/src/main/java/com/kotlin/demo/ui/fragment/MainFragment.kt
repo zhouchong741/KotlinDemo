@@ -60,7 +60,7 @@ class MainFragment() : BaseFragment() {
         val linerLayoutManager = LinearLayoutManager(activity)
         recyclerView.layoutManager = linerLayoutManager
         linerLayoutManager.orientation = RecyclerView.HORIZONTAL
-        adapter = BannerAdapter(viewModel.dataList, Main2Activity())
+        adapter = BannerAdapter(viewModel.dataList, activity)
         recyclerView.adapter = adapter
         // 画廊效果
         val pagerSnapHelper = PagerSnapHelper()

@@ -1,5 +1,6 @@
 package com.kotlin.demo.adapter
 
+import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -20,7 +21,7 @@ import com.kotlin.demo.util.GlideUtils.load
  * 迭代版本:
  * 迭代说明:
  */
-class BannerAdapter(private var dataList: List<BannerModel.Item>, private val mMainActivity: BaseActivity) :
+class BannerAdapter(private var dataList: List<BannerModel.Item>, private val context: Context) :
     RecyclerView.Adapter<BannerAdapter.TestViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -39,7 +40,7 @@ class BannerAdapter(private var dataList: List<BannerModel.Item>, private val mM
 
         holder.ivBanner.setOnClickListener {
 //            ToastUtils.showToast(GankBaseApplication.context, CommonUtils.getString(R.string.not_open_yet))
-            WebViewActivity.startActivity(mMainActivity,
+            WebViewActivity.startActivity(context,
                 dataList[position].url,
                 dataList[position].title)
         }

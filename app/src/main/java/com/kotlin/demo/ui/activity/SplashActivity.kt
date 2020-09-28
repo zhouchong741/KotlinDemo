@@ -1,8 +1,12 @@
 package com.kotlin.demo.ui.activity
 
-import android.animation.*
+import android.animation.Animator
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
+import android.animation.PropertyValuesHolder
 import android.os.Bundle
 import android.view.animation.AccelerateInterpolator
+import androidx.lifecycle.Lifecycle
 import com.kotlin.demo.R
 import com.kotlin.demo.base.BaseActivity
 import com.kotlin.demo.impl.AnimatorListenerImpl
@@ -11,10 +15,7 @@ import com.kotlin.demo.ui.activity.main.MainActivity
 import com.kotlin.demo.util.SharePreferenceUtils
 import com.kotlin.demo.util.SharePreferenceUtils.edit
 import kotlinx.android.synthetic.main.activity_splash.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 class SplashActivity : BaseActivity() {
 

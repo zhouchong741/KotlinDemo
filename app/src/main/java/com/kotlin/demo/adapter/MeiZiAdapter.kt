@@ -24,7 +24,7 @@ import java.util.ArrayList
  */
 class MeiZiAdapter(
     private var dataList: List<MeiZiModel.Item>,
-    private val context: Context,
+    private val context: Context
 ) :
     RecyclerView.Adapter<MeiZiAdapter.ViewHolder>() {
 

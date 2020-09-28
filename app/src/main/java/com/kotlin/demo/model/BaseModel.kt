@@ -8,4 +8,6 @@ package com.kotlin.demo.model
  * 迭代版本:
  * 迭代说明:
  */
-abstract class BaseModel
+abstract class BaseModel{
+
+}

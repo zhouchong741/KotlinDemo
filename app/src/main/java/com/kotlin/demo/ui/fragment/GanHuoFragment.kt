@@ -95,7 +95,9 @@ class GanHuoFragment() : BaseFragment() {
             val response = result.getOrNull()
             if (response == null) {
                 ResponseHandler.getFailureTips(result.exceptionOrNull()).let {
-                    if (viewModel.dataList.isNullOrEmpty()) loadFailed(it) else ToastUtils.showToast(activity, it)
+                    if (viewModel.dataList.isNullOrEmpty()) loadFailed(it) else ToastUtils.showToast(
+                        activity,
+                        it)
                 }
                 refreshLayout.closeHeaderOrFooter()
                 return@Observer

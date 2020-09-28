@@ -10,12 +10,15 @@ import com.google.gson.annotations.SerializedName
  * 迭代版本:
  * 迭代说明:
  */
-data class BannerModel(@SerializedName("data") val itemList: List<Item>, val status: String) :
+data class BannerModel(
+    @SerializedName("data") val itemList: List<Item>,
+    val status: String,
+) :
     BaseModel() {
 
     data class Item(
         val image: String,
         val title: String,
-        val url: String
+        val url: String,
     )
 }

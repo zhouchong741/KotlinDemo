@@ -45,7 +45,6 @@ class Main2Activity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
-//        StatusBarUtils.setStatusBarColor(this, CommonUtils.getColor(R.color.colorAccent))
         initView()
 
         // 协程
