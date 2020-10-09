@@ -6,19 +6,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.kotlin.demo.GankBaseApplication
 import com.kotlin.demo.R
 import com.kotlin.demo.adapter.GanHuoAdapter
 import com.kotlin.demo.base.BaseFragment
 import com.kotlin.demo.gank.GanHuoViewModel
-import com.kotlin.demo.ui.activity.ganhuo.GanHuoActivity
-import com.kotlin.demo.ui.activity.main.Main2Activity
 import com.kotlin.demo.util.InjectUtil
 import com.kotlin.demo.util.ResponseHandler
 import com.kotlin.demo.util.ToastUtils
 import com.scwang.smart.refresh.layout.constant.RefreshState
 import kotlinx.android.synthetic.main.activity_gan_huo.*
+import java.util.*
 
 /**
  * @author: zhouchong
@@ -67,6 +68,37 @@ class GanHuoFragment : BaseFragment() {
         adapter = GanHuoAdapter(viewModel.dataList, activity)
         recyclerView.adapter = adapter
 
+        // 拖动排序
+        val itemTouchHelper = ItemTouchHelper(mCallBack)
+        itemTouchHelper.attachToRecyclerView(recyclerView)
+    }
+
+    private val mCallBack: ItemTouchHelper.Callback = object : ItemTouchHelper.Callback() {
+        override fun getMovementFlags(
+            recyclerView: RecyclerView,
+            viewHolder: RecyclerView.ViewHolder,
+        ): Int {
+            // 拖动排序
+            val dragFlags = ItemTouchHelper.UP or ItemTouchHelper.DOWN
+            // 左滑删除
+            val swipeFlags = ItemTouchHelper.LEFT
+            return makeMovementFlags(dragFlags, swipeFlags)
+        }
+
+        override fun onMove(
+            recyclerView: RecyclerView,
+            viewHolder: RecyclerView.ViewHolder,
+            target: RecyclerView.ViewHolder,
+        ): Boolean {
+            adapter.notifyItemMoved(viewHolder.adapterPosition, target.adapterPosition)
+            Collections.swap(viewModel.dataList, viewHolder.adapterPosition, target.adapterPosition)
+            return true
+        }
+
+        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+            viewModel.dataList.removeAt(viewHolder.adapterPosition)
+            adapter.notifyItemRemoved(viewHolder.adapterPosition)
+        }
     }
 
     override fun loadDataFirst() {
