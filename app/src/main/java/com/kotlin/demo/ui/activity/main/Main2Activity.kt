@@ -38,9 +38,9 @@ class Main2Activity : BaseActivity() {
     private var doubleDuration = 0L
     private var fragmentList: Array<Fragment> =
         arrayOf(MainFragment(),
-            GanHuoFragment(this),
-            MeiZiFragment(this),
-            MineFragment(this))
+            GanHuoFragment(),
+            MeiZiFragment(),
+            MineFragment())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

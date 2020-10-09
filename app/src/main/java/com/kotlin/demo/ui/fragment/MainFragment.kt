@@ -33,8 +33,7 @@ import kotlinx.android.synthetic.main.activity_main.*
  * 迭代版本:
  * 迭代说明:
  */
-class MainFragment() : BaseFragment() {
-    constructor(main2Activity: Main2Activity) : this()
+class MainFragment : BaseFragment() {
 
     private lateinit var adapter: BannerAdapter
 

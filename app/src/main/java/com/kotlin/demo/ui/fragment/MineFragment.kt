@@ -16,8 +16,7 @@ import com.kotlin.demo.ui.activity.main.Main2Activity
  * 迭代版本:
  * 迭代说明:
  */
-class MineFragment() : BaseFragment() {
-    constructor(main2Activity: Main2Activity) : this()
+class MineFragment : BaseFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,

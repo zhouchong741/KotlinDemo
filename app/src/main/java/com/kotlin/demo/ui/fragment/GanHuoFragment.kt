@@ -28,8 +28,7 @@ import kotlinx.android.synthetic.main.activity_gan_huo.*
  * 迭代版本:
  * 迭代说明:
  */
-class GanHuoFragment() : BaseFragment() {
-    constructor(main2Activity: Main2Activity) : this()
+class GanHuoFragment : BaseFragment() {
 
     private lateinit var adapter: GanHuoAdapter
     private val viewModel by lazy {

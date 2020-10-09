@@ -27,8 +27,7 @@ import kotlinx.android.synthetic.main.activity_meizi.*
  * 迭代版本:
  * 迭代说明:
  */
-class MeiZiFragment() : BaseFragment() {
-    constructor(main2Activity: Main2Activity) : this()
+class MeiZiFragment : BaseFragment() {
 
     private lateinit var adapter: MeiZiAdapter
 
