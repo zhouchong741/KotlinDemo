@@ -2,7 +2,6 @@ package com.kotlin.demo.network
 
 import com.google.gson.GsonBuilder
 import com.kotlin.demo.callback.GsonTypeAdapterFactory
-import com.kotlin.demo.extension.logD
 import com.kotlin.demo.extension.logJson
 import com.kotlin.demo.util.CommonUtils
 import com.kotlin.demo.util.StringUtils
@@ -11,6 +10,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
+
 
 /**
  * @author: zhouchong
@@ -45,20 +45,39 @@ object ServiceCreator {
     private fun getHttpClient(): OkHttpClient {
         val level = HttpLoggingInterceptor.Level.BODY
         // 打印日志
-        val loggingInterceptor = HttpLoggingInterceptor { message ->
-            if (message!!.contains("OK")) {
-                logJson(CommonUtils.appName, StringUtils.cutStartWith(message), TAG)
-            }
+        // 旧版本
+//        val loggingInterceptor = HttpLoggingInterceptor { message ->
+//            if (message!!.contains("OK")) {
+//                logJson(CommonUtils.appName, StringUtils.cutStartWith(message), TAG)
+//            }
+//
+//            if (message.contains("data")) {
+//                logJson(CommonUtils.appName, message, TAG)
+//            }
+//        }
+//        loggingInterceptor.level = level
+//
+//        val httpClient = OkHttpClient.Builder()
+//
+//        httpClient.addInterceptor(loggingInterceptor)
 
-            if (message.contains("data")) {
-                logJson(CommonUtils.appName, message, TAG)
+        // 新版本写法 4.0.0 之后
+        val loggingInterceptor = HttpLoggingInterceptor(object : HttpLoggingInterceptor.Logger {
+            override fun log(message: String) {
+                if (message.contains("OK")) {
+                    logJson(CommonUtils.appName, StringUtils.cutStartWith(message), TAG)
+                }
+                if (message.contains("data")) {
+                    logJson(CommonUtils.appName, message, TAG)
+                }
             }
-        }
+        })
+
         loggingInterceptor.level = level
 
         val httpClient = OkHttpClient.Builder()
-
         httpClient.addInterceptor(loggingInterceptor)
+
         return httpClient.build()
     }
 
