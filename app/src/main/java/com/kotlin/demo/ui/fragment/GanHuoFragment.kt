@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Interpolator
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -100,6 +101,9 @@ class GanHuoFragment : BaseFragment() {
             adapter.notifyItemRemoved(viewHolder.adapterPosition)
         }
     }
+
+    // 插值器 滑动速度
+    private val interpolator: Interpolator = Interpolator { p0 -> p0 }
 
     override fun loadDataFirst() {
         super.loadDataFirst()

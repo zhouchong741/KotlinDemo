@@ -33,7 +33,7 @@ class SplashActivity : BaseActivity() {
             setAnim
             CoroutineScope(job).launch {
                 delay(delayTime)
-                MainActivity.startActivity(this@SplashActivity)
+                Main2Activity.startActivity(this@SplashActivity)
                 finish()
                 isFirstEnterApp = false
             }
