@@ -24,4 +24,8 @@ class MainPageDao {
     fun cacheMeiZi(bean: MeiZiModel?) {
 
     }
+
+    fun cacheLogin() {
+
+    }
 }

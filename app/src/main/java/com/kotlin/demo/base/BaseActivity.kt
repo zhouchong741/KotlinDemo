@@ -1,21 +1,21 @@
 package com.kotlin.demo.base
 
 import android.app.Activity
+import android.content.Context
 import android.os.Bundle
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewStub
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.annotation.CallSuper
 import androidx.appcompat.app.AppCompatActivity
 import com.kotlin.demo.R
 import com.kotlin.demo.callback.RequestLifecycle
-import com.kotlin.demo.extension.logD
 import com.kotlin.demo.manager.BaseAppManager
-import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
 
 /**
  * @author: zhouchong
@@ -156,5 +156,42 @@ open class BaseActivity : AppCompatActivity(), RequestLifecycle {
                 }
             }
         }
+    }
+
+    /**
+     * 点击空白区域隐藏键盘
+     */
+    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
+        if (ev.action == MotionEvent.ACTION_DOWN) {
+            val view = currentFocus
+            if (isShouldHideInput(view, ev)) {
+                val inputManager: InputMethodManager =
+                    getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                inputManager.hideSoftInputFromWindow(view!!.windowToken, 0)
+            }
+            return super.dispatchTouchEvent(ev)
+        }
+        return if (window.superDispatchTouchEvent(ev)) {
+            true
+        } else onTouchEvent(ev)
+    }
+
+    private fun isShouldHideInput(view: View?, ev: MotionEvent): Boolean {
+        if (view != null && view is EditText) {
+            val leftTop = intArrayOf(0, 0)
+            view.getLocationInWindow(leftTop)
+            val left = leftTop[0]
+            val top = leftTop[1]
+            val bottom = top + view.getHeight()
+            val right = left + view.getWidth()
+            return if (ev.x > left && ev.x < right && ev.y > top && ev.y < bottom) {
+                false
+            } else {
+                view.setFocusable(false)
+                view.setFocusableInTouchMode(true)
+                true
+            }
+        }
+        return false
     }
 }

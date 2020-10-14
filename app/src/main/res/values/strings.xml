@@ -27,4 +27,10 @@
     <string name="str_main">首页</string>
     <string name="str_mine">我的</string>
     <string name="str_back_double_press">再按一次退出</string>
+    <string name="login">登录</string>
+    <string name="user_name">用户名</string>
+    <string name="password">密码</string>
+    <string name="user_name_and_pwd_can_not_be_empty">用户名或密码不能为空</string>
+    <string name="login_failed">登录失败</string>
+    <string name="login_success">登录成功</string>
 </resources>

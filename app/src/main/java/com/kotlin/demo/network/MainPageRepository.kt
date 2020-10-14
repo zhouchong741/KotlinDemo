@@ -20,6 +20,7 @@ class MainPageRepository private constructor(
     suspend fun refreshBanner(url: String) = requestBanner(url)
     suspend fun refreshGanHuo(url: String) = requestGanHuo(url)
     suspend fun refreshMeiZi(url: String) = requestMeiZi(url)
+    suspend fun postLogin(email: String, password: String) = requestLogin(email, password)
 
     private suspend fun requestBanner(url: String) = withContext(Dispatchers.IO) {
         val response = gankNetWork.fetchBanner(url)
@@ -38,6 +39,13 @@ class MainPageRepository private constructor(
         mainPageDao.cacheMeiZi(response)
         response
     }
+
+    private suspend fun requestLogin(email: String, password: String) =
+        withContext(Dispatchers.IO) {
+            val response = gankNetWork.postLogin(email, password)
+            mainPageDao.cacheLogin()
+            response
+        }
 
     companion object {
         private var repository: MainPageRepository? = null

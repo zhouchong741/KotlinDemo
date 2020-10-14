@@ -3,6 +3,7 @@ package com.kotlin.demo.util
 import com.kotlin.demo.dao.GankDatabase
 import com.kotlin.demo.gank.BannerViewModelFactory
 import com.kotlin.demo.gank.GanHuoViewModelFactory
+import com.kotlin.demo.gank.LoginViewModelFactory
 import com.kotlin.demo.gank.MeiZiViewModelFactory
 import com.kotlin.demo.network.GankNetWork
 import com.kotlin.demo.network.MainPageRepository
@@ -22,4 +23,5 @@ object InjectUtil {
     fun getBannerFactory() = BannerViewModelFactory(getMainPageRepository())
     fun getGanHuoFactory() = GanHuoViewModelFactory(getMainPageRepository())
     fun getMeiZiFactory() = MeiZiViewModelFactory(getMainPageRepository())
+    fun postLoginFactory() = LoginViewModelFactory(getMainPageRepository())
 }
