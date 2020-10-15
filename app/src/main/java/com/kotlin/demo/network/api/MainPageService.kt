@@ -6,10 +6,7 @@ import com.kotlin.demo.model.LoginModel
 import com.kotlin.demo.model.MeiZiModel
 import com.kotlin.demo.network.ServiceCreator
 import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
-import retrofit2.http.Url
+import retrofit2.http.*
 
 /**
  * @author: zhouchong
@@ -21,15 +18,16 @@ import retrofit2.http.Url
  */
 interface MainPageService {
 
-    @GET
-    fun getBanner(@Url url: String): Call<BannerModel>
+    @GET("/api/v2/banners")
+    fun getBanner(): Call<BannerModel>
 
-    @GET
-    fun getGanHuo(@Url url: String): Call<GanHuoModel>
+    @GET("/api/v2/data/category/GanHuo/type/Android/page/{pageNum}/count/50")
+    fun getGanHuo(@Path("pageNum") pageNum: Int): Call<GanHuoModel>
 
     @GET
     fun getMeiZi(@Url url: String): Call<MeiZiModel>
 
+    @Headers("BaseUrlName:login")
     @POST("/service/mobileLogin.action")
     fun login(
         @Query("email") email: String,
@@ -38,18 +36,7 @@ interface MainPageService {
 
     companion object {
         /**
-         * banner
-         */
-        const val BANNER_URL = "${ServiceCreator.GANK_URL}/api/v2/banners"
-
-        /**
-         * 干货
-         */
-        const val GANHUO_URL =
-            "${ServiceCreator.GANK_URL}/api/v2/data/category/GanHuo/type/Android"
-
-        /**
-         * 干货
+         * 妹子
          */
         const val MEIZI =
             "${ServiceCreator.GANK_URL}/api/v2/data/category/Girl/type/Girl"

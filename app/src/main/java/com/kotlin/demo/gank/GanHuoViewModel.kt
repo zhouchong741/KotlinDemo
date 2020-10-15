@@ -14,12 +14,12 @@ class GanHuoViewModel(private val repository: MainPageRepository) : ViewModel() 
 
     var pageNum: Int = 1
 
-    private var requestParamLiveData = MutableLiveData<String>()
+    private var requestParamLiveData = MutableLiveData<Int>()
 
-    val dataListLiveData = Transformations.switchMap(requestParamLiveData) { url ->
+    val dataListLiveData = Transformations.switchMap(requestParamLiveData) { pageNum ->
         liveData(Dispatchers.IO) {
             val result = try {
-                val ganhuo = repository.refreshGanHuo(url)
+                val ganhuo = repository.refreshGanHuo(pageNum)
                 Result.success(ganhuo)
             } catch (e: Exception) {
                 Result.failure<GanHuoModel>(e)
@@ -30,11 +30,11 @@ class GanHuoViewModel(private val repository: MainPageRepository) : ViewModel() 
 
     fun onRefresh() {
         pageNum = 1
-        requestParamLiveData.value = MainPageService.GANHUO_URL + "/page/" + pageNum + "/count/50"
+        requestParamLiveData.value = pageNum
     }
 
     fun onLoad() {
         pageNum++
-        requestParamLiveData.value = MainPageService.GANHUO_URL + "/page/" + pageNum + "/count/50"
+        requestParamLiveData.value = pageNum
     }
 }

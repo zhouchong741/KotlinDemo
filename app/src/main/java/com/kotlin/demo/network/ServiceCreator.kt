@@ -1,11 +1,17 @@
 package com.kotlin.demo.network
 
+import androidx.annotation.Nullable
 import com.google.gson.GsonBuilder
 import com.kotlin.demo.callback.GsonTypeAdapterFactory
+import com.kotlin.demo.extension.logD
 import com.kotlin.demo.extension.logJson
 import com.kotlin.demo.util.CommonUtils
 import com.kotlin.demo.util.StringUtils
+import okhttp3.Call
+import okhttp3.HttpUrl
+import okhttp3.HttpUrl.Companion.toHttpUrl
 import okhttp3.OkHttpClient
+import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -24,12 +30,24 @@ object ServiceCreator {
 
     private val TAG: String = this.javaClass.simpleName
 
-    const val GANK_URL = "https://gank.io"
+    const val GANK_URL = "https://gank.io/"
     private const val LOGIN_URL = "http://121.43.123.76/"
 
     private val builder = Retrofit.Builder()
-        .baseUrl(LOGIN_URL)
-        .client(getHttpClient())
+        .baseUrl(GANK_URL)
+        .callFactory(object : CallFactoryProxy(getHttpClient()) {
+            override fun getNewUrl(baseUrlName: String?, request: Request?): HttpUrl? {
+                // @Headers("BaseUrlName:login") 判断
+                if (baseUrlName.equals("login")) {
+                    val oldUrl = request?.url.toString()
+                    logD(TAG, oldUrl)
+                    val newUrl = oldUrl.replace(GANK_URL, LOGIN_URL)
+                    logD(TAG, newUrl)
+                    return newUrl.toHttpUrl()
+                }
+                return null
+            }
+        })
         .addConverterFactory(ScalarsConverterFactory.create())
         .addConverterFactory(
             GsonConverterFactory.create(
@@ -80,5 +98,4 @@ object ServiceCreator {
 
         return httpClient.build()
     }
-
 }

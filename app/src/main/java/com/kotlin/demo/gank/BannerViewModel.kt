@@ -16,10 +16,10 @@ class BannerViewModel(private val repository: MainPageRepository) : ViewModel() 
     private var requestParamLiveData = MutableLiveData<String>()
 
     // Transformations.switchMap 用来添加一个新数据源并相应地删除前一个数据源
-    val dataListLiveData = Transformations.switchMap(requestParamLiveData) { url ->
+    val dataListLiveData = Transformations.switchMap(requestParamLiveData) {
         liveData {
             val result = try {
-                val banner = repository.refreshBanner(url)
+                val banner = repository.refreshBanner()
                 Result.success(banner)
             } catch (e: Exception) {
                 Result.failure<BannerModel>(e)
@@ -29,6 +29,6 @@ class BannerViewModel(private val repository: MainPageRepository) : ViewModel() 
     }
 
     fun onRefresh() {
-        requestParamLiveData.value = MainPageService.BANNER_URL
+        requestParamLiveData.value = ""
     }
 }

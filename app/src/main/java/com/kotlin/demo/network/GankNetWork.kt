@@ -19,8 +19,8 @@ import kotlin.coroutines.suspendCoroutine
 class GankNetWork {
     private val mainPageService = ServiceCreator.create(MainPageService::class.java)
 
-    suspend fun fetchBanner(url: String) = mainPageService.getBanner(url).await()
-    suspend fun fetchGanHuo(url: String) = mainPageService.getGanHuo(url).await()
+    suspend fun fetchBanner() = mainPageService.getBanner().await()
+    suspend fun fetchGanHuo(pageNum: Int) = mainPageService.getGanHuo(pageNum).await()
     suspend fun fetchMeiZi(url: String) = mainPageService.getMeiZi(url).await()
     suspend fun postLogin(email: String, password: String) =
         mainPageService.login(email, password).await()
