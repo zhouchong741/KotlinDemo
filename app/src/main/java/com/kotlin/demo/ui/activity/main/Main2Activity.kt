@@ -22,12 +22,13 @@ import com.kotlin.demo.util.CommonUtils
 import com.kotlin.demo.util.StatusBarUtils
 import com.kotlin.demo.util.ToastUtils
 import kotlinx.android.synthetic.main.activity_main2.*
+import kotlinx.android.synthetic.main.fragment_main_container.*
 import kotlinx.coroutines.*
 
 /**
  * @author: zhouchong
  * 创建日期: 2020/9/22 10:20
- * 描述:
+ * 描述: 项目主页
  * 修改人:
  * 迭代版本:
  * 迭代说明:
@@ -107,6 +108,9 @@ class Main2Activity : BaseActivity() {
         })
 
         homeViewPager.registerOnPageChangeCallback(PageChangeCallBack())
+
+        // 禁止滑动
+        homeViewPager.isUserInputEnabled = false
     }
 
     inner class ViewPager2Adapter(fragmentActivity: FragmentActivity) :

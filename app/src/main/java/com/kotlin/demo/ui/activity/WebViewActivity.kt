@@ -8,6 +8,14 @@ import com.kotlin.demo.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_web_view.*
 import kotlinx.android.synthetic.main.layout_title_bar.*
 
+/**
+ * @author zhouchong
+ * 创建日期: 2020/10/15 9:17
+ * 描述： WebView 页面
+ * 修改人：
+ * 迭代版本：
+ * 迭代说明：
+ */
 class WebViewActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

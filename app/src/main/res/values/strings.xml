@@ -31,6 +31,7 @@
     <string name="user_name">用户名</string>
     <string name="password">密码</string>
     <string name="user_name_and_pwd_can_not_be_empty">用户名或密码不能为空</string>
-    <string name="login_failed">登录失败</string>
+    <string name="login_failed_check">登录失败，请检查用户名</string>
     <string name="login_success">登录成功</string>
+    <string name="jump">跳过</string>
 </resources>

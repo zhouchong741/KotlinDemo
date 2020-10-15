@@ -21,6 +21,14 @@ import com.kotlin.demo.util.ToastUtils
 import kotlinx.android.synthetic.main.activity_article.*
 import kotlinx.android.synthetic.main.layout_title_bar.*
 
+/**
+ * @author zhouchong
+ * 创建日期: 2020/10/15 9:19
+ * 描述： 文章页面
+ * 修改人：
+ * 迭代版本：
+ * 迭代说明：
+ */
 class ArticleActivity : BaseActivity() {
     // 通用 统一定义 Fragment
     private var fragmentList: Array<Fragment> =

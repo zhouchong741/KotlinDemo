@@ -17,7 +17,6 @@ import com.kotlin.demo.gank.BannerViewModel
 import com.kotlin.demo.ui.activity.VerificationActivity
 import com.kotlin.demo.ui.activity.article.ArticleActivity
 import com.kotlin.demo.ui.activity.ganhuo.GanHuoActivity
-import com.kotlin.demo.ui.activity.main.Main2Activity
 import com.kotlin.demo.ui.activity.meizi.MeiZiActivity
 import com.kotlin.demo.util.InjectUtil
 import com.kotlin.demo.util.ResponseHandler
@@ -48,9 +47,13 @@ class MainFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        return super.onCreateView(inflater.inflate(R.layout.fragment_main,
-            container,
-            false))
+        return super.onCreateView(
+            inflater.inflate(
+                R.layout.fragment_main,
+                container,
+                false
+            )
+        )
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -117,7 +120,8 @@ class MainFragment : BaseFragment() {
                 ResponseHandler.getFailureTips(result.exceptionOrNull()).let {
                     if (viewModel.dataList.isNullOrEmpty()) loadFailed(it) else ToastUtils.showToast(
                         activity,
-                        it)
+                        it
+                    )
                 }
                 refreshLayout.closeHeaderOrFooter()
                 return@Observer

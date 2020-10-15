@@ -17,6 +17,14 @@ import com.kotlin.demo.util.SharePreferenceUtils.edit
 import kotlinx.android.synthetic.main.activity_splash.*
 import kotlinx.coroutines.*
 
+/**
+ * @author zhouchong
+ * 创建日期: 2020/10/15 9:17
+ * 描述：闪屏页
+ * 修改人：
+ * 迭代版本：
+ * 迭代说明：
+ */
 class SplashActivity : BaseActivity() {
 
     private val job by lazy { Job() }

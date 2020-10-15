@@ -18,6 +18,14 @@ import com.scwang.smart.refresh.layout.constant.RefreshState
 import kotlinx.android.synthetic.main.activity_gan_huo.*
 import kotlinx.android.synthetic.main.layout_title_bar.*
 
+/**
+ * @author zhouchong
+ * 创建日期: 2020/10/15 9:19
+ * 描述： 干货页面
+ * 修改人：
+ * 迭代版本：
+ * 迭代说明：
+ */
 class GanHuoActivity : BaseActivity() {
     private lateinit var adapter: GanHuoAdapter
     private val viewModel by lazy {

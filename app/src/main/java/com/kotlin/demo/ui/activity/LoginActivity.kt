@@ -15,7 +15,14 @@ import com.kotlin.demo.util.InjectUtil
 import com.kotlin.demo.util.ToastUtils
 import kotlinx.android.synthetic.main.activity_login.*
 
-
+/**
+ * @author zhouchong
+ * 创建日期: 2020/10/15 9:16
+ * 描述：登录页面
+ * 修改人：
+ * 迭代版本：
+ * 迭代说明：
+ */
 class LoginActivity : BaseActivity() {
     private val viewModel by lazy {
         ViewModelProvider(this, InjectUtil.postLoginFactory()).get(LoginViewModel::class.java)
@@ -30,7 +37,6 @@ class LoginActivity : BaseActivity() {
 
     private fun initView() {
         btnLogin.setOnClickListener {
-
             if (userNameET.text.isNullOrBlank() || passwordET.text.isNullOrBlank()) {
                 ToastUtils.showToast(this, getString(R.string.user_name_and_pwd_can_not_be_empty))
                 return@setOnClickListener
@@ -62,6 +68,11 @@ class LoginActivity : BaseActivity() {
                 }
             })*/
         }
+
+        tvJump.setOnClickListener {
+            Main2Activity.startActivity(this)
+            finish()
+        }
     }
 
     private fun observe() {
@@ -70,15 +81,13 @@ class LoginActivity : BaseActivity() {
             btnLogin.text = getString(R.string.login)
             if (result.isFailure) {
                 ToastUtils.showToast(this, getString(R.string.network_connect_error))
-                return@Observer
             } else if (result.isSuccess) {
                 if (result.toString().contains("ok")) {
                     Main2Activity.startActivity(this)
                     ToastUtils.showToast(this, getString(R.string.login_success))
                     finish()
                 } else {
-                    ToastUtils.showToast(this, getString(R.string.login_failed))
-                    return@Observer
+                    ToastUtils.showToast(this, getString(R.string.login_failed_check))
                 }
             }
         })

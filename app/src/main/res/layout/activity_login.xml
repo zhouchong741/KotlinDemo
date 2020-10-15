@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/may"
+    android:background="@mipmap/bg_login"
     tools:context=".ui.activity.LoginActivity">
 
     <LinearLayout
@@ -13,28 +13,38 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/dimen_15dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="@id/login_ll"
+        app:layout_constraintBottom_toTopOf="@id/login_ll"
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/colorAccentAlpha"
+            app:counterEnabled="true"
+            app:counterMaxLength="12"
+            app:counterTextColor="@color/colorAccent">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/userNameET"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/colorAccent"
                 android:hint="@string/user_name"
                 android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/colorAccentAlpha"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleDrawable="@drawable/selector_pwd_toggle"
+            app:passwordToggleTint="@color/colorAccent">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/passwordET"
                 android:layout_width="match_parent"
+                android:textColor="@color/colorAccent"
                 android:layout_height="wrap_content"
                 android:hint="@string/password"
                 android:inputType="textPassword" />
@@ -72,5 +82,17 @@
             app:lottie_fileName="data.json"
             app:lottie_loop="true" />
     </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tvJump"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:padding="@dimen/dimen_15dp"
+        android:text="@string/jump"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:targetApi="m" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
