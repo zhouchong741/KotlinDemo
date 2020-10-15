@@ -22,15 +22,6 @@ object ToastUtils {
      * 普通 Toast
      */
     fun showToast(context: Context, text: String) {
-//        自定义 view 的
-//        val mToast = Toast(context)
-//        val view = View.inflate(context, R.layout.layout_toast_position, null)
-//        val textView = view.findViewById<TextView>(R.id.tv_toast_position)
-//        mToast.view = view
-//        textView.text = text
-//        mToast.duration = Toast.LENGTH_SHORT
-//        mToast.show()
-
         Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
     }
 

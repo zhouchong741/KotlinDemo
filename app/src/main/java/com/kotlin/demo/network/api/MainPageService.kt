@@ -5,7 +5,6 @@ import com.kotlin.demo.model.GanHuoModel
 import com.kotlin.demo.model.LoginModel
 import com.kotlin.demo.model.MeiZiModel
 import com.kotlin.demo.network.HttpUrl
-import com.kotlin.demo.network.ServiceCreator
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -32,14 +31,14 @@ interface MainPageService {
     fun getGanHuo(@Path("pageNum") pageNum: Int): Call<GanHuoModel>
 
     /**
-     * @Url 方式
+     * Url 方式
      */
     @GET
     fun getMeiZi(@Url url: String): Call<MeiZiModel>
 
     /**
-     * @Header 根据 BaseUrlName 判断使用哪一个 baseUrl
-     * @POST 含参请求
+     * 根据 BaseUrlName 判断使用哪一个 baseUrl
+     * 含参请求
      */
     @Headers("BaseUrlName:login")
     @POST("/service/mobileLogin.action")

@@ -54,7 +54,7 @@ class VerificationActivity : BaseActivity() {
     }
 
     private fun initView() {
-        tvTitle.text = getString(R.string.str_verfication_code)
+        tvTitle.text = getString(R.string.str_verification_code)
     }
 
     /**

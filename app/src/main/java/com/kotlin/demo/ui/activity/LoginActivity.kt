@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.kotlin.demo.R
 import com.kotlin.demo.base.BaseActivity
@@ -76,7 +75,7 @@ class LoginActivity : BaseActivity() {
     }
 
     private fun observe() {
-        viewModel.dataListLiveData.observe(this, Observer { result ->
+        viewModel.dataListLiveData.observe(this, { result ->
             lottieView.visibility = View.GONE
             btnLogin.text = getString(R.string.login)
             if (result.isFailure) {

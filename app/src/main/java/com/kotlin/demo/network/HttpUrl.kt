@@ -9,7 +9,14 @@ package com.kotlin.demo.network
  * 迭代说明：
  */
 object HttpUrl {
+    /**
+     * 主 Url
+     */
     const val GANK_URL = "https://gank.io"
+
+    /**
+     * 登录 Url
+     */
     const val LOGIN_URL = "http://121.43.123.76/"
 
 }

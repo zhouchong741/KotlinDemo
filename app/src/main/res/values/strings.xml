@@ -13,12 +13,12 @@
     <string name="str_ganhuo">干货</string>
     <string name="str_meizi">妹子</string>
     <string name="detail">详情</string>
-    <string name="str_verfication">验证码</string>
+    <string name="str_verification">验证码</string>
     <string name="str_clear">清除</string>
     <string name="str_input_complete">输入完成</string>
-    <string name="waitting_tips">请稍后...</string>
-    <string name="str_verfication_code">验证码</string>
-    <string name="str_verfication_in_progress">验证中</string>
+    <string name="waiting_tips">请稍后...</string>
+    <string name="str_verification_code">验证码</string>
+    <string name="str_verification_in_progress">验证中</string>
     <string name="str_toast">Toast</string>
     <string name="str_time_format">yyyy-MM-dd</string>
     <string name="str_already_read">已读</string>
@@ -31,7 +31,7 @@
     <string name="user_name">用户名</string>
     <string name="password">密码</string>
     <string name="user_name_and_pwd_can_not_be_empty">用户名或密码不能为空</string>
-    <string name="login_failed_check">登录失败，请检查用户名</string>
+    <string name="login_failed_check">登录失败，请检查用户名或密码</string>
     <string name="login_success">登录成功</string>
     <string name="jump">跳过</string>
 </resources>

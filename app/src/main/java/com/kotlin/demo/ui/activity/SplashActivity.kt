@@ -1,21 +1,19 @@
 package com.kotlin.demo.ui.activity
 
-import android.animation.Animator
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.animation.PropertyValuesHolder
 import android.os.Bundle
 import android.view.animation.AccelerateInterpolator
-import androidx.lifecycle.Lifecycle
 import com.kotlin.demo.R
 import com.kotlin.demo.base.BaseActivity
-import com.kotlin.demo.impl.AnimatorListenerImpl
-import com.kotlin.demo.ui.activity.main.Main2Activity
-import com.kotlin.demo.ui.activity.main.MainActivity
 import com.kotlin.demo.util.SharePreferenceUtils
 import com.kotlin.demo.util.SharePreferenceUtils.edit
 import kotlinx.android.synthetic.main.activity_splash.*
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 /**
  * @author zhouchong
@@ -75,28 +73,6 @@ class SplashActivity : BaseActivity() {
                 }
             )
             start()
-        }
-    }
-
-    private fun AnimatorSet.addChangeListener(action: AnimatorListenerImpl.() -> Unit) {
-        AnimatorListenerImpl().apply { action }.let { builder ->
-            addListener(object : Animator.AnimatorListener {
-                override fun onAnimationRepeat(animation: Animator?) {
-                    animation?.let { builder.onRepeat?.invoke(animation) }
-                }
-
-                override fun onAnimationEnd(animation: Animator?) {
-                    animation?.let { builder.onEnd?.invoke(animation) }
-                }
-
-                override fun onAnimationCancel(animation: Animator?) {
-                    animation?.let { builder.onCancel?.invoke(animation) }
-                }
-
-                override fun onAnimationStart(animation: Animator?) {
-                    animation?.let { builder.onStart?.invoke(animation) }
-                }
-            })
         }
     }
 

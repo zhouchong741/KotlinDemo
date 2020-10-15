@@ -14,7 +14,9 @@ import okhttp3.Request
  * 迭代说明：
  */
 abstract class CallFactoryProxy(private val delegate: Call.Factory) : Call.Factory {
+
     private val TAG: String = this.javaClass.simpleName
+
     override fun newCall(request: Request): Call {
         val baseUrlName =
             request.header(NAME_BASE_URL)
