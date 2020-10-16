@@ -2,11 +2,10 @@ package com.kotlin.demo.gank
 
 import androidx.datastore.preferences.Preferences
 import androidx.datastore.preferences.preferencesKey
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.kotlin.demo.respository.IDataStoreRepository
+import com.kotlin.demo.respository.DataStoreRepository
 import kotlinx.coroutines.launch
 
 /**
@@ -17,8 +16,8 @@ import kotlinx.coroutines.launch
  * 迭代版本：
  * 迭代说明：
  */
-class DataStoreViewModel @ViewModelInject constructor(
-    private val dataStoreRepository: IDataStoreRepository
+class DataStoreViewModel constructor(
+    private val dataStoreRepository: DataStoreRepository
 ) :
     ViewModel() {
 
