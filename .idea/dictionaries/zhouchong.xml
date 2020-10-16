@@ -1,12 +1,31 @@
 <component name="ProjectDictionaryState">
   <dictionary name="zhouchong">
     <words>
+      <w>airbnb</w>
+      <w>bumptech</w>
+      <w>constraintlayout</w>
+      <w>datastore</w>
+      <w>deps</w>
+      <w>eventbus</w>
+      <w>flyco</w>
       <w>ganhuo</w>
       <w>gank</w>
+      <w>greenrobot</w>
       <w>gson</w>
       <w>hmmss</w>
+      <w>jetbrains</w>
+      <w>jetpack</w>
+      <w>kapt</w>
+      <w>kotlinx</w>
+      <w>livedata</w>
       <w>meizi</w>
+      <w>multidex</w>
+      <w>okhttp</w>
+      <w>squareup</w>
+      <w>tablayout</w>
       <w>unselect</w>
+      <w>viewmodel</w>
+      <w>wasabeef</w>
       <w>ymdhms</w>
       <w>zhouchong</w>
     </words>

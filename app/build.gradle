@@ -37,46 +37,46 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.3.2'
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
-    implementation 'com.google.android.material:material:1.3.0-alpha03'
-    implementation 'com.airbnb.android:lottie:3.4.4'
-    testImplementation 'junit:junit:4.13'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.9'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.7'
-    implementation 'androidx.recyclerview:recyclerview:1.1.0'
-    implementation 'org.greenrobot:eventbus:3.1.1'
-    implementation 'com.android.support:multidex:1.0.3'
+    implementation Deps.kotlin_stdlib
+    implementation Deps.core_ktx
+    implementation Deps.appcompat
+    implementation Deps.constraintlayout
+    implementation Deps.material
+    implementation Deps.lottie
+    testImplementation Deps.junit
+    androidTestImplementation Deps.ext_junit
+    androidTestImplementation Deps.espresso_core
+    implementation Deps.kotlinx_coroutines_core
+    implementation Deps.kotlinx_coroutines_android
+    implementation Deps.recyclerview
+    implementation Deps.eventbus
+    implementation Deps.multidex
 
-    implementation 'com.github.bumptech.glide:okhttp3-integration:4.9.0'
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
-    implementation 'com.squareup.retrofit2:converter-scalars:2.6.2'
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.2.0'
+    implementation Deps.okhttp3_integration
+    implementation Deps.retrofit
+    implementation Deps.converter_gson
+    implementation Deps.converter_scalars
+    implementation Deps.logging_interceptor
 
-    kapt 'com.github.bumptech.glide:compiler:4.9.0'
-    implementation 'jp.wasabeef:glide-transformations:4.1.0'
-    implementation 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
-    implementation 'androidx.viewpager2:viewpager2:1.0.0'
+    kapt Deps.glide_compiler
+    implementation Deps.glide_transformations
+    implementation Deps.flycoTabLayout
+    implementation Deps.viewpager2
 
     //Android Jetpack 组件
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.2.0'
+    implementation Deps.viewmodel
+    implementation Deps.livedata
+    implementation Deps.extensions
+    implementation Deps.runtime
 
-    implementation 'androidx.datastore:datastore-preferences:1.0.0-alpha02'
+    implementation Deps.datastore
 //    implementation 'androidx.activity:activity-ktx:1.2.0-beta01@aar'
 //    implementation "com.google.dagger:hilt-android:2.28-alpha"
 //    implementation "androidx.hilt:hilt-common:1.0.0-alpha02@aar"
 //    kapt "com.google.dagger:hilt-android-compiler:2.28-alpha"
     // 下拉刷新
-    implementation 'com.scwang.smart:refresh-layout-kernel:2.0.1'
-    implementation 'com.scwang.smart:refresh-header-material:2.0.1'
-    implementation 'com.scwang.smart:refresh-footer-classics:2.0.1'
+    implementation Deps.smart_refresh_layout
+    implementation Deps.smart_refresh_header
+    implementation Deps.smart_refresh_footer
 
 }
