@@ -5,7 +5,7 @@ import android.content.Context
 import androidx.multidex.MultiDex
 import com.scwang.smart.refresh.header.MaterialHeader
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
-import com.scwang.smart.refresh.layout.api.RefreshFooter
+import dagger.hilt.android.HiltAndroidApp
 
 /**
  * @author: zhouchong
@@ -15,6 +15,7 @@ import com.scwang.smart.refresh.layout.api.RefreshFooter
  * 迭代版本:
  * 迭代说明:
  */
+@HiltAndroidApp
 class GankBaseApplication : Application() {
 
     init {

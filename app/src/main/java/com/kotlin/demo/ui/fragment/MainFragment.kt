@@ -16,6 +16,7 @@ import com.kotlin.demo.base.BaseFragment
 import com.kotlin.demo.gank.BannerViewModel
 import com.kotlin.demo.ui.activity.VerificationActivity
 import com.kotlin.demo.ui.activity.article.ArticleActivity
+import com.kotlin.demo.ui.activity.datastore.DataStoreActivity
 import com.kotlin.demo.ui.activity.ganhuo.GanHuoActivity
 import com.kotlin.demo.ui.activity.meizi.MeiZiActivity
 import com.kotlin.demo.util.InjectUtil
@@ -23,6 +24,13 @@ import com.kotlin.demo.util.ResponseHandler
 import com.kotlin.demo.util.ToastUtils
 import com.scwang.smart.refresh.layout.constant.RefreshState
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.btnArticle
+import kotlinx.android.synthetic.main.activity_main.btnGanHuo
+import kotlinx.android.synthetic.main.activity_main.btnMeizi
+import kotlinx.android.synthetic.main.activity_main.btnVerification
+import kotlinx.android.synthetic.main.activity_main.recyclerView
+import kotlinx.android.synthetic.main.activity_main.refreshLayout
+import kotlinx.android.synthetic.main.fragment_main.*
 
 /**
  * @author: zhouchong
@@ -89,6 +97,10 @@ class MainFragment : BaseFragment() {
 
         btnArticle.setOnClickListener {
             ArticleActivity.startActivity(activity)
+        }
+
+        btnDataStore.setOnClickListener {
+            DataStoreActivity.startActivity(activity)
         }
     }
 

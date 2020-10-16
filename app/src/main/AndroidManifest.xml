@@ -15,10 +15,12 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
+        <activity android:name=".ui.activity.datastore.DataStoreActivity"/>
         <activity
             android:name=".ui.activity.LoginActivity"
             android:theme="@style/FitWindowTheme" />
-        <activity android:name=".ui.activity.article.ArticleActivity"
+        <activity
+            android:name=".ui.activity.article.ArticleActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
@@ -27,8 +29,8 @@
             android:screenOrientation="portrait" />
         <activity android:name=".ui.activity.meizi.MeiZiActivity" />
         <activity android:name=".ui.activity.ganhuo.GanHuoActivity" />
-        <activity android:name=".ui.activity.main.MainActivity"/>
-        <activity android:name=".ui.activity.main.Main2Activity"/>
+        <activity android:name=".ui.activity.main.MainActivity" />
+        <activity android:name=".ui.activity.main.Main2Activity" />
         <activity android:name=".ui.activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
