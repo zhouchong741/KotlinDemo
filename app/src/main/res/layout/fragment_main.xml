@@ -60,6 +60,15 @@
             tools:ignore="MissingConstraints" />
 
         <Button
+            android:id="@+id/btnRoom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/room"
+            app:layout_constraintBottom_toTopOf="@+id/btnMeizi"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:ignore="MissingConstraints" />
+
+        <Button
             android:id="@+id/btnGanHuo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

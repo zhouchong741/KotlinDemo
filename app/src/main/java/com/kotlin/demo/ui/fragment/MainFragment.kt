@@ -19,6 +19,7 @@ import com.kotlin.demo.ui.activity.article.ArticleActivity
 import com.kotlin.demo.ui.activity.datastore.DataStoreActivity
 import com.kotlin.demo.ui.activity.ganhuo.GanHuoActivity
 import com.kotlin.demo.ui.activity.meizi.MeiZiActivity
+import com.kotlin.demo.ui.activity.room.RoomActivity
 import com.kotlin.demo.util.InjectUtil
 import com.kotlin.demo.util.ResponseHandler
 import com.kotlin.demo.util.ToastUtils
@@ -101,6 +102,10 @@ class MainFragment : BaseFragment() {
 
         btnDataStore.setOnClickListener {
             DataStoreActivity.startActivity(activity)
+        }
+
+        btnRoom.setOnClickListener {
+            RoomActivity.startActivity(activity)
         }
     }
 

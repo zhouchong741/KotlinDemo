@@ -29,7 +29,9 @@ object Versions {
 
     val lifecycle = "2.2.0"
     val datastore = "1.0.0-alpha02"
-    val smart_refresh_layout= "2.0.1"
+    val smart_refresh_layout = "2.0.1"
+
+    val room = "2.2.5"
 }
 
 object Deps {
@@ -74,7 +76,13 @@ object Deps {
 
     val datastore = "androidx.datastore:datastore-preferences:${Versions.datastore}"
 
-    val smart_refresh_layout= "com.scwang.smart:refresh-layout-kernel:${Versions.smart_refresh_layout}"
-    val smart_refresh_header= "com.scwang.smart:refresh-header-material:${Versions.smart_refresh_layout}"
-    val smart_refresh_footer= "com.scwang.smart:refresh-footer-classics:${Versions.smart_refresh_layout}"
+    val smart_refresh_layout =
+        "com.scwang.smart:refresh-layout-kernel:${Versions.smart_refresh_layout}"
+    val smart_refresh_header =
+        "com.scwang.smart:refresh-header-material:${Versions.smart_refresh_layout}"
+    val smart_refresh_footer =
+        "com.scwang.smart:refresh-footer-classics:${Versions.smart_refresh_layout}"
+    val room_runtime = "androidx.room:room-runtime:${Versions.room}"
+    val room_compiler = "androidx.room:room-compiler:${Versions.room}"
+    val room_ktx = "androidx.room:room-ktx:${Versions.room}"
 }

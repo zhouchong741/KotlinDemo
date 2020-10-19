@@ -11,6 +11,7 @@ import com.kotlin.demo.gank.DataStoreViewModel.PreferencesKeys
 import com.kotlin.demo.util.InjectUtil
 import com.kotlin.demo.util.ToastUtils
 import kotlinx.android.synthetic.main.activity_data_store.*
+import kotlinx.android.synthetic.main.item_test.*
 
 /**
  * @author zhouchong
@@ -37,6 +38,7 @@ class DataStoreActivity : BaseActivity() {
     }
 
     private fun initView() {
+        tvTitle.text = getString(R.string.data_store)
         btnWrite.setOnClickListener {
             viewModel.saveDataByDataStore(PreferencesKeys.KEY_GITHUB)
         }

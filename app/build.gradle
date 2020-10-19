@@ -68,6 +68,10 @@ dependencies {
     implementation Deps.livedata
     implementation Deps.extensions
     implementation Deps.runtime
+    implementation Deps.room_runtime
+    kapt Deps.room_compiler
+    // optional - Kotlin Extensions and Coroutines support for Room
+    implementation Deps.room_ktx
 
     implementation Deps.datastore
 //    implementation 'androidx.activity:activity-ktx:1.2.0-beta01@aar'

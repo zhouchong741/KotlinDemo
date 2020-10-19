@@ -37,4 +37,7 @@
     <string name="data_store">DataStore</string>
     <string name="write">写入</string>
     <string name="read">读取</string>
+    <string name="room">Room</string>
+    <string name="user_age">年龄</string>
+    <string name="can_not_be_empty">不能为空</string>
 </resources>

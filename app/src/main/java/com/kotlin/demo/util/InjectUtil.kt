@@ -7,6 +7,7 @@ import com.kotlin.demo.gank.*
 import com.kotlin.demo.network.GankNetWork
 import com.kotlin.demo.network.MainPageRepository
 import com.kotlin.demo.respository.DataStoreRepository
+import com.kotlin.demo.respository.RoomRepository
 
 /**
  * @author: zhouchong
@@ -28,4 +29,7 @@ object InjectUtil {
     private fun getDataStoreRepository(context: Context) = DataStoreRepository.getInstance(context)
     fun getDataStoreFactory() =
         DataStoreViewModelFactory(getDataStoreRepository(GankBaseApplication.context))
+
+    private fun getRoomFactory(context: Context) = RoomRepository.getInstance(context)
+    fun getRoomFactory() = RoomViewModelFactory(getRoomFactory(GankBaseApplication.context))
 }
