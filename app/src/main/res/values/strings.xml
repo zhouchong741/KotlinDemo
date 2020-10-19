@@ -40,4 +40,6 @@
     <string name="room">Room</string>
     <string name="user_age">年龄</string>
     <string name="can_not_be_empty">不能为空</string>
+    <string name="update">更新当前</string>
+    <string name="user_not_exist">此人不存在</string>
 </resources>

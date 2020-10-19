@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.kotlin.demo.dao.UserDao
 import com.kotlin.demo.model.User
 
@@ -20,13 +21,30 @@ abstract class UserDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
 
     companion object {
+        @Volatile
         private var instance: UserDatabase? = null
         fun getInstance(context: Context): UserDatabase {
-            if (instance == null) {
-                instance =
-                    Room.databaseBuilder(context, UserDatabase::class.java, "UserDataBase").allowMainThreadQueries().build()
+            return instance ?: synchronized(this) {
+                instance ?: buildDataBase(context).also {
+                    instance = it
+                }
             }
-            return instance as UserDatabase
+        }
+
+        private fun buildDataBase(context: Context): UserDatabase {
+            return Room
+                .databaseBuilder(context, UserDatabase::class.java, "UserDataBase")
+                .addCallback(object : RoomDatabase.Callback() {
+                    override fun onCreate(db: SupportSQLiteDatabase) {
+                        super.onCreate(db)
+
+                        // 读取鞋的集合
+                        /*val request = OneTimeWorkRequestBuilder<ShoeWorker>().build()
+                        WorkManager.getInstance().enqueue(request)*/
+                    }
+                })
+                .allowMainThreadQueries()
+                .build()
         }
     }
 }

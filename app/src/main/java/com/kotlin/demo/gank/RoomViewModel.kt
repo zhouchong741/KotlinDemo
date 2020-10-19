@@ -1,10 +1,11 @@
 package com.kotlin.demo.gank
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.kotlin.demo.GankBaseApplication
-import com.kotlin.demo.database.UserDatabase
+import androidx.lifecycle.viewModelScope
 import com.kotlin.demo.model.User
 import com.kotlin.demo.respository.RoomRepository
+import kotlinx.coroutines.launch
 
 /**
  * @author: zhouchong
@@ -16,15 +17,37 @@ import com.kotlin.demo.respository.RoomRepository
  */
 class RoomViewModel constructor(private val roomRepository: RoomRepository) : ViewModel() {
 
-    private val userDao = UserDatabase.getInstance(GankBaseApplication.context).userDao()
+    /**
+     * 查询当前 id user LiveData 方法
+     */
+    fun getUserById(id: Int) = roomRepository.queryUserById(id)
 
-    fun insert(user: User) {
-        userDao.insertAll(user)
+    /**
+     * suspend 方法 获取
+     */
+    fun getUserByIdOnce(id: Int): User = roomRepository.queryUserByIdOnce(id)
+
+    /**
+     * 查询全部
+     */
+    val getAllUser: LiveData<List<User>> = roomRepository.getAllUser()
+
+    /**
+     * 插入一条数据
+     */
+    fun insert(user: User) = roomRepository.insert(user)
+
+    /**
+     * 查询单条数据
+     */
+    fun getUser(userNam: String): LiveData<User> = roomRepository.getUser(userNam)
+
+    /**
+     * 更新数据
+     */
+    internal fun updateUser(user: User) {
+        viewModelScope.launch {
+            roomRepository.updateUser(user)
+        }
     }
-
-    fun query(userName: String): User {
-        return userDao.getUser(userName)
-    }
-
-
 }

@@ -16,5 +16,5 @@ import androidx.room.PrimaryKey
 data class User(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     @ColumnInfo(name = "userName") val userName: String,
-    @ColumnInfo(name = "age") val age: Int
+    @ColumnInfo(name = "age") var age: Int
 )

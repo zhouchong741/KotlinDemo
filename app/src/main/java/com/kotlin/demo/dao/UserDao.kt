@@ -1,9 +1,7 @@
 package com.kotlin.demo.dao
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.lifecycle.LiveData
+import androidx.room.*
 import com.kotlin.demo.model.User
 
 /**
@@ -17,14 +15,23 @@ import com.kotlin.demo.model.User
 @Dao
 interface UserDao {
     @Query("SELECT * FROM user")
-    fun getAll(): List<User>
+    fun getAll(): LiveData<List<User>>
 
     @Query("SELECT * FROM user WHERE userName = :name")
-    fun getUser(name: String): User
+    fun getUser(name: String): LiveData<User>
+
+    @Query("SELECT * FROM user WHERE id = :id")
+    fun getUserById(id: Int): LiveData<User>
+
+    @Query("SELECT * FROM user WHERE id = :id")
+    fun getUserByIdOnce(id: Int): User
 
     @Insert
     fun insertAll(vararg user: User)
 
     @Delete
     fun delete(user: User)
+
+    @Update
+    fun update(user: User)
 }
