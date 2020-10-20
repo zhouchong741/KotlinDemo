@@ -33,9 +33,7 @@ class RoomRepository(val context: Context) {
 
     private val userDao by lazy { UserDatabase.getInstance(context).userDao() }
 
-    fun insert(user: User) {
-        return userDao.insertAll(user)
-    }
+    fun insert(user: User) = userDao.insertAll(user)
 
     fun getAllUser(): LiveData<List<User>> = userDao.getAll()
 

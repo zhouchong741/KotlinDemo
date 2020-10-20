@@ -37,10 +37,6 @@ abstract class UserDatabase : RoomDatabase() {
                 .addCallback(object : RoomDatabase.Callback() {
                     override fun onCreate(db: SupportSQLiteDatabase) {
                         super.onCreate(db)
-
-                        // 读取鞋的集合
-                        /*val request = OneTimeWorkRequestBuilder<ShoeWorker>().build()
-                        WorkManager.getInstance().enqueue(request)*/
                     }
                 })
                 .allowMainThreadQueries()
