@@ -3,14 +3,12 @@ package com.kotlin.demo.ui.activity.room
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.kotlin.demo.R
 import com.kotlin.demo.base.BaseActivity
 import com.kotlin.demo.extension.logD
 import com.kotlin.demo.gank.RoomViewModel
-import com.kotlin.demo.livedata.observeOnce
 import com.kotlin.demo.model.User
 import com.kotlin.demo.util.InjectUtil
 import com.kotlin.demo.util.ToastUtils

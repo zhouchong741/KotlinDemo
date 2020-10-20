@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.view.animation.Interpolator
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -42,9 +43,13 @@ class GanHuoFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        return super.onCreateView(inflater.inflate(R.layout.fragment_ganhuo,
-            container,
-            false))
+        return super.onCreateView(
+            inflater.inflate(
+                R.layout.fragment_ganhuo,
+                container,
+                false
+            )
+        )
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -68,6 +73,7 @@ class GanHuoFragment : BaseFragment() {
 
         adapter = GanHuoAdapter(viewModel.dataList, activity)
         recyclerView.adapter = adapter
+
 
         // 拖动排序
         val itemTouchHelper = ItemTouchHelper(mCallBack)
@@ -118,9 +124,11 @@ class GanHuoFragment : BaseFragment() {
 
     override fun loadFailed(msg: String?) {
         super.loadFailed(msg)
-        showLoadErrorView(msg ?: GankBaseApplication.context.getString(
-            R.string.unknown_error
-        )) {
+        showLoadErrorView(
+            msg ?: GankBaseApplication.context.getString(
+                R.string.unknown_error
+            )
+        ) {
             startLoading()
         }
     }
@@ -132,7 +140,8 @@ class GanHuoFragment : BaseFragment() {
                 ResponseHandler.getFailureTips(result.exceptionOrNull()).let {
                     if (viewModel.dataList.isNullOrEmpty()) loadFailed(it) else ToastUtils.showToast(
                         activity,
-                        it)
+                        it
+                    )
                 }
                 refreshLayout.closeHeaderOrFooter()
                 return@Observer
@@ -152,6 +161,9 @@ class GanHuoFragment : BaseFragment() {
                 RefreshState.None, RefreshState.Refreshing -> {
                     viewModel.dataList.clear()
                     viewModel.dataList.addAll(response.itemList)
+                    val resId = R.anim.layout_animation_from_right
+                    val layoutAnimationController = AnimationUtils.loadLayoutAnimation(activity, resId)
+                    recyclerView.layoutAnimation = layoutAnimationController
                     adapter.notifyDataSetChanged()
                 }
                 RefreshState.Loading -> {

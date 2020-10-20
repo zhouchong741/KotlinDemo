@@ -12,7 +12,6 @@ import com.kotlin.demo.R
 import com.kotlin.demo.adapter.MeiZiAdapter
 import com.kotlin.demo.base.BaseFragment
 import com.kotlin.demo.gank.MeiZiViewModel
-import com.kotlin.demo.ui.activity.main.Main2Activity
 import com.kotlin.demo.util.InjectUtil
 import com.kotlin.demo.util.ResponseHandler
 import com.kotlin.demo.util.ToastUtils
