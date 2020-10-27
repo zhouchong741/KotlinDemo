@@ -13,7 +13,9 @@
         <com.scwang.smart.refresh.layout.SmartRefreshLayout
             android:id="@+id/refreshLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            app:srlEnablePreviewInEditMode="true">
+            <!--srlEnablePreviewInEditMode 可以开启和关闭预览功能-->
 
             <com.scwang.smart.refresh.header.MaterialHeader
                 android:layout_width="match_parent"
@@ -54,7 +56,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/data_store"
-            app:layout_constraintBottom_toTopOf="@+id/btnGanHuo"
+            app:layout_constraintBottom_toTopOf="@+id/btnVerification"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             tools:ignore="MissingConstraints" />

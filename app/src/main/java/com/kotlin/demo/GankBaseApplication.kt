@@ -23,7 +23,8 @@ class GankBaseApplication : Application() {
         }
 
         SmartRefreshLayout.setDefaultRefreshInitializer { context, layout ->
-            layout.setEnableHeaderTranslationContent(true)
+            // 设置是否启在下拉 Header 的同时下拉内容
+            layout.setEnableHeaderTranslationContent(false)
             MaterialHeader(context).setColorSchemeResources(
                 R.color.colorAccent,
                 R.color.colorAccent,

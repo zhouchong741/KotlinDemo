@@ -80,6 +80,8 @@ object Deps {
         "com.scwang.smart:refresh-layout-kernel:${Versions.smart_refresh_layout}"
     val smart_refresh_header =
         "com.scwang.smart:refresh-header-material:${Versions.smart_refresh_layout}"
+    val smart_refresh_header_classic =
+        "com.scwang.smart:refresh-header-classics:${Versions.smart_refresh_layout}"
     val smart_refresh_footer =
         "com.scwang.smart:refresh-footer-classics:${Versions.smart_refresh_layout}"
     val room_runtime = "androidx.room:room-runtime:${Versions.room}"

@@ -81,6 +81,7 @@ dependencies {
     // 下拉刷新
     implementation Deps.smart_refresh_layout
     implementation Deps.smart_refresh_header
+    implementation Deps.smart_refresh_header_classic
     implementation Deps.smart_refresh_footer
 
 }
