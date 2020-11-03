@@ -18,6 +18,7 @@ import android.view.View.OnKeyListener
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
+import androidx.core.content.ContextCompat
 import com.kotlin.demo.R
 import com.kotlin.demo.extension.dp2px
 import com.kotlin.demo.extension.sp2px
@@ -107,15 +108,16 @@ class VerificationCodeView : RelativeLayout {
 
         // 当xml中未配置时 这里进行初始配置默认图片
         if (mEtDividerDrawable == null) {
-            mEtDividerDrawable = context.resources.getDrawable(R.drawable.shape_divider_identifying)
+            mEtDividerDrawable =
+                ContextCompat.getDrawable(context, R.drawable.shape_divider_identifying)
         }
         if (mEtBackgroundDrawableFocus == null) {
             mEtBackgroundDrawableFocus =
-                context.resources.getDrawable(R.drawable.shape_icv_et_bg_focus)
+                ContextCompat.getDrawable(context, R.drawable.shape_icv_et_bg_focus)
         }
         if (mEtBackgroundDrawableNormal == null) {
             mEtBackgroundDrawableNormal =
-                context.resources.getDrawable(R.drawable.shape_icv_et_bg_normal)
+                ContextCompat.getDrawable(context, R.drawable.shape_icv_et_bg_normal)
         }
         initUI()
     }
@@ -192,7 +194,7 @@ class VerificationCodeView : RelativeLayout {
         et.addTextChangedListener(myTextWatcher)
 
         // 监听删除按键
-        et.setOnKeyListener(OnKeyListener { v, keyCode, event ->
+        et.setOnKeyListener(OnKeyListener { v: View, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_DEL && event.action == KeyEvent.ACTION_DOWN) {
                 onKeyDelete()
                 return@OnKeyListener true

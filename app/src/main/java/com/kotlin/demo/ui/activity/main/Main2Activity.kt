@@ -3,6 +3,7 @@ package com.kotlin.demo.ui.activity.main
 import android.content.Context
 import android.content.Intent
 import android.content.res.TypedArray
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -38,10 +39,12 @@ class Main2Activity : BaseActivity() {
     private val TAG = this.javaClass.simpleName
     private var doubleDuration = 0L
     private var fragmentList: Array<Fragment> =
-        arrayOf(MainFragment(),
+        arrayOf(
+            MainFragment(),
             GanHuoFragment(),
             MeiZiFragment(),
-            MineFragment())
+            MineFragment()
+        )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,6 +58,11 @@ class Main2Activity : BaseActivity() {
             ioCode1()
             uiCode1()
         }
+
+    }
+
+    private fun setStatusBar() {
+        StatusBarUtils.setStatusBarColor(this, Color.TRANSPARENT)
     }
 
     private suspend fun ioCode() {
@@ -83,9 +91,13 @@ class Main2Activity : BaseActivity() {
         val unSelectIds: TypedArray = resources.obtainTypedArray(R.array.unselect_icon_array)
         val titleData = ArrayList<CustomTabEntity>()
         for (i: Int in titles.indices) {
-            titleData.add(TabEntity(titles[i],
-                selectIds.getResourceId(i, 0),
-                unSelectIds.getResourceId(i, 0)))
+            titleData.add(
+                TabEntity(
+                    titles[i],
+                    selectIds.getResourceId(i, 0),
+                    unSelectIds.getResourceId(i, 0)
+                )
+            )
         }
 
         val adapter: ViewPager2Adapter by lazy {

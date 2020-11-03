@@ -25,7 +25,6 @@ class PwdTextView : AppCompatEditText {
 
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
 
-
     @SuppressLint("CustomViewStyleable")
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
         context,
@@ -37,7 +36,6 @@ class PwdTextView : AppCompatEditText {
         }
     }
 
-
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         if (hasPwd) {
@@ -45,7 +43,7 @@ class PwdTextView : AppCompatEditText {
             val paint = Paint(Paint.ANTI_ALIAS_FLAG)
             paint.color = Color.BLACK
             paint.style = Paint.Style.FILL
-            canvas.drawCircle(getWidth() / 2.toFloat(), getHeight() / 2.toFloat(), radius, paint)
+            canvas.drawCircle(width / 2.toFloat(), height / 2.toFloat(), radius, paint)
         }
     }
 
@@ -59,7 +57,7 @@ class PwdTextView : AppCompatEditText {
     fun drawPwd(radius: Float) {
         hasPwd = true
         if (radius == 0f) {
-            this.radius = getWidth() / 4.toFloat()
+            this.radius = width / 4.toFloat()
         } else {
             this.radius = radius
         }

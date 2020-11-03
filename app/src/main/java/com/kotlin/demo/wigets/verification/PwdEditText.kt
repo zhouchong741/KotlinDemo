@@ -15,7 +15,7 @@ import androidx.appcompat.widget.AppCompatEditText
  * 迭代说明:
  */
 class PwdEditText : AppCompatEditText {
-    private var inputConnection: TInputConnection? = null
+    private lateinit var inputConnection: TInputConnection
 
     constructor(context: Context) : this(context, null){
         init()
@@ -25,7 +25,7 @@ class PwdEditText : AppCompatEditText {
         init()
     }
 
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
+    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(
         context,
         attrs,
         defStyleAttr
@@ -42,11 +42,11 @@ class PwdEditText : AppCompatEditText {
      * 我们需要代理这个方法的父类方法生成的InputConnection并返回我们自己的代理类。
      */
     override fun onCreateInputConnection(outAttrs: EditorInfo?): InputConnection? {
-        inputConnection!!.setTarget(super.onCreateInputConnection(outAttrs))
+        inputConnection.setTarget(super.onCreateInputConnection(outAttrs))
         return inputConnection
     }
 
-    fun setBackSpaceListener(backSpaceLisetener: TInputConnection.BackspaceListener?) {
-        inputConnection!!.setBackspaceListener(backSpaceLisetener)
+    fun setBackSpaceListener(backSpaceListener: TInputConnection.BackspaceListener?) {
+        inputConnection.setBackspaceListener(backSpaceListener)
     }
 }

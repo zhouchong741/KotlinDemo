@@ -2,6 +2,7 @@ package com.kotlin.demo.base
 
 import android.app.Activity
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
@@ -16,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.kotlin.demo.R
 import com.kotlin.demo.callback.RequestLifecycle
 import com.kotlin.demo.manager.BaseAppManager
+import com.kotlin.demo.util.StatusBarUtils
 
 /**
  * @author: zhouchong
@@ -40,6 +42,11 @@ open class BaseActivity : AppCompatActivity(), RequestLifecycle {
         BaseAppManager.getInstance()?.addActivity(activity)
 
         loadDataFirst()
+
+        // 设置状态栏透明
+//        StatusBarUtils.setStatusBarColor(this, Color.TRANSPARENT)
+        // 设置状态栏
+//        StatusBarUtils.setStatusBarLightMode(this, true)
     }
 
     override fun onResume() {

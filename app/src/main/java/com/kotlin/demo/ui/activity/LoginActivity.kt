@@ -2,6 +2,7 @@ package com.kotlin.demo.ui.activity
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
@@ -11,6 +12,7 @@ import com.kotlin.demo.gank.LoginViewModel
 import com.kotlin.demo.param.LoginParams
 import com.kotlin.demo.ui.activity.main.Main2Activity
 import com.kotlin.demo.util.InjectUtil
+import com.kotlin.demo.util.StatusBarUtils
 import com.kotlin.demo.util.ToastUtils
 import kotlinx.android.synthetic.main.activity_login.*
 
@@ -32,6 +34,12 @@ class LoginActivity : BaseActivity() {
         setContentView(R.layout.activity_login)
 
         initView()
+
+        setStatusBar()
+    }
+
+    private fun setStatusBar() {
+        StatusBarUtils.setStatusBarColor(this, Color.TRANSPARENT)
     }
 
     private fun initView() {

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import com.kotlin.demo.R
 import com.kotlin.demo.base.BaseFragment
 import com.kotlin.demo.ui.activity.main.Main2Activity
+import com.kotlin.demo.util.StatusBarUtils
 import com.kotlin.demo.util.ToastUtils
 import kotlinx.android.synthetic.main.fragment_mine.*
 

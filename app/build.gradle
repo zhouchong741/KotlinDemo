@@ -43,6 +43,9 @@ dependencies {
     implementation Deps.constraintlayout
     implementation Deps.material
     implementation Deps.lottie
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
     testImplementation Deps.junit
     androidTestImplementation Deps.ext_junit
     androidTestImplementation Deps.espresso_core

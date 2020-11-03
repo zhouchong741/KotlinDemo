@@ -9,6 +9,7 @@ import android.graphics.Color
 import android.os.Build
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewGroup.MarginLayoutParams
 import android.view.Window
 import android.view.WindowManager
 import androidx.annotation.ColorInt
@@ -31,6 +32,7 @@ object StatusBarUtils {
     private const val TAG_STATUS_BAR = "TAG_STATUS_BAR"
     private const val TAG_OFFSET = "TAG_OFFSET"
     private const val KEY_OFFSET = -123
+
     /**
      * Set the status bar's color.
      *
@@ -119,17 +121,12 @@ object StatusBarUtils {
     }
 
     private fun transparentStatusBar(window: Window) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            val option = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-            val vis = window.decorView.systemUiVisibility
-            window.decorView.systemUiVisibility = option or vis
-            window.statusBarColor = Color.TRANSPARENT
-        } else {
-            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-        }
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        val option = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+        val vis = window.decorView.systemUiVisibility
+        window.decorView.systemUiVisibility = option or vis
+        window.statusBarColor = Color.TRANSPARENT
     }
 
     private fun applyStatusBarColor(
@@ -176,7 +173,8 @@ object StatusBarUtils {
         val statusBarView = View(context)
         statusBarView.layoutParams = ViewGroup.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
-            getStatusBarHeight())
+            getStatusBarHeight()
+        )
         statusBarView.setBackgroundColor(color)
         statusBarView.tag = TAG_STATUS_BAR
         return statusBarView
@@ -184,12 +182,14 @@ object StatusBarUtils {
 
     fun getActivityByContext(context: Context): Activity? {
         val activity = getActivityByContextInner(context)
-        return if (! isActivityAlive(activity)) null else activity
+        return if (!isActivityAlive(activity)) null else activity
     }
+
     fun isActivityAlive(activity: Activity?): Boolean {
         return (activity != null && !activity.isFinishing
                 && (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1 || !activity.isDestroyed))
     }
+
     private fun getActivityByContextInner(context: Context): Activity? {
         var context: Context? = context ?: return null
         val list: MutableList<Context> = ArrayList()
@@ -225,4 +225,157 @@ object StatusBarUtils {
         }
         return null
     }
+
+
+    /**
+     * Set the status bar's light mode.
+     *
+     * @param activity    The activity.
+     * @param isLightMode True to set status bar light mode, false otherwise.
+     */
+    fun setStatusBarLightMode(
+        @NonNull activity: Activity,
+        isLightMode: Boolean
+    ) {
+        setStatusBarLightMode(activity.window, isLightMode)
+    }
+
+    /**
+     * Set the status bar's light mode.
+     *
+     * @param window      The window.
+     * @param isLightMode True to set status bar light mode, false otherwise.
+     */
+    fun setStatusBarLightMode(
+        @NonNull window: Window,
+        isLightMode: Boolean
+    ) {
+        val decorView = window.decorView
+        var vis = decorView.systemUiVisibility
+        vis = if (isLightMode) {
+            vis or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        } else {
+            vis and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
+        }
+        decorView.systemUiVisibility = vis
+    }
+
+    /**
+     * Set the status bar's visibility.
+     *
+     * @param activity  The activity.
+     * @param isVisible True to set status bar visible, false otherwise.
+     */
+    fun setStatusBarVisibility(
+        @NonNull activity: Activity,
+        isVisible: Boolean
+    ) {
+        setStatusBarVisibility(activity.window, isVisible)
+    }
+
+    /**
+     * Set the status bar's visibility.
+     *
+     * @param window    The window.
+     * @param isVisible True to set status bar visible, false otherwise.
+     */
+    fun setStatusBarVisibility(
+        @NonNull window: Window,
+        isVisible: Boolean
+    ) {
+        if (isVisible) {
+            window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
+            showStatusBarView(window)
+            addMarginTopEqualStatusBarHeight(window)
+        } else {
+            window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
+            hideStatusBarView(window)
+            subtractMarginTopEqualStatusBarHeight(window)
+        }
+    }
+
+    /**
+     * Return whether the status bar is visible.
+     *
+     * @param activity The activity.
+     * @return `true`: yes<br></br>`false`: no
+     */
+    fun isStatusBarVisible(@NonNull activity: Activity): Boolean {
+        val flags = activity.window.attributes.flags
+        return flags and WindowManager.LayoutParams.FLAG_FULLSCREEN == 0
+    }
+
+
+    private fun showStatusBarView(window: Window) {
+        val decorView = window.decorView as ViewGroup
+        val fakeStatusBarView =
+            decorView.findViewWithTag<View>(TAG_STATUS_BAR)
+                ?: return
+        fakeStatusBarView.visibility = View.VISIBLE
+    }
+
+
+    private fun subtractMarginTopEqualStatusBarHeight(window: Window) {
+        val withTag =
+            window.decorView.findViewWithTag<View>(TAG_OFFSET)
+                ?: return
+        subtractMarginTopEqualStatusBarHeight(withTag)
+    }
+
+    /**
+     * Subtract the top margin size equals status bar's height for view.
+     *
+     * @param view The view.
+     */
+    fun subtractMarginTopEqualStatusBarHeight(@NonNull view: View) {
+        val haveSetOffset = view.getTag(KEY_OFFSET)
+        if (haveSetOffset == null || !(haveSetOffset as Boolean)) return
+        val layoutParams = view.layoutParams as MarginLayoutParams
+        layoutParams.setMargins(
+            layoutParams.leftMargin,
+            layoutParams.topMargin - getStatusBarHeight(),
+            layoutParams.rightMargin,
+            layoutParams.bottomMargin
+        )
+        view.setTag(KEY_OFFSET, false)
+    }
+
+    private fun addMarginTopEqualStatusBarHeight(window: Window) {
+        val withTag =
+            window.decorView.findViewWithTag<View>(TAG_OFFSET)
+                ?: return
+        addMarginTopEqualStatusBarHeight(withTag)
+    }
+
+    /**
+     * Add the top margin size equals status bar's height for view.
+     *
+     * @param view The view.
+     */
+    fun addMarginTopEqualStatusBarHeight(@NonNull view: View) {
+        view.tag = TAG_OFFSET
+        val haveSetOffset = view.getTag(KEY_OFFSET)
+        if (haveSetOffset != null && haveSetOffset as Boolean) return
+        val layoutParams = view.layoutParams as MarginLayoutParams
+        layoutParams.setMargins(
+            layoutParams.leftMargin,
+            layoutParams.topMargin + getStatusBarHeight(),
+            layoutParams.rightMargin,
+            layoutParams.bottomMargin
+        )
+        view.setTag(KEY_OFFSET, true)
+    }
+
+    private fun hideStatusBarView(activity: Activity) {
+        hideStatusBarView(activity.window)
+    }
+
+    private fun hideStatusBarView(window: Window) {
+        val decorView = window.decorView as ViewGroup
+        val fakeStatusBarView =
+            decorView.findViewWithTag<View>(TAG_STATUS_BAR)
+                ?: return
+        fakeStatusBarView.visibility = View.GONE
+    }
+
 }

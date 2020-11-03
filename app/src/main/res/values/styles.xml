@@ -7,12 +7,15 @@
         <item name="colorAccent">@color/colorAccent</item>
 
         <item name="colorControlNormal">@color/colorAccentAlpha</item>
+
+
 <!--        <item name="colorControlActivated">@color/white</item>-->
 <!--        <item name="colorControlHighlight">@color/white</item>-->
 <!--        <item name="android:windowTranslucentStatus">true</item>-->
 <!--        <item name="android:fitsSystemWindows">true</item>-->
     </style>
 
+    <!--可单独设置 activity-->
     <style name="FitWindowTheme" parent="AppTheme">
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:fitsSystemWindows">true</item>

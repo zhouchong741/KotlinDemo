@@ -16,6 +16,11 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity
+            android:name=".ui.activity.picture.PictureActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/FitWindowTheme" />
+        <activity
             android:name=".ui.activity.LoginActivity"
             android:theme="@style/FitWindowTheme" />
         <activity
@@ -39,7 +44,7 @@
         </activity>
         <activity android:name=".ui.activity.VerificationActivity" />
         <activity android:name=".ui.activity.WebViewActivity" />
-        <activity android:name=".ui.activity.room.RoomActivity"/>
+        <activity android:name=".ui.activity.room.RoomActivity" />
         <activity android:name=".ui.activity.datastore.DataStoreActivity" />
     </application>
 

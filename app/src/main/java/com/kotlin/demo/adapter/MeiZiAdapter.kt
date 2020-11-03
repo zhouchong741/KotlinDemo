@@ -11,6 +11,7 @@ import com.kotlin.demo.R
 import com.kotlin.demo.util.GlideUtils.load
 import com.kotlin.demo.extension.inflate
 import com.kotlin.demo.model.MeiZiModel
+import com.kotlin.demo.ui.activity.picture.PictureActivity
 import com.kotlin.demo.ui.fragment.MeiZiFragment
 import java.util.ArrayList
 
@@ -39,7 +40,8 @@ class MeiZiAdapter(
         }
 
         holder.itemView.setOnClickListener {
-            ImageDetailActivity.startActivity(context, dataList[position].images[0])
+//            ImageDetailActivity.startActivity(context, dataList[position].images[0])
+            PictureActivity.startActivity(context, dataList[position].images[0])
         }
     }
 
