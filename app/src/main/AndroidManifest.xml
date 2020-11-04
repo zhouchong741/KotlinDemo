@@ -15,7 +15,25 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".ui.activity.shareelement.ShareElementActivity"/>
+        <activity android:name=".ui.activity.meizi.MeiZiActivity" />
+        <activity android:name=".ui.activity.ganhuo.GanHuoActivity" />
+        <activity android:name=".ui.activity.main.MainActivity" />
+        <activity android:name=".ui.activity.main.Main2Activity" />
+        <activity android:name=".ui.activity.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.activity.VerificationActivity" />
+        <activity android:name=".ui.activity.WebViewActivity" />
+        <activity android:name=".ui.activity.room.RoomActivity" />
+        <activity android:name=".ui.activity.datastore.DataStoreActivity" />
+        <activity android:name=".ui.activity.shareelement.ShareElementActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/FitWindowTheme" />
         <activity
             android:name=".ui.activity.picture.PictureActivity"
             android:launchMode="singleTask"
@@ -32,21 +50,6 @@
             android:name=".ui.activity.ImageDetailActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.meizi.MeiZiActivity" />
-        <activity android:name=".ui.activity.ganhuo.GanHuoActivity" />
-        <activity android:name=".ui.activity.main.MainActivity" />
-        <activity android:name=".ui.activity.main.Main2Activity" />
-        <activity android:name=".ui.activity.SplashActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".ui.activity.VerificationActivity" />
-        <activity android:name=".ui.activity.WebViewActivity" />
-        <activity android:name=".ui.activity.room.RoomActivity" />
-        <activity android:name=".ui.activity.datastore.DataStoreActivity" />
     </application>
 
 </manifest>

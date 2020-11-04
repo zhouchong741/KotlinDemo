@@ -16,6 +16,9 @@ import com.kotlin.demo.R
 import com.kotlin.demo.adapter.GanHuoAdapter
 import com.kotlin.demo.base.BaseFragment
 import com.kotlin.demo.gank.GanHuoViewModel
+import com.kotlin.demo.model.GanHuoModel
+import com.kotlin.demo.ui.activity.WebViewActivity
+import com.kotlin.demo.util.CommonUtils
 import com.kotlin.demo.util.InjectUtil
 import com.kotlin.demo.util.ResponseHandler
 import com.kotlin.demo.util.ToastUtils
@@ -73,6 +76,18 @@ class GanHuoFragment : BaseFragment() {
 
         adapter = GanHuoAdapter(viewModel.dataList, activity)
         recyclerView.adapter = adapter
+
+        adapter.setICallback(object : GanHuoAdapter.ICallback {
+            override fun onClick(view: View, data: GanHuoModel.Item) {
+                WebViewActivity.startActivity(
+                    activity,
+                    CommonUtils.makeSceneTransitionAnimation(activity, view, "article"),
+                    data.url,
+                    data.title,
+                    data.images[0]
+                )
+            }
+        })
 
 
         // 拖动排序
@@ -162,7 +177,8 @@ class GanHuoFragment : BaseFragment() {
                     viewModel.dataList.clear()
                     viewModel.dataList.addAll(response.itemList)
                     val resId = R.anim.layout_animation_from_right
-                    val layoutAnimationController = AnimationUtils.loadLayoutAnimation(activity, resId)
+                    val layoutAnimationController =
+                        AnimationUtils.loadLayoutAnimation(activity, resId)
                     recyclerView.layoutAnimation = layoutAnimationController
                     adapter.notifyDataSetChanged()
                 }

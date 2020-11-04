@@ -1,6 +1,5 @@
 package com.kotlin.demo.ui.activity
 
-import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
@@ -84,6 +83,7 @@ class LoginActivity : BaseActivity() {
             finish()
         }
 
+        // 共享元素 转场动画
         ivLogo.setOnClickListener {
             ShareElementActivity.startActivity(this, CommonUtils.makeSceneTransitionAnimation(this, ivLogo, "logo"))
         }

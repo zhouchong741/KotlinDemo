@@ -14,12 +14,15 @@ import com.kotlin.demo.R
 import com.kotlin.demo.adapter.BannerAdapter
 import com.kotlin.demo.base.BaseFragment
 import com.kotlin.demo.gank.BannerViewModel
+import com.kotlin.demo.model.BannerModel
 import com.kotlin.demo.ui.activity.VerificationActivity
+import com.kotlin.demo.ui.activity.WebViewActivity
 import com.kotlin.demo.ui.activity.article.ArticleActivity
 import com.kotlin.demo.ui.activity.datastore.DataStoreActivity
 import com.kotlin.demo.ui.activity.ganhuo.GanHuoActivity
 import com.kotlin.demo.ui.activity.meizi.MeiZiActivity
 import com.kotlin.demo.ui.activity.room.RoomActivity
+import com.kotlin.demo.util.CommonUtils
 import com.kotlin.demo.util.InjectUtil
 import com.kotlin.demo.util.ResponseHandler
 import com.kotlin.demo.util.ToastUtils
@@ -73,6 +76,21 @@ class MainFragment : BaseFragment() {
         linerLayoutManager.orientation = RecyclerView.HORIZONTAL
         adapter = BannerAdapter(viewModel.dataList, activity)
         recyclerView.adapter = adapter
+
+        adapter.setICallback(object : BannerAdapter.ICallback {
+            override fun onClick(view: View, data: BannerModel.Item) {
+                WebViewActivity.startActivity(
+                    activity,
+                    CommonUtils.makeSceneTransitionAnimation(activity, view, "article"),
+                    data.url,
+                    data.title,
+                    data.image
+                )
+            }
+        })
+
+
+
         // 画廊效果
         val pagerSnapHelper = PagerSnapHelper()
         pagerSnapHelper.attachToRecyclerView(recyclerView)

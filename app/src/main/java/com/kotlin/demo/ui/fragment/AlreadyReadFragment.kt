@@ -11,7 +11,10 @@ import com.kotlin.demo.R
 import com.kotlin.demo.adapter.ArticleAlreadyReadAdapter
 import com.kotlin.demo.base.BaseFragment
 import com.kotlin.demo.gank.GanHuoViewModel
+import com.kotlin.demo.model.GanHuoModel
+import com.kotlin.demo.ui.activity.WebViewActivity
 import com.kotlin.demo.ui.activity.article.ArticleActivity
+import com.kotlin.demo.util.CommonUtils
 import com.kotlin.demo.util.InjectUtil
 import com.kotlin.demo.util.ResponseHandler
 import com.kotlin.demo.util.ToastUtils
@@ -64,6 +67,18 @@ class AlreadyReadFragment(private val articleActivity: ArticleActivity) : BaseFr
 
         articleAlreadyReadAdapter = ArticleAlreadyReadAdapter(viewModel.dataList, articleActivity)
         recyclerView.adapter = articleAlreadyReadAdapter
+
+        articleAlreadyReadAdapter.setICallback(object : ArticleAlreadyReadAdapter.ICallback {
+            override fun onClick(view: View, data: GanHuoModel.Item) {
+                WebViewActivity.startActivity(
+                    activity,
+                    CommonUtils.makeSceneTransitionAnimation(activity, view, "article"),
+                    data.url,
+                    data.title,
+                    data.images[0]
+                )
+            }
+        })
     }
 
     override fun loadDataFirst() {

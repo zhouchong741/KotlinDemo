@@ -10,6 +10,7 @@ import com.kotlin.demo.R
 import com.kotlin.demo.base.BaseActivity
 import com.kotlin.demo.extension.inflate
 import com.kotlin.demo.model.BannerModel
+import com.kotlin.demo.model.GanHuoModel
 import com.kotlin.demo.ui.activity.WebViewActivity
 import com.kotlin.demo.util.GlideUtils.load
 
@@ -30,6 +31,16 @@ class BannerAdapter(private var dataList: List<BannerModel.Item>, private val co
         return TestViewHolder(R.layout.item_test.inflate(parent))
     }
 
+    interface ICallback {
+        fun onClick(view: View, data: BannerModel.Item)
+    }
+
+    private lateinit var callback: ICallback
+
+    fun setICallback(callback: ICallback) {
+        this.callback = callback
+    }
+
     override fun getItemCount(): Int {
         return dataList.size
     }
@@ -39,10 +50,7 @@ class BannerAdapter(private var dataList: List<BannerModel.Item>, private val co
         holder.tvTitle.text = dataList[position].title
 
         holder.ivBanner.setOnClickListener {
-//            ToastUtils.showToast(GankBaseApplication.context, CommonUtils.getString(R.string.not_open_yet))
-            WebViewActivity.startActivity(context,
-                dataList[position].url,
-                dataList[position].title)
+            callback.onClick(holder.itemView, dataList[position])
         }
     }
 

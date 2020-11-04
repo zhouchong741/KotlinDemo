@@ -26,6 +26,15 @@ class ArticleAlreadyReadAdapter(
 ) :
     RecyclerView.Adapter<ArticleAlreadyReadAdapter.ViewHolder>() {
 
+    interface ICallback {
+        fun onClick(view: View, data: GanHuoModel.Item)
+    }
+
+    private lateinit var callback: ICallback
+
+    fun setICallback(callback: ICallback) {
+        this.callback = callback
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(R.layout.item_ganhuo.inflate(parent))
@@ -40,10 +49,7 @@ class ArticleAlreadyReadAdapter(
         }
 
         holder.itemView.setOnClickListener {
-//            ToastUtils.showToast(GankBaseApplication.context, CommonUtils.getString(R.string.not_open_yet))
-            WebViewActivity.startActivity(articleActivity,
-                dataList[position].url,
-                dataList[position].title)
+            callback.onClick(holder.itemView, dataList[position])
         }
     }
 

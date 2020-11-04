@@ -3,6 +3,7 @@ package com.kotlin.demo.ui.activity.ganhuo
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,6 +12,9 @@ import com.kotlin.demo.R
 import com.kotlin.demo.adapter.GanHuoAdapter
 import com.kotlin.demo.base.BaseActivity
 import com.kotlin.demo.gank.GanHuoViewModel
+import com.kotlin.demo.model.GanHuoModel
+import com.kotlin.demo.ui.activity.WebViewActivity
+import com.kotlin.demo.util.CommonUtils
 import com.kotlin.demo.util.InjectUtil
 import com.kotlin.demo.util.ResponseHandler
 import com.kotlin.demo.util.ToastUtils
@@ -56,6 +60,18 @@ class GanHuoActivity : BaseActivity() {
 
         adapter = GanHuoAdapter(viewModel.dataList, this)
         recyclerView.adapter = adapter
+
+        adapter.setICallback(object : GanHuoAdapter.ICallback {
+            override fun onClick(view: View, data: GanHuoModel.Item) {
+                WebViewActivity.startActivity(
+                    this@GanHuoActivity,
+                    CommonUtils.makeSceneTransitionAnimation(this@GanHuoActivity, view, "article"),
+                    data.url,
+                    data.title,
+                    data.images[0]
+                )
+            }
+        })
     }
 
     override fun loadDataFirst() {

@@ -23,6 +23,16 @@ import com.kotlin.demo.util.GlideUtils.load
 class GanHuoAdapter(private var dataList: List<GanHuoModel.Item>, private val context: Context) :
     RecyclerView.Adapter<GanHuoAdapter.ViewHolder>() {
 
+    interface ICallback {
+        fun onClick(view: View, data: GanHuoModel.Item)
+    }
+
+    private lateinit var callback: ICallback
+
+    fun setICallback(callback: ICallback) {
+        this.callback = callback
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(R.layout.item_ganhuo.inflate(parent))
     }
@@ -36,9 +46,7 @@ class GanHuoAdapter(private var dataList: List<GanHuoModel.Item>, private val co
         }
 
         holder.itemView.setOnClickListener {
-            WebViewActivity.startActivity(context,
-                dataList[position].url,
-                dataList[position].title)
+            callback.onClick(holder.itemView, dataList[position])
         }
     }
 

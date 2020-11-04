@@ -3,6 +3,7 @@ package com.kotlin.demo.ui.activity.main
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,14 +15,13 @@ import com.kotlin.demo.adapter.BannerAdapter
 import com.kotlin.demo.base.BaseActivity
 import com.kotlin.demo.extension.logD
 import com.kotlin.demo.gank.BannerViewModel
+import com.kotlin.demo.model.BannerModel
+import com.kotlin.demo.ui.activity.VerificationActivity
+import com.kotlin.demo.ui.activity.WebViewActivity
 import com.kotlin.demo.ui.activity.article.ArticleActivity
 import com.kotlin.demo.ui.activity.ganhuo.GanHuoActivity
 import com.kotlin.demo.ui.activity.meizi.MeiZiActivity
-import com.kotlin.demo.ui.activity.VerificationActivity
-import com.kotlin.demo.util.InjectUtil
-import com.kotlin.demo.util.ResponseHandler
-import com.kotlin.demo.util.TimeUtils
-import com.kotlin.demo.util.ToastUtils
+import com.kotlin.demo.util.*
 import com.scwang.smart.refresh.layout.constant.RefreshState
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -46,6 +46,19 @@ class MainActivity : BaseActivity() {
         linerLayoutManager.orientation = RecyclerView.HORIZONTAL
         adapter = BannerAdapter(viewModel.dataList, this)
         recyclerView.adapter = adapter
+
+        adapter.setICallback(object : BannerAdapter.ICallback {
+            override fun onClick(view: View, data: BannerModel.Item) {
+                WebViewActivity.startActivity(
+                    this@MainActivity,
+                    CommonUtils.makeSceneTransitionAnimation(this@MainActivity, view, "article"),
+                    data.url,
+                    data.title,
+                    data.image
+                )
+            }
+        })
+
         // 画廊效果
         val pagerSnapHelper = PagerSnapHelper()
         pagerSnapHelper.findTargetSnapPosition(object : RecyclerView.LayoutManager() {
