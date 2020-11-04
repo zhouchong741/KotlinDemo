@@ -32,4 +32,6 @@
     <dimen name="dimen_120dp">120dp</dimen>
     <dimen name="dimen_180dp">180dp</dimen>
     <dimen name="dimen_220dp">220dp</dimen>
+    <dimen name="dimen_25dp">25dp</dimen>
+    <dimen name="dimen_30dp">30dp</dimen>
 </resources>

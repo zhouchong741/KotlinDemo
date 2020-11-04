@@ -15,17 +15,35 @@ import com.kotlin.demo.adapter.PictureAdapter
 import com.kotlin.demo.base.BaseActivity
 import com.kotlin.demo.extension.invisibleAlphaAnimation
 import com.kotlin.demo.extension.visibleAlphaAnimation
+import com.kotlin.demo.util.ClickUtil
 import com.kotlin.demo.util.StatusBarUtils
+import com.kotlin.demo.wigets.dialog.ShareBottomDialog
 import kotlinx.android.synthetic.main.activity_picture.*
 import kotlinx.android.synthetic.main.layout_view_pager_title_bar.*
 
 class PictureActivity : BaseActivity() {
+
+    private lateinit var imgUrl: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_picture)
 
         initView()
         setStatusBar()
+
+        ClickUtil.setOnClickListener(ivLike, ivCollection, ivMessage, ivShare) {
+            when (this) {
+                ivShare -> {
+                    showShare()
+                }
+            }
+        }
+    }
+
+    private fun showShare() {
+        ShareBottomDialog(this).showDialog(this, imgUrl)
     }
 
     private fun setStatusBar() {
@@ -34,7 +52,7 @@ class PictureActivity : BaseActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun initView() {
-        val imgUrl = intent.getStringExtra("IMG_URL")
+        imgUrl = intent.getStringExtra("IMG_URL").toString()
         val dataList = mutableListOf<String>()
         dataList.add(imgUrl.toString())
         dataList.add(imgUrl.toString())

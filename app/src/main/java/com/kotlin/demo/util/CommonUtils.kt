@@ -188,4 +188,19 @@ object CommonUtils {
     fun makeSceneTransitionAnimation(activity: Activity, view: View, string: String): ActivityOptionsCompat {
         return ActivityOptionsCompat.makeSceneTransitionAnimation(activity, view, string)
     }
+
+    /**
+     * 判断手机是否安装了QQ。
+     */
+    fun isQQInstalled() = isInstalled("com.tencent.mobileqq")
+
+    /**
+     * 判断手机是否安装了微信。
+     */
+    fun isWechatInstalled() = isInstalled("com.tencent.mm")
+
+    /**
+     * 判断手机是否安装了微博。
+     * */
+    fun isWeiboInstalled() = isInstalled("com.sina.weibo")
 }

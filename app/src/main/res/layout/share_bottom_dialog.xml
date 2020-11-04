@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottomDialog"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/shape_bottom_dialog_bg">
+
+    <TextView
+        android:id="@+id/tvShare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_25dp"
+        android:paddingBottom="@dimen/dimen_35dp"
+        android:text="@string/share"
+        android:textColor="@color/color_black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvQQ"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/dimen_03dp"
+        android:gravity="center"
+        android:text="@string/str_qq"
+        android:textColor="@color/color_adadad"
+        android:textSize="@dimen/text_12sp"
+        app:drawableTopCompat="@drawable/ic_share_qq_black_30dp"
+        app:layout_constraintEnd_toStartOf="@id/tvWeChat"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvShare" />
+
+    <TextView
+        android:id="@+id/tvWeChat"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/dimen_03dp"
+        android:gravity="center"
+        android:text="@string/str_wechat"
+        android:textColor="@color/color_adadad"
+        android:textSize="@dimen/text_12sp"
+        app:drawableTopCompat="@drawable/ic_share_wechat_black_30dp"
+        app:layout_constraintEnd_toStartOf="@id/tvMoments"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@id/tvQQ"
+        app:layout_constraintTop_toBottomOf="@id/tvShare" />
+
+    <TextView
+        android:id="@+id/tvMoments"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/dimen_03dp"
+        android:gravity="center"
+        android:text="@string/str_moments"
+        android:textColor="@color/color_adadad"
+        android:textSize="@dimen/text_12sp"
+        app:drawableTopCompat="@drawable/ic_share_wechat_memory_black_30dp"
+        app:layout_constraintEnd_toStartOf="@id/tvQQZone"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@id/tvWeChat"
+        app:layout_constraintTop_toBottomOf="@id/tvShare" />
+
+    <TextView
+        android:id="@+id/tvQQZone"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/dimen_03dp"
+        android:gravity="center"
+        android:text="@string/str_qqzone"
+        android:textColor="@color/color_adadad"
+        android:textSize="@dimen/text_12sp"
+        app:drawableTopCompat="@drawable/ic_share_qq_zone_black_30dp"
+        app:layout_constraintEnd_toStartOf="@id/tvMore"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@id/tvMoments"
+        app:layout_constraintTop_toBottomOf="@id/tvShare" />
+
+    <TextView
+        android:id="@+id/tvMore"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/dimen_03dp"
+        android:gravity="center"
+        android:text="@string/str_more"
+        android:textColor="@color/color_adadad"
+        android:textSize="@dimen/text_12sp"
+        app:drawableTopCompat="@drawable/ic_baseline_more_horiz_30"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@id/tvQQZone"
+        app:layout_constraintTop_toBottomOf="@id/tvShare" />
+
+    <TextView
+        android:id="@+id/tvCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_25dp"
+        android:paddingStart="@dimen/dimen_15dp"
+        android:paddingEnd="@dimen/dimen_15dp"
+        android:paddingTop="@dimen/dimen_15dp"
+        android:paddingBottom="@dimen/dimen_30dp"
+        android:text="@string/cancel"
+        android:textColor="@color/color_black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvMoments" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

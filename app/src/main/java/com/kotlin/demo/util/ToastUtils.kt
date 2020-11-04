@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
+import com.kotlin.demo.GankBaseApplication
 import com.kotlin.demo.R
 import java.time.Duration
 
@@ -51,5 +52,9 @@ object ToastUtils {
         mToast.setGravity(gravity, 0, 0)
         mToast.duration = duration
         mToast.show()
+    }
+
+    fun CharSequence.showToast(duration: Int = Toast.LENGTH_SHORT) {
+        Toast.makeText(GankBaseApplication.context, this, duration).show()
     }
 }
