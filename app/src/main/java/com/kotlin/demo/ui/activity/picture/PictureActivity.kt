@@ -1,8 +1,6 @@
 package com.kotlin.demo.ui.activity.picture
 
 import android.annotation.SuppressLint
-import android.app.Activity
-import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
@@ -19,7 +17,6 @@ import com.kotlin.demo.util.ClickUtil
 import com.kotlin.demo.util.StatusBarUtils
 import com.kotlin.demo.wigets.dialog.ShareBottomDialog
 import kotlinx.android.synthetic.main.activity_picture.*
-import kotlinx.android.synthetic.main.layout_view_pager_title_bar.*
 
 class PictureActivity : BaseActivity() {
 
@@ -54,9 +51,9 @@ class PictureActivity : BaseActivity() {
     private fun initView() {
         imgUrl = intent.getStringExtra("IMG_URL").toString()
         val dataList = mutableListOf<String>()
-        dataList.add(imgUrl.toString())
-        dataList.add(imgUrl.toString())
-        dataList.add(imgUrl.toString())
+        dataList.add(imgUrl)
+        dataList.add(imgUrl)
+        dataList.add(imgUrl)
         val adapter = PictureAdapter(dataList, this)
         viewPager.adapter = adapter
 

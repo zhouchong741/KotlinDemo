@@ -1,6 +1,5 @@
 package com.kotlin.demo.wigets.dialog
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -38,7 +37,7 @@ class ShareBottomDialog(private val activity: PictureActivity) : BottomSheetDial
         super.onCreate(savedInstanceState)
 
         //设置背景透明，才能显示出layout中诸如圆角的布局，否则会有白色底（框）
-        setStyle(STYLE_NORMAL, R.style.BottomSheetDialogTheme);
+        setStyle(STYLE_NORMAL, R.style.BottomSheetDialogTheme)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
