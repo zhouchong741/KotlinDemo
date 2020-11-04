@@ -1,5 +1,6 @@
 package com.kotlin.demo.ui.fragment
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,8 @@ import com.kotlin.demo.R
 import com.kotlin.demo.adapter.MeiZiAdapter
 import com.kotlin.demo.base.BaseFragment
 import com.kotlin.demo.gank.MeiZiViewModel
+import com.kotlin.demo.ui.activity.picture.PictureActivity
+import com.kotlin.demo.util.CommonUtils
 import com.kotlin.demo.util.InjectUtil
 import com.kotlin.demo.util.ResponseHandler
 import com.kotlin.demo.util.ToastUtils
@@ -39,9 +42,13 @@ class MeiZiFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        return super.onCreateView(inflater.inflate(R.layout.fragment_meizi,
-            container,
-            false))
+        return super.onCreateView(
+            inflater.inflate(
+                R.layout.fragment_meizi,
+                container,
+                false
+            )
+        )
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -54,10 +61,19 @@ class MeiZiFragment : BaseFragment() {
 
         adapter = MeiZiAdapter(viewModel.dataList, activity)
         rvMeiZi.adapter = adapter
+
+        adapter.setICallback(object : MeiZiAdapter.ICallback {
+            override fun onClick(view: View, imgUrl: String) {
+                PictureActivity.startActivity(
+                    activity,
+                    CommonUtils.makeSceneTransitionAnimation(activity, view, "meizi"),
+                    imgUrl
+                )
+            }
+        })
     }
 
     private fun initView() {
-
         refreshLayout.setOnRefreshListener {
             viewModel.onRefresh()
         }
@@ -96,7 +112,8 @@ class MeiZiFragment : BaseFragment() {
                 ResponseHandler.getFailureTips(result.exceptionOrNull()).let {
                     if (viewModel.dataList.isNullOrEmpty()) loadFailed(it) else ToastUtils.showToast(
                         activity,
-                        it)
+                        it
+                    )
                 }
                 refreshLayout.closeHeaderOrFooter()
                 return@Observer

@@ -21,19 +21,31 @@ import com.kotlin.demo.util.GlideUtils.load
 class PictureAdapter(private var dataList: List<String>, private val context: Context) :
     RecyclerView.Adapter<PictureAdapter.PictureViewHolder>() {
 
+    interface ICallback {
+        fun onClick()
+    }
+
+    private lateinit var callback: ICallback
+
+    fun setICallback(callback: ICallback) {
+        this.callback = callback
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PictureViewHolder {
         return PictureViewHolder(R.layout.item_picture.inflate(parent))
     }
 
     override fun onBindViewHolder(holder: PictureViewHolder, position: Int) {
         holder.ivPicture.load(dataList[position])
-        holder.tvPosition.text = "${position + 1} / ${dataList.size}"
+
+        holder.ivPicture.setOnClickListener {
+            callback.onClick()
+        }
     }
 
     override fun getItemCount(): Int = dataList.size
 
     inner class PictureViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val ivPicture: ImageView = view.findViewById(R.id.ivPicture)
-        val tvPosition: TextView = view.findViewById(R.id.tvPosition)
     }
 }

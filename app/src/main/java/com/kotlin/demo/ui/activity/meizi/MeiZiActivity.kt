@@ -1,8 +1,10 @@
 package com.kotlin.demo.ui.activity.meizi
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -11,6 +13,8 @@ import com.kotlin.demo.R
 import com.kotlin.demo.adapter.MeiZiAdapter
 import com.kotlin.demo.base.BaseActivity
 import com.kotlin.demo.gank.MeiZiViewModel
+import com.kotlin.demo.ui.activity.picture.PictureActivity
+import com.kotlin.demo.util.CommonUtils
 import com.kotlin.demo.util.InjectUtil
 import com.kotlin.demo.util.ResponseHandler
 import com.kotlin.demo.util.ToastUtils
@@ -36,6 +40,16 @@ class MeiZiActivity : BaseActivity() {
 
         adapter = MeiZiAdapter(viewModel.dataList, this)
         rvMeiZi.adapter = adapter
+
+        adapter.setICallback(object : MeiZiAdapter.ICallback {
+            override fun onClick(view: View, imgUrl: String) {
+                PictureActivity.startActivity(
+                    this@MeiZiActivity,
+                    CommonUtils.makeSceneTransitionAnimation(this@MeiZiActivity, view, "meizi"),
+                    imgUrl
+                )
+            }
+        })
     }
 
     private fun initView() {

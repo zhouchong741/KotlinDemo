@@ -3,6 +3,7 @@ package com.kotlin.demo
 import android.app.Application
 import android.content.Context
 import androidx.multidex.MultiDex
+import com.scwang.smart.refresh.footer.ClassicsFooter
 import com.scwang.smart.refresh.header.MaterialHeader
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
 
@@ -20,9 +21,6 @@ class GankBaseApplication : Application() {
         SmartRefreshLayout.setDefaultRefreshInitializer { context, layout ->
             layout.setEnableAutoLoadMore(true)
             layout.setEnableLoadMoreWhenContentNotFull(true)
-        }
-
-        SmartRefreshLayout.setDefaultRefreshInitializer { context, layout ->
             // 设置是否启在下拉 Header 的同时下拉内容
             layout.setEnableHeaderTranslationContent(false)
             MaterialHeader(context).setColorSchemeResources(
@@ -32,12 +30,17 @@ class GankBaseApplication : Application() {
             )
         }
 
-//        SmartRefreshLayout.setDefaultRefreshFooterCreator { context, layout ->
-//            layout.setEnableFooterFollowWhenNoMoreData(true)
-//            layout.setEnableFooterTranslationContent(true)
-//            layout.setFooterHeight(100f)
-//            layout.setFooterTriggerRate(0.6f)
-//        }
+        SmartRefreshLayout.setDefaultRefreshFooterCreator { context, layout ->
+            layout.setEnableFooterFollowWhenNoMoreData(true)
+            layout.setEnableFooterTranslationContent(true)
+            layout.setFooterHeight(100f)
+            layout.setFooterTriggerRate(0.6f)
+            ClassicsFooter(context).apply {
+                setAccentColorId(R.color.colorAccent)
+                setTextSizeTitle(15f)
+            }
+
+        }
     }
 
     override fun attachBaseContext(base: Context) {

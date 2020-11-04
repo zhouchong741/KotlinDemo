@@ -5,15 +5,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
-import com.kotlin.demo.ui.activity.ImageDetailActivity
-import com.kotlin.demo.ui.activity.meizi.MeiZiActivity
 import com.kotlin.demo.R
-import com.kotlin.demo.util.GlideUtils.load
 import com.kotlin.demo.extension.inflate
 import com.kotlin.demo.model.MeiZiModel
-import com.kotlin.demo.ui.activity.picture.PictureActivity
-import com.kotlin.demo.ui.fragment.MeiZiFragment
-import java.util.ArrayList
+import com.kotlin.demo.util.GlideUtils.load
 
 /**
  * @author: zhouchong
@@ -29,6 +24,16 @@ class MeiZiAdapter(
 ) :
     RecyclerView.Adapter<MeiZiAdapter.ViewHolder>() {
 
+    interface ICallback {
+        fun onClick(view: View, imgUrl: String)
+    }
+
+    private lateinit var callback: ICallback
+
+    fun setICallback(callback: ICallback) {
+        this.callback = callback
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(R.layout.item_meizi.inflate(parent))
     }
@@ -40,8 +45,7 @@ class MeiZiAdapter(
         }
 
         holder.itemView.setOnClickListener {
-//            ImageDetailActivity.startActivity(context, dataList[position].images[0])
-            PictureActivity.startActivity(context, dataList[position].images[0])
+            callback.onClick(holder.itemView, dataList[position].images[0])
         }
     }
 

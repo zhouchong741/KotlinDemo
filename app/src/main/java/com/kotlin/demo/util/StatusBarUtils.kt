@@ -59,7 +59,6 @@ object StatusBarUtils {
         @ColorInt color: Int,
         isDecor: Boolean,
     ): View? {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return null
         transparentStatusBar(activity)
         return applyStatusBarColor(activity, color, isDecor)
     }
@@ -91,7 +90,6 @@ object StatusBarUtils {
         @ColorInt color: Int,
         isDecor: Boolean,
     ): View? {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return null
         transparentStatusBar(window)
         return applyStatusBarColor(window, color, isDecor)
     }
@@ -106,7 +104,6 @@ object StatusBarUtils {
         @NonNull fakeStatusBar: View,
         @ColorInt color: Int,
     ) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return
         val activity: Activity = getActivityByContext(fakeStatusBar.context) ?: return
         transparentStatusBar(activity)
         fakeStatusBar.visibility = View.VISIBLE

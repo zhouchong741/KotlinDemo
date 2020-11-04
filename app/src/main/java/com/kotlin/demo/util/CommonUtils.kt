@@ -1,14 +1,20 @@
 package com.kotlin.demo.util
 
+import android.app.Activity
+import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.text.TextUtils
+import android.view.View
+import androidx.core.app.ActivityOptionsCompat
+import androidx.core.content.ContextCompat
 import com.kotlin.demo.GankBaseApplication
 import com.kotlin.demo.extension.logW
 import java.util.*
+
 
 /**
  * @author: zhouchong
@@ -102,8 +108,8 @@ object CommonUtils {
      * @param resId
      * @return
      */
-    fun getColor(resId: Int): Int {
-        return GankBaseApplication.context.resources.getColor(resId)
+    fun getColor(context: Context, resId: Int): Int {
+        return ContextCompat.getColor(context, resId)
     }
 
     /**
@@ -172,5 +178,14 @@ object CommonUtils {
         val packageManager = GankBaseApplication.context.packageManager
         val applicationInfo = packageManager.getApplicationInfo(appPackage, 0)
         return packageManager.getApplicationIcon(applicationInfo)
+    }
+
+    /**
+     * @param activity
+     * @param view 具体的 view
+     * @param string 共享元素展示页面的 view 的 transitionName
+     */
+    fun makeSceneTransitionAnimation(activity: Activity, view: View, string: String): ActivityOptionsCompat {
+        return ActivityOptionsCompat.makeSceneTransitionAnimation(activity, view, string)
     }
 }

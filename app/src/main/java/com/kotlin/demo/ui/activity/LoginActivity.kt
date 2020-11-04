@@ -1,5 +1,6 @@
 package com.kotlin.demo.ui.activity
 
+import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
@@ -11,6 +12,8 @@ import com.kotlin.demo.base.BaseActivity
 import com.kotlin.demo.gank.LoginViewModel
 import com.kotlin.demo.param.LoginParams
 import com.kotlin.demo.ui.activity.main.Main2Activity
+import com.kotlin.demo.ui.activity.shareelement.ShareElementActivity
+import com.kotlin.demo.util.CommonUtils
 import com.kotlin.demo.util.InjectUtil
 import com.kotlin.demo.util.StatusBarUtils
 import com.kotlin.demo.util.ToastUtils
@@ -79,6 +82,10 @@ class LoginActivity : BaseActivity() {
         tvJump.setOnClickListener {
             Main2Activity.startActivity(this)
             finish()
+        }
+
+        ivLogo.setOnClickListener {
+            ShareElementActivity.startActivity(this, CommonUtils.makeSceneTransitionAnimation(this, ivLogo, "logo"))
         }
     }
 

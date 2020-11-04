@@ -2,6 +2,7 @@ package com.kotlin.demo.ui.activity.article
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.opengl.Visibility
 import android.os.Bundle
 import android.view.View
@@ -17,6 +18,7 @@ import com.kotlin.demo.entity.TabEntity
 import com.kotlin.demo.ui.fragment.AlreadyReadFragment
 import com.kotlin.demo.ui.fragment.NotReadFragment
 import com.kotlin.demo.util.CommonUtils
+import com.kotlin.demo.util.StatusBarUtils
 import com.kotlin.demo.util.ToastUtils
 import kotlinx.android.synthetic.main.activity_article.*
 import kotlinx.android.synthetic.main.layout_title_bar.*
