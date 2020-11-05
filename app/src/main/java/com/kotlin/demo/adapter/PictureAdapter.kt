@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kotlin.demo.R
 import com.kotlin.demo.extension.inflate
 import com.kotlin.demo.util.GlideUtils.load
+import com.kotlin.demo.util.GlideUtils.loadTrans
 
 /**
  * @author: zhouchong
@@ -36,7 +37,7 @@ class PictureAdapter(private var dataList: List<String>, private val context: Co
     }
 
     override fun onBindViewHolder(holder: PictureViewHolder, position: Int) {
-        holder.ivPicture.load(dataList[position])
+        holder.ivPicture.loadTrans(dataList[position])
 
         holder.ivPicture.setOnClickListener {
             callback.onClick()

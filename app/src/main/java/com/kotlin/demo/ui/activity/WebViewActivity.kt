@@ -25,6 +25,10 @@ class WebViewActivity : BaseActivity() {
         setContentView(R.layout.activity_web_view)
 
         initView()
+
+        ivBack.setOnClickListener {
+            finishAfterTransition()
+        }
     }
 
     private fun initView() {
@@ -56,6 +60,8 @@ class WebViewActivity : BaseActivity() {
         super.onBackPressed()
         this.finishAfterTransition()
     }
+
+
 
     companion object {
         fun startActivity(

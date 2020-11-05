@@ -1,9 +1,18 @@
 package com.kotlin.demo.util
 
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.target.Target
+import com.bumptech.glide.request.transition.Transition
 import com.kotlin.demo.R
 import com.kotlin.demo.extension.dp2px
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation
@@ -102,6 +111,14 @@ object GlideUtils {
             .placeholder(R.mipmap.ic_default_img)
             .error(R.mipmap.ic_default_img)
             .into(this)
+    }
+
+    fun ImageView.loadTrans(url: String){
+        Glide.with(this.context)
+            .load(url)
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .into(this)
+
     }
 
     /**
