@@ -176,7 +176,7 @@ class GanHuoFragment : BaseFragment() {
                 RefreshState.None, RefreshState.Refreshing -> {
                     viewModel.dataList.clear()
                     viewModel.dataList.addAll(response.itemList)
-                    val resId = R.anim.layout_animation_from_right
+                    val resId = R.anim.layout_animation_from_bottom
                     val layoutAnimationController =
                         AnimationUtils.loadLayoutAnimation(activity, resId)
                     recyclerView.layoutAnimation = layoutAnimationController

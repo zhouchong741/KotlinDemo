@@ -4,14 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_black"
+    android:clipChildren="false"
     tools:context=".ui.activity.picture.PictureActivity">
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:transitionName="meizi" />
+        android:clipChildren="false"
+        android:layout_marginStart="@dimen/dimen_48dp"
+        android:layout_marginEnd="@dimen/dimen_48dp"
+        android:transitionName="meizi"/>
 
     <ImageView
         android:id="@+id/ivArrowClose"

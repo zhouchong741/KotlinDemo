@@ -38,7 +38,7 @@
             android:name=".ui.activity.picture.PictureActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/FitWindowTheme" />
+            android:theme="@style/PictureTheme" />
         <activity
             android:name=".ui.activity.LoginActivity"
             android:theme="@style/FitWindowTheme" />

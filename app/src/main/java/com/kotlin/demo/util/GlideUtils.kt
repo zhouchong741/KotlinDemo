@@ -15,6 +15,7 @@ import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
 import com.kotlin.demo.R
 import com.kotlin.demo.extension.dp2px
+import com.kotlin.demo.util.GlideUtils.load
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation
 
 /**
@@ -75,9 +76,13 @@ object GlideUtils {
                 .error(R.mipmap.ic_default_img)
                 .into(view)
         } else {
-            val option = RequestOptions.bitmapTransform(RoundedCornersTransformation(dp2px(round),
-                0,
-                cornerType)).placeholder(R.mipmap.ic_default_img)
+            val option = RequestOptions.bitmapTransform(
+                RoundedCornersTransformation(
+                    dp2px(round),
+                    0,
+                    cornerType
+                )
+            ).placeholder(R.mipmap.ic_default_img)
             Glide.with(context)
                 .load(url)
                 .placeholder(R.mipmap.ic_default_img)
@@ -113,11 +118,34 @@ object GlideUtils {
             .into(this)
     }
 
-    fun ImageView.loadTrans(url: String){
-        Glide.with(this.context)
-            .load(url)
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .into(this)
+    /**
+     * 带有共享元素转场动画的 圆角图片
+     * use: holder.ivMeiZi.loadTrans(url, 4f)
+     */
+    fun ImageView.loadTrans(
+        url: String, round: Float = 0f,
+        cornerType: RoundedCornersTransformation.CornerType = RoundedCornersTransformation.CornerType.ALL,
+    ) {
+        if (round == 0f) {
+            Glide.with(this.context)
+                .load(url)
+                .placeholder(R.mipmap.ic_default_img)
+                .error(R.mipmap.ic_default_img)
+                .into(this)
+        } else {
+            val option = RequestOptions.bitmapTransform(
+                RoundedCornersTransformation(
+                    dp2px(round),
+                    0,
+                    cornerType
+                )
+            )
+            Glide.with(this.context)
+                .load(url)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .apply(option)
+                .into(this)
+        }
 
     }
 

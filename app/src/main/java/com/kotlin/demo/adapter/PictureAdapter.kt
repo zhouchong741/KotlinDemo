@@ -37,7 +37,7 @@ class PictureAdapter(private var dataList: List<String>, private val context: Co
     }
 
     override fun onBindViewHolder(holder: PictureViewHolder, position: Int) {
-        holder.ivPicture.loadTrans(dataList[position])
+        holder.ivPicture.loadTrans(dataList[position], 4f)
 
         holder.ivPicture.setOnClickListener {
             callback.onClick()

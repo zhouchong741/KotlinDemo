@@ -15,6 +15,7 @@ import com.kotlin.demo.extension.invisibleAlphaAnimation
 import com.kotlin.demo.extension.visibleAlphaAnimation
 import com.kotlin.demo.util.ClickUtil
 import com.kotlin.demo.util.StatusBarUtils
+import com.kotlin.demo.util.helper.ZoomViewPagerTransformer
 import com.kotlin.demo.wigets.dialog.ShareBottomDialog
 import kotlinx.android.synthetic.main.activity_picture.*
 
@@ -67,6 +68,8 @@ class PictureActivity : BaseActivity() {
                 tvPosition.text = "${position + 1} / ${dataList.size}"
             }
         })
+
+        viewPager.setPageTransformer(ZoomViewPagerTransformer())
 
         ivArrowClose.setOnClickListener {
             this.finishAfterTransition()

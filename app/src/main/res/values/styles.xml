@@ -21,6 +21,14 @@
         <item name="android:fitsSystemWindows">true</item>
     </style>
 
+    <style name="PictureTheme" parent="AppTheme">
+        <item name="android:windowBackground">@android:color/transparent</item> <!-- 背景色透明度 -->
+        <item name="android:windowNoTitle">true</item><!-- 无标题 -->
+        <item name="android:windowIsTranslucent">true</item><!-- 半透明,设置为false无透明效果 -->
+        <item name="android:backgroundDimEnabled">true</item><!-- 模糊 -->
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:fitsSystemWindows">true</item>
+    </style>
 
     <!--共享元素动画-->
     <style name="BaseAppTheme" parent="android:Theme.Material">
