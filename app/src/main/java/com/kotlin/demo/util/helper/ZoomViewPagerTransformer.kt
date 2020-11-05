@@ -14,8 +14,8 @@ import kotlin.math.max
  * 迭代说明：
  */
 class ZoomViewPagerTransformer : ViewPager2.PageTransformer {
-    private val MIN_SCALE = 0.9f
-    private val MIN_ALPHA = 0.5f
+    private val minScale = 0.9f
+    private val minAlpha = 0.5f
 
     private val defaultScale = 0.9f
 
@@ -33,7 +33,7 @@ class ZoomViewPagerTransformer : ViewPager2.PageTransformer {
             }
             position <= 1 -> { // [-1,1]
                 // Modify the default slide transition to shrink the page as well
-                val scaleFactor = max(MIN_SCALE, 1 - abs(position))
+                val scaleFactor = max(minScale, 1 - abs(position))
                 val verticalMargin = pageHeight * (1 - scaleFactor) / 2
                 val horizontalMargin = pageWidth * (1 - scaleFactor) / 2
                 if (position < 0) {
@@ -42,13 +42,13 @@ class ZoomViewPagerTransformer : ViewPager2.PageTransformer {
                     view.translationX = -horizontalMargin + verticalMargin / 2
                 }
 
-                // Scale the page down (between MIN_SCALE and 1)
+                // Scale the page down (between minScale and 1)
                 view.scaleX = scaleFactor
                 view.scaleY = scaleFactor
 
                 // Fade the page relative to its size.
                 view.alpha =
-                    MIN_ALPHA + (scaleFactor - MIN_SCALE) / (1 - MIN_SCALE) * (1 - MIN_ALPHA)
+                    minAlpha + (scaleFactor - minScale) / (1 - minScale) * (1 - minAlpha)
             }
             else -> {
                 // (1,+Infinity]

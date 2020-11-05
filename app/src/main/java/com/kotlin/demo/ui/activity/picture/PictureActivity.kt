@@ -14,11 +14,22 @@ import com.kotlin.demo.base.BaseActivity
 import com.kotlin.demo.extension.invisibleAlphaAnimation
 import com.kotlin.demo.extension.visibleAlphaAnimation
 import com.kotlin.demo.util.ClickUtil
+import com.kotlin.demo.util.CommonUtils
 import com.kotlin.demo.util.StatusBarUtils
 import com.kotlin.demo.util.helper.ZoomViewPagerTransformer
 import com.kotlin.demo.wigets.dialog.ShareBottomDialog
+import com.zhpan.indicator.enums.IndicatorSlideMode
+import com.zhpan.indicator.enums.IndicatorStyle
 import kotlinx.android.synthetic.main.activity_picture.*
 
+/**
+ * @author zhouchong
+ * 创建日期: 2020/11/5 19:59
+ * 描述：图片查看器 画廊模式 ViewPager2
+ * 修改人：
+ * 迭代版本：
+ * 迭代说明：
+ */
 class PictureActivity : BaseActivity() {
 
     private lateinit var imgUrl: String
@@ -69,6 +80,16 @@ class PictureActivity : BaseActivity() {
             }
         })
 
+        // indicator
+        indicator.apply {
+            setSliderColor(CommonUtils.getColor(context, R.color.white), CommonUtils.getColor(context, R.color.colorAccent))
+            setSliderWidth(CommonUtils.getDimension(R.dimen.dimen_10dp), CommonUtils.getDimension(R.dimen.dimen_10dp))
+            setSlideMode(IndicatorSlideMode.WORM)
+            setIndicatorStyle(IndicatorStyle.CIRCLE)
+            setupWithViewPager(viewPager)
+        }
+
+        // 设置画廊效果
         viewPager.setPageTransformer(ZoomViewPagerTransformer())
 
         ivArrowClose.setOnClickListener {

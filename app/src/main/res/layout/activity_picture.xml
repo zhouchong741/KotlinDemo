@@ -9,12 +9,25 @@
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="300dp"
+        android:layout_height="500dp"
         android:clipChildren="false"
-        android:layout_marginStart="@dimen/dimen_48dp"
-        android:layout_marginEnd="@dimen/dimen_48dp"
-        android:transitionName="meizi"/>
+        android:transitionName="meizi"
+        android:layout_marginStart="@dimen/dimen_05dp"
+        android:layout_marginEnd="@dimen/dimen_05dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvPosition" />
+
+    <com.zhpan.indicator.IndicatorView
+        android:id="@+id/indicator"
+        android:layout_marginTop="@dimen/dimen_15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/viewPager" />
 
     <ImageView
         android:id="@+id/ivArrowClose"
@@ -24,7 +37,8 @@
         android:src="@mipmap/arrow_down"
         app:layout_constraintBottom_toBottomOf="@+id/tvPosition"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@null" />
 
     <TextView
         android:id="@+id/tvPosition"
@@ -45,7 +59,8 @@
         android:layout_marginBottom="@dimen/dimen_15dp"
         android:src="@mipmap/ic_like"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:contentDescription="@string/str_like" />
 
     <ImageView
         android:id="@+id/ivCollection"
@@ -55,7 +70,8 @@
         android:layout_marginBottom="@dimen/dimen_15dp"
         android:src="@mipmap/ic_collection"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/ivLike" />
+        app:layout_constraintStart_toEndOf="@id/ivLike"
+        android:contentDescription="@string/str_collection" />
 
     <ImageView
         android:id="@+id/ivMessage"
@@ -65,7 +81,8 @@
         android:layout_marginBottom="@dimen/dimen_15dp"
         android:src="@mipmap/ic_message"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/ivCollection" />
+        app:layout_constraintStart_toEndOf="@id/ivCollection"
+        android:contentDescription="@string/str_comments" />
 
 
     <ImageView
@@ -76,5 +93,6 @@
         android:layout_marginBottom="@dimen/dimen_15dp"
         android:src="@mipmap/ic_share"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:contentDescription="@string/share" />
 </androidx.constraintlayout.widget.ConstraintLayout>

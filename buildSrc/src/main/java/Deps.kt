@@ -32,6 +32,8 @@ object Versions {
     val smart_refresh_layout = "2.0.1"
 
     val room = "2.2.5"
+
+    val indicator = "1.0.6"
 }
 
 object Deps {
@@ -87,4 +89,5 @@ object Deps {
     val room_runtime = "androidx.room:room-runtime:${Versions.room}"
     val room_compiler = "androidx.room:room-compiler:${Versions.room}"
     val room_ktx = "androidx.room:room-ktx:${Versions.room}"
+    val indicator = "com.github.zhpanvip:viewpagerindicator:${Versions.indicator}"
 }

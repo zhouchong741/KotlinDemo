@@ -57,10 +57,18 @@ object CommonUtils {
         get() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             GankBaseApplication.context.packageManager.getPackageInfo(appPackage, 0).longVersionCode
         } else {
-            GankBaseApplication.context.packageManager.getPackageInfo(
-                appPackage,
-                0
-            ).versionCode.toLong()
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                GankBaseApplication.context.packageManager.getPackageInfo(
+                    appPackage,
+                    0
+                ).longVersionCode
+            } else {
+                @Suppress("DEPRECATION")
+                GankBaseApplication.context.packageManager.getPackageInfo(
+                    appPackage,
+                    0
+                ).versionCode.toLong()
+            }
         }
 
     /**
@@ -119,8 +127,8 @@ object CommonUtils {
      * 字符串资源id
      * @return 字符串资源id对应的字符串内容。
      */
-    fun getDimension(resId: Int): Int {
-        return GankBaseApplication.context.resources.getDimensionPixelOffset(resId)
+    fun getDimension(resId: Int): Float {
+        return GankBaseApplication.context.resources.getDimension(resId)
     }
 
     /**
@@ -185,7 +193,11 @@ object CommonUtils {
      * @param view 具体的 view
      * @param string 共享元素展示页面的 view 的 transitionName
      */
-    fun makeSceneTransitionAnimation(activity: Activity, view: View, string: String): ActivityOptionsCompat {
+    fun makeSceneTransitionAnimation(
+        activity: Activity,
+        view: View,
+        string: String
+    ): ActivityOptionsCompat {
         return ActivityOptionsCompat.makeSceneTransitionAnimation(activity, view, string)
     }
 

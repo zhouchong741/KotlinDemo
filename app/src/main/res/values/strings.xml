@@ -16,7 +16,7 @@
     <string name="str_verification">验证码</string>
     <string name="str_clear">清除</string>
     <string name="str_input_complete">输入完成</string>
-    <string name="waiting_tips">请稍后...</string>
+    <string name="waiting_tips">请稍后…</string>
     <string name="str_verification_code">验证码</string>
     <string name="str_verification_in_progress">验证中</string>
     <string name="str_toast">Toast</string>
@@ -56,4 +56,7 @@
     <string name="your_phone_does_not_install_qq_zone">您的手机还没有安装QQ空间</string>
     <string name="share_unknown_error">分享出现未知异常</string>
     <string name="share_to">分享到</string>
+    <string name="str_like">喜欢</string>
+    <string name="str_comments">评论</string>
+    <string name="str_collection">收藏</string>
 </resources>
