@@ -59,33 +59,14 @@ object ServiceCreator {
 
     private fun getHttpClient(): OkHttpClient {
         val level = HttpLoggingInterceptor.Level.BODY
-        /* 打印日志 旧版本
         val loggingInterceptor = HttpLoggingInterceptor { message ->
-            if (message!!.contains("OK")) {
+            if (message.contains("OK")) {
                 logJson(CommonUtils.appName, StringUtils.cutStartWith(message), TAG)
             }
-
             if (message.contains("data")) {
                 logJson(CommonUtils.appName, message, TAG)
             }
         }
-        loggingInterceptor.level = level
-
-        val httpClient = OkHttpClient.Builder()
-
-        httpClient.addInterceptor(loggingInterceptor)*/
-
-        // 新版本写法 4.0.0 之后
-        val loggingInterceptor = HttpLoggingInterceptor(object : HttpLoggingInterceptor.Logger {
-            override fun log(message: String) {
-                if (message.contains("OK")) {
-                    logJson(CommonUtils.appName, StringUtils.cutStartWith(message), TAG)
-                }
-                if (message.contains("data")) {
-                    logJson(CommonUtils.appName, message, TAG)
-                }
-            }
-        })
 
         loggingInterceptor.level = level
 

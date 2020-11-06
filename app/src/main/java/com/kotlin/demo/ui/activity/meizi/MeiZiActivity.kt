@@ -1,6 +1,5 @@
 package com.kotlin.demo.ui.activity.meizi
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -98,11 +97,6 @@ class MeiZiActivity : BaseActivity() {
 
             loadFinished()
 
-            if (response.itemList.isNullOrEmpty() && viewModel.dataList.isNotEmpty()) {
-                //上拉加载数据时，返回数据条目为0时处理。
-                refreshLayout.finishLoadMoreWithNoMoreData()
-                return@Observer
-            }
             if (response.itemList.isNullOrEmpty() && viewModel.dataList.isNotEmpty()) {
                 //上拉加载数据时，返回数据条目为0时处理。
                 refreshLayout.finishLoadMoreWithNoMoreData()

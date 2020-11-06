@@ -8,13 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewStub
 import android.widget.LinearLayout
-import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.annotation.CallSuper
 import androidx.fragment.app.Fragment
 import com.kotlin.demo.R
 import com.kotlin.demo.callback.RequestLifecycle
-import org.greenrobot.eventbus.EventBus
 
 /**
  * @author: zhouchong
@@ -125,7 +123,6 @@ open class BaseFragment : Fragment(), RequestLifecycle {
     fun onCreateView(view: View): View {
         rootView = view
         loading = view.findViewById(R.id.loading_layout)
-//        if (!EventBus.getDefault().isRegistered(this)) EventBus.getDefault().register(this)
         return view
     }
 

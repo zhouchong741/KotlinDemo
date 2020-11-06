@@ -43,16 +43,12 @@ dependencies {
     implementation Deps.constraintlayout
     implementation Deps.material
     implementation Deps.lottie
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     testImplementation Deps.junit
     androidTestImplementation Deps.ext_junit
     androidTestImplementation Deps.espresso_core
     implementation Deps.kotlinx_coroutines_core
     implementation Deps.kotlinx_coroutines_android
     implementation Deps.recyclerview
-    implementation Deps.eventbus
     implementation Deps.multidex
 
     implementation Deps.okhttp3_integration
@@ -61,7 +57,8 @@ dependencies {
     implementation Deps.converter_scalars
     implementation Deps.logging_interceptor
 
-    kapt Deps.glide_compiler
+    implementation Deps.glide
+    annotationProcessor Deps.glide_compiler
     implementation Deps.glide_transformations
     implementation Deps.flycoTabLayout
     implementation Deps.viewpager2
