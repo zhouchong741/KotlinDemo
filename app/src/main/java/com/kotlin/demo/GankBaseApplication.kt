@@ -30,17 +30,16 @@ class GankBaseApplication : Application() {
             )
         }
 
-        SmartRefreshLayout.setDefaultRefreshFooterCreator { context, layout ->
-            layout.setEnableFooterFollowWhenNoMoreData(true)
-            layout.setEnableFooterTranslationContent(true)
-            layout.setFooterHeight(100f)
-            layout.setFooterTriggerRate(0.6f)
-            ClassicsFooter(context).apply {
-                setAccentColorId(R.color.colorAccent)
-                setTextSizeTitle(15f)
-            }
-
-        }
+//        SmartRefreshLayout.setDefaultRefreshFooterCreator { context, layout ->
+//            layout.setEnableFooterFollowWhenNoMoreData(false)
+//            layout.setEnableFooterTranslationContent(false)
+//            layout.setFooterHeight(100f)
+//            layout.setFooterTriggerRate(0.6f)
+//            ClassicsFooter(context).apply {
+//                setAccentColorId(R.color.colorAccent)
+//                setTextSizeTitle(15f)
+//            }
+//        }
     }
 
     override fun attachBaseContext(base: Context) {

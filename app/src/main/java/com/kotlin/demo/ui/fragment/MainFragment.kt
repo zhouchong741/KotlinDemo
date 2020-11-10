@@ -134,7 +134,9 @@ class MainFragment : BaseFragment() {
 
     override fun startLoading() {
         super.startLoading()
-        viewModel.onRefresh()
+//        viewModel.onRefresh()
+        // 有下拉加载的动画
+        refreshLayout.autoRefresh(0)
     }
 
     override fun loadFailed(msg: String?) {

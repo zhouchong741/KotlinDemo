@@ -163,5 +163,4 @@ open class BaseFragment : Fragment(), RequestLifecycle {
     private fun hideLoadErrorView() {
         loadErrorView?.visibility = View.GONE
     }
-
 }
