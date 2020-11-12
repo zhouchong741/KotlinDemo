@@ -12,10 +12,8 @@ import com.kotlin.demo.gank.LoginViewModel
 import com.kotlin.demo.param.LoginParams
 import com.kotlin.demo.ui.activity.main.Main2Activity
 import com.kotlin.demo.ui.activity.shareelement.ShareElementActivity
-import com.kotlin.demo.util.CommonUtils
-import com.kotlin.demo.util.InjectUtil
-import com.kotlin.demo.util.StatusBarUtils
-import com.kotlin.demo.util.ToastUtils
+import com.kotlin.demo.util.*
+import com.tencent.mmkv.MMKV
 import kotlinx.android.synthetic.main.activity_login.*
 
 /**
@@ -27,6 +25,7 @@ import kotlinx.android.synthetic.main.activity_login.*
  * 迭代说明：
  */
 class LoginActivity : BaseActivity() {
+
     private val viewModel by lazy {
         ViewModelProvider(this, InjectUtil.postLoginFactory()).get(LoginViewModel::class.java)
     }
@@ -45,6 +44,10 @@ class LoginActivity : BaseActivity() {
     }
 
     private fun initView() {
+        // 直接获取 mmkv
+        userNameET.setText(mmkv.decodeString(Constant.USER_NAME))
+        passwordET.setText(mmkv.decodeString(Constant.PASSWORD))
+
         btnLogin.setOnClickListener {
             if (userNameET.text.isNullOrBlank() || passwordET.text.isNullOrBlank()) {
                 ToastUtils.showToast(this, getString(R.string.user_name_and_pwd_can_not_be_empty))
@@ -85,7 +88,10 @@ class LoginActivity : BaseActivity() {
 
         // 共享元素 转场动画
         ivLogo.setOnClickListener {
-            ShareElementActivity.startActivity(this, CommonUtils.makeSceneTransitionAnimation(this, ivLogo, "logo"))
+            ShareElementActivity.startActivity(
+                this,
+                CommonUtils.makeSceneTransitionAnimation(this, ivLogo, "logo")
+            )
         }
     }
 
@@ -99,12 +105,22 @@ class LoginActivity : BaseActivity() {
                 if (result.toString().contains("ok")) {
                     Main2Activity.startActivity(this)
                     ToastUtils.showToast(this, getString(R.string.login_success))
+                    // 保存 mmkv
+                    saveInfo(userNameET.text.toString(), passwordET.text.toString())
                     finish()
                 } else {
                     ToastUtils.showToast(this, getString(R.string.login_failed_check))
                 }
             }
         })
+    }
+
+    /**
+     * mmkv 保存用户名密码
+     */
+    private fun saveInfo(userName: String, password: String) {
+        mmkv.encode(Constant.USER_NAME, userName)
+        mmkv.encode(Constant.PASSWORD, password)
     }
 
     companion object {

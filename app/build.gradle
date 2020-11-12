@@ -87,4 +87,7 @@ dependencies {
     // indicator
     implementation Deps.indicator
 
+    // MMKV
+    implementation Deps.mmkv
+
 }

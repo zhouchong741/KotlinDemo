@@ -3,9 +3,11 @@ package com.kotlin.demo
 import android.app.Application
 import android.content.Context
 import androidx.multidex.MultiDex
+import com.kotlin.demo.extension.logD
 import com.scwang.smart.refresh.footer.ClassicsFooter
 import com.scwang.smart.refresh.header.MaterialHeader
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
+import com.tencent.mmkv.MMKV
 
 /**
  * @author: zhouchong
@@ -47,10 +49,14 @@ class GankBaseApplication : Application() {
         MultiDex.install(this)
     }
 
-
     override fun onCreate() {
         super.onCreate()
         context = this
+
+        // mmkv
+        val rootDir: String = MMKV.initialize(this)
+        // /data/user/0/com.kotlin.demo/files/mmkv
+        logD("KotlinDemo", rootDir)
     }
 
     companion object {

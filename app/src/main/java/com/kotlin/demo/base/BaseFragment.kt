@@ -13,6 +13,7 @@ import androidx.annotation.CallSuper
 import androidx.fragment.app.Fragment
 import com.kotlin.demo.R
 import com.kotlin.demo.callback.RequestLifecycle
+import com.tencent.mmkv.MMKV
 
 /**
  * @author: zhouchong
@@ -23,6 +24,12 @@ import com.kotlin.demo.callback.RequestLifecycle
  * 迭代说明:
  */
 open class BaseFragment : Fragment(), RequestLifecycle {
+
+    /**
+     * 基类里面使用
+     */
+    val mmkv: MMKV = MMKV.defaultMMKV()
+
     /**
      * 是否已经加载过数据
      */

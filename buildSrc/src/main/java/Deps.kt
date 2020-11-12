@@ -34,6 +34,7 @@ object Versions {
     const val room = "2.2.5"
 
     const val indicator = "1.0.6"
+    const val mmkv = "1.2.4"
 }
 
 object Deps {
@@ -92,4 +93,5 @@ object Deps {
     const val room_compiler = "androidx.room:room-compiler:${Versions.room}"
     const val room_ktx = "androidx.room:room-ktx:${Versions.room}"
     const val indicator = "com.github.zhpanvip:viewpagerindicator:${Versions.indicator}"
+    const val mmkv = "com.tencent:mmkv-static:${Versions.mmkv}"
 }

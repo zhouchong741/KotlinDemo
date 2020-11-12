@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.kotlin.demo.R
 import com.kotlin.demo.callback.RequestLifecycle
 import com.kotlin.demo.manager.BaseAppManager
+import com.tencent.mmkv.MMKV
 
 /**
  * @author: zhouchong
@@ -26,6 +27,10 @@ import com.kotlin.demo.manager.BaseAppManager
  * 迭代说明:
  */
 open class BaseActivity : AppCompatActivity(), RequestLifecycle {
+    /**
+     * 基类里面使用
+     */
+    val mmkv: MMKV = MMKV.defaultMMKV()
 
     /**
      * 依附的Activity
@@ -40,6 +45,7 @@ open class BaseActivity : AppCompatActivity(), RequestLifecycle {
         BaseAppManager.getInstance()?.addActivity(activity)
 
         loadDataFirst()
+
 
         // 设置状态栏透明
 //        StatusBarUtils.setStatusBarColor(this, Color.TRANSPARENT)
@@ -200,3 +206,4 @@ open class BaseActivity : AppCompatActivity(), RequestLifecycle {
         return false
     }
 }
+

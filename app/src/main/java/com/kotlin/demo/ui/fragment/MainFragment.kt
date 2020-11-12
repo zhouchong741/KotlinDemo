@@ -22,10 +22,7 @@ import com.kotlin.demo.ui.activity.datastore.DataStoreActivity
 import com.kotlin.demo.ui.activity.ganhuo.GanHuoActivity
 import com.kotlin.demo.ui.activity.meizi.MeiZiActivity
 import com.kotlin.demo.ui.activity.room.RoomActivity
-import com.kotlin.demo.util.CommonUtils
-import com.kotlin.demo.util.InjectUtil
-import com.kotlin.demo.util.ResponseHandler
-import com.kotlin.demo.util.ToastUtils
+import com.kotlin.demo.util.*
 import com.scwang.smart.refresh.layout.constant.RefreshState
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.btnArticle
@@ -88,9 +85,6 @@ class MainFragment : BaseFragment() {
                 )
             }
         })
-
-
-
         // 画廊效果
         val pagerSnapHelper = PagerSnapHelper()
         pagerSnapHelper.attachToRecyclerView(recyclerView)

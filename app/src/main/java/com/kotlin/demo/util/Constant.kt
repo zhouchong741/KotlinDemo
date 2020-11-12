@@ -15,4 +15,8 @@ object Constant {
     const val SHARE_WEIBO = 3
     const val SHARE_QQZONE = 4
     const val SHARE_WECHAT_MEMORIES = 5
+
+
+    const val USER_NAME: String = "USER_NAME"
+    const val PASSWORD: String = "PASSWORD"
 }
