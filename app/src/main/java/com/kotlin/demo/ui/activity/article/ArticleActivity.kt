@@ -45,9 +45,14 @@ class ArticleActivity : BaseActivity() {
     }
 
     private fun search() {
+        tvRightText.visibility = View.VISIBLE
+        tvRightText.text = getString(R.string.share)
         ivRight.visibility = View.VISIBLE
         ivRight.setImageResource(R.mipmap.ic_search)
         ivRight.setOnClickListener {
+            ToastUtils.showToast(this, getString(R.string.not_open_yet))
+        }
+        tvRightText.setOnClickListener {
             ToastUtils.showToast(this, getString(R.string.not_open_yet))
         }
     }

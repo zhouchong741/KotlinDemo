@@ -61,8 +61,6 @@ class WebViewActivity : BaseActivity() {
         this.finishAfterTransition()
     }
 
-
-
     companion object {
         fun startActivity(
             context: Context,
