@@ -72,11 +72,12 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:visibility="visible" />
 
-    <!--    <View-->
-    <!--        android:id="@+id/divider"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="1px"-->
-    <!--        android:layout_alignParentBottom="true"-->
-    <!--        android:background="#ededed" />-->
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_alignParentBottom="true"
+            android:background="#ededed" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

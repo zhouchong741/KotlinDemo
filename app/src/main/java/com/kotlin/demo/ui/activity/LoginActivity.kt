@@ -13,7 +13,6 @@ import com.kotlin.demo.param.LoginParams
 import com.kotlin.demo.ui.activity.main.Main2Activity
 import com.kotlin.demo.ui.activity.shareelement.ShareElementActivity
 import com.kotlin.demo.util.*
-import com.tencent.mmkv.MMKV
 import kotlinx.android.synthetic.main.activity_login.*
 
 /**
@@ -117,6 +116,8 @@ class LoginActivity : BaseActivity() {
 
     /**
      * mmkv 保存用户名密码
+     * @param userName String 用户名
+     * @param password String 密码
      */
     private fun saveInfo(userName: String, password: String) {
         mmkv.encode(Constant.USER_NAME, userName)

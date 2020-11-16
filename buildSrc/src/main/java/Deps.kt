@@ -3,7 +3,7 @@ object Versions {
     const val kotlin_gradle_plugin = "1.4.10"
     const val core_ktx = "1.3.2"
     const val appcompat = "1.2.0"
-    const val constraintlayout = "2.0.2"
+    const val constraintlayout = "2.0.4"
     const val material = "1.3.0-alpha03"
     const val lottie = "3.4.4"
 
