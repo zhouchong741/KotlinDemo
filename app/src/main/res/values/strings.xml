@@ -60,4 +60,6 @@
     <string name="str_comments">评论</string>
     <string name="str_collection">收藏</string>
     <string name="str_add">add</string>
+    <string name="previous">previous</string>
+    <string name="next">next</string>
 </resources>

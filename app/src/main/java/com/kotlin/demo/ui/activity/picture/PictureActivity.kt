@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.ViewGroup
 import androidx.core.app.ActivityOptionsCompat
 import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayoutMediator
 import com.kotlin.demo.R
 import com.kotlin.demo.adapter.PictureAdapter
 import com.kotlin.demo.base.BaseActivity
@@ -16,6 +17,7 @@ import com.kotlin.demo.extension.visibleAlphaAnimation
 import com.kotlin.demo.util.ClickUtil
 import com.kotlin.demo.util.CommonUtils
 import com.kotlin.demo.util.StatusBarUtils
+import com.kotlin.demo.util.ToastUtils
 import com.kotlin.demo.util.helper.ZoomViewPagerTransformer
 import com.kotlin.demo.wigets.dialog.ShareBottomDialog
 import com.zhpan.indicator.enums.IndicatorSlideMode
@@ -42,10 +44,37 @@ class PictureActivity : BaseActivity() {
         initView()
         setStatusBar()
 
-        ClickUtil.setOnClickListener(ivLike, ivCollection, ivMessage, ivShare) {
+        ClickUtil.setOnClickListener(
+            ivArrowClose,
+            ivPrevious,
+            ivNext,
+            ivLike,
+            ivCollection,
+            ivMessage,
+            ivShare
+        ) {
             when (this) {
                 ivShare -> {
                     showShare()
+                }
+                ivPrevious -> {
+                    // 模拟滑动
+                    viewPager.beginFakeDrag()
+                    // 负数表示下一页，正数表示上一页
+                    viewPager.fakeDragBy(500f)
+                    // 结束滑动
+                    viewPager.endFakeDrag()
+                }
+                ivNext -> {
+                    // 模拟滑动
+                    viewPager.beginFakeDrag()
+                    // 负数表示下一页，正数表示上一页
+                    viewPager.fakeDragBy(-500f)
+                    // 结束滑动
+                    viewPager.endFakeDrag()
+                }
+                ivArrowClose -> {
+                    finishAfterTransition()
                 }
             }
         }
@@ -80,10 +109,17 @@ class PictureActivity : BaseActivity() {
             }
         })
 
+
         // indicator
         indicator.apply {
-            setSliderColor(CommonUtils.getColor(context, R.color.white), CommonUtils.getColor(context, R.color.colorAccent))
-            setSliderWidth(CommonUtils.getDimension(R.dimen.dimen_10dp), CommonUtils.getDimension(R.dimen.dimen_10dp))
+            setSliderColor(
+                CommonUtils.getColor(context, R.color.white),
+                CommonUtils.getColor(context, R.color.colorAccent)
+            )
+            setSliderWidth(
+                CommonUtils.getDimension(R.dimen.dimen_10dp),
+                CommonUtils.getDimension(R.dimen.dimen_10dp)
+            )
             setSlideMode(IndicatorSlideMode.WORM)
             setIndicatorStyle(IndicatorStyle.CIRCLE)
             setupWithViewPager(viewPager)
@@ -92,15 +128,17 @@ class PictureActivity : BaseActivity() {
         // 设置画廊效果
         viewPager.setPageTransformer(ZoomViewPagerTransformer())
 
-        ivArrowClose.setOnClickListener {
-            this.finishAfterTransition()
-        }
-
         adapter.setICallback(object : PictureAdapter.ICallback {
             override fun onClick() {
                 toggleImage()
             }
         })
+
+        // tablayout indicator
+        TabLayoutMediator(
+            tabLayout,
+            viewPager
+        ) { tab, position -> }.attach()
     }
 
     override fun onBackPressed() {
