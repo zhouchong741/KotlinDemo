@@ -18,13 +18,16 @@ import com.kotlin.demo.model.BannerModel
 import com.kotlin.demo.ui.activity.VerificationActivity
 import com.kotlin.demo.ui.activity.WebViewActivity
 import com.kotlin.demo.ui.activity.article.ArticleActivity
+import com.kotlin.demo.ui.activity.btmnavview.BottomNavigationViewActivity
 import com.kotlin.demo.ui.activity.datastore.DataStoreActivity
 import com.kotlin.demo.ui.activity.ganhuo.GanHuoActivity
 import com.kotlin.demo.ui.activity.meizi.MeiZiActivity
 import com.kotlin.demo.ui.activity.room.RoomActivity
-import com.kotlin.demo.util.*
+import com.kotlin.demo.util.CommonUtils
+import com.kotlin.demo.util.InjectUtil
+import com.kotlin.demo.util.ResponseHandler
+import com.kotlin.demo.util.ToastUtils
 import com.scwang.smart.refresh.layout.constant.RefreshState
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.btnArticle
 import kotlinx.android.synthetic.main.activity_main.btnGanHuo
 import kotlinx.android.synthetic.main.activity_main.btnMeizi
@@ -118,6 +121,10 @@ class MainFragment : BaseFragment() {
 
         btnRoom.setOnClickListener {
             RoomActivity.startActivity(activity)
+        }
+
+        btnBottomNavView.setOnClickListener {
+            BottomNavigationViewActivity.startActivity(activity)
         }
     }
 

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- id 要和 bottom_nav_graph.xml 中的 id 一样 否则找不到-->
+    <item
+        android:id="@+id/mainFragment"
+        android:icon="@mipmap/ic_unselect_main"
+        android:title="@string/str_main" />
+    <item
+        android:id="@+id/ganHuoFragment"
+        android:icon="@mipmap/ic_unselect_article"
+        android:title="@string/str_article" />
+    <item
+        android:id="@+id/meiZiFragment"
+        android:icon="@mipmap/ic_unselect_meizi"
+        android:title="@string/str_meizi" />
+    <item
+        android:id="@+id/mineFragment"
+        android:icon="@mipmap/ic_unselect_mine"
+        android:title="@string/str_mine" />
+</menu>

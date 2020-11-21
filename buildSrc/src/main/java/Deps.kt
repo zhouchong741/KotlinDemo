@@ -1,6 +1,5 @@
 object Versions {
     const val kotlin_version = "1.4.10"
-    const val kotlin_gradle_plugin = "1.4.10"
     const val core_ktx = "1.3.2"
     const val appcompat = "1.2.0"
     const val constraintlayout = "2.0.4"
@@ -35,12 +34,11 @@ object Versions {
 
     const val indicator = "1.0.6"
     const val mmkv = "1.2.4"
+    const val navigation = "2.3.1"
 }
 
 object Deps {
     const val kotlin_stdlib = "org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin_version}"
-    const val kotlin_gradle_plugin =
-        "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin_gradle_plugin}"
     const val core_ktx = "androidx.core:core-ktx:${Versions.core_ktx}"
     const val appcompat = "androidx.appcompat:appcompat:${Versions.appcompat}"
     const val constraintlayout =
@@ -94,4 +92,8 @@ object Deps {
     const val room_ktx = "androidx.room:room-ktx:${Versions.room}"
     const val indicator = "com.github.zhpanvip:viewpagerindicator:${Versions.indicator}"
     const val mmkv = "com.tencent:mmkv-static:${Versions.mmkv}"
+    const val navigation_fragment_ktx =
+        "androidx.navigation:navigation-fragment-ktx:${Versions.navigation}"
+    const val navigation_ui_ktx = "androidx.navigation:navigation-ui-ktx:${Versions.navigation}"
+
 }

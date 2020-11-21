@@ -8,15 +8,6 @@
 
     <include layout="@layout/layout_title_bar" />
 
-    <ImageView
-        android:id="@+id/ivHeader"
-        android:layout_width="match_parent"
-        android:src="@mipmap/ic_launcher_round"
-        android:scaleType="centerCrop"
-        android:visibility="gone"
-        android:transitionName="article"
-        android:layout_height="@dimen/dimen_180dp"/>
-
     <com.kotlin.demo.wigets.webview.ProgressWebView
         android:id="@+id/webView"
         android:transitionName="article"

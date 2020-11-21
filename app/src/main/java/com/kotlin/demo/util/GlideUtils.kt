@@ -19,15 +19,14 @@ import com.kotlin.demo.util.GlideUtils.load
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation
 
 /**
- * Glide加载图片，可以指定圆角弧度。
+ * Glide加载图片
  *
- * @param url 图片地址
- * @param round 圆角，单位dp
- * @param cornerType 圆角角度
  */
 object GlideUtils {
     /**
      * use: holder.ivMeiZi.load(url, 4f)
+     * @param url 图片地址
+     * @param round 圆角，单位dp
      */
     fun ImageView.load(
         url: String,

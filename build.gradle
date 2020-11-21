@@ -4,16 +4,12 @@ buildscript {
         kotlin_version = '1.4.10'
     }
 
-//    ext {
-//        kotlin_version = '1.4.10'
-//    }
     repositories {
         google()
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.0'
-        classpath Deps.kotlin_gradle_plugin
+        classpath 'com.android.tools.build:gradle:4.1.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 //        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 //        classpath 'com.google.dagger:hilt-android-gradle-plugin:2.29.1-alpha'

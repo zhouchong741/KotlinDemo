@@ -43,6 +43,8 @@ dependencies {
     implementation Deps.constraintlayout
     implementation Deps.material
     implementation Deps.lottie
+    implementation Deps.navigation_fragment_ktx
+    implementation Deps.navigation_ui_ktx
     testImplementation Deps.junit
     androidTestImplementation Deps.ext_junit
     androidTestImplementation Deps.espresso_core

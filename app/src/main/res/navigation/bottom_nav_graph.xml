@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/bottom_nav_graph"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.kotlin.demo.ui.fragment.MainFragment"
+        android:label="MainFragment" />
+    <fragment
+        android:id="@+id/ganHuoFragment"
+        android:name="com.kotlin.demo.ui.fragment.GanHuoFragment"
+        android:label="GanHuoFragment" />
+    <fragment
+        android:id="@+id/meiZiFragment"
+        android:name="com.kotlin.demo.ui.fragment.MeiZiFragment"
+        android:label="MeiZiFragment" />
+    <fragment
+        android:id="@+id/mineFragment"
+        android:name="com.kotlin.demo.ui.fragment.MineFragment"
+        android:label="MineFragment" />
+</navigation>

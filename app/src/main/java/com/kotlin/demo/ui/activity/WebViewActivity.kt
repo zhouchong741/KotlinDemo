@@ -36,7 +36,6 @@ class WebViewActivity : BaseActivity() {
         val title = intent.getStringExtra("TITLE")
         val imgUrl = intent.getStringExtra("IMG_URL")
         tvTitle.text = title
-        ivHeader.load(imgUrl!!)
         initWevView(link)
     }
 

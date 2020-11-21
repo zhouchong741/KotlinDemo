@@ -62,4 +62,6 @@
     <string name="str_add">add</string>
     <string name="previous">previous</string>
     <string name="next">next</string>
+    <string name="str_bottom_nav_view">BottomNavigationView</string>
+    <string name="str_test_bottom_navigation_view">测试 BottomNavigationView</string>
 </resources>

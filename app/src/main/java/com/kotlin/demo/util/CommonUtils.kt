@@ -170,7 +170,7 @@ object CommonUtils {
      * 要检查是否安装的应用包名
      * @return 安装返回true，否则返回false。
      */
-    fun isInstalled(packageName: String): Boolean {
+    private fun isInstalled(packageName: String): Boolean {
         val packageInfo: PackageInfo? = try {
             GankBaseApplication.context.packageManager.getPackageInfo(packageName, 0)
         } catch (e: PackageManager.NameNotFoundException) {
