@@ -34,12 +34,8 @@ class NotReadFragment(private val articleActivity: ArticleActivity) : BaseFragme
         ViewModelProvider(this, InjectUtil.getMeiZiFactory()).get(MeiZiViewModel::class.java)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View? {
-        return super.onCreateView(inflater.inflate(R.layout.fragment_not_read, container, false))
+    override fun getLayoutResId(): Int {
+        return R.layout.fragment_not_read
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

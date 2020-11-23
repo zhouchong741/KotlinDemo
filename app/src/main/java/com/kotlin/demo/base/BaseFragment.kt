@@ -23,7 +23,7 @@ import com.tencent.mmkv.MMKV
  * 迭代版本:
  * 迭代说明:
  */
-open class BaseFragment : Fragment(), RequestLifecycle {
+abstract class BaseFragment : Fragment(), RequestLifecycle {
 
     /**
      * 基类里面使用
@@ -43,7 +43,7 @@ open class BaseFragment : Fragment(), RequestLifecycle {
     /**
      * Fragment中inflate出来的布局。
      */
-    protected var rootView: View? = null
+    protected lateinit var rootView: View
 
     /**
      * Fragment中显示加载等待的控件。
@@ -58,31 +58,7 @@ open class BaseFragment : Fragment(), RequestLifecycle {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         // 缓存当前依附的activity
-        activity = getActivity()!!
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return super.onCreateView(inflater, container, savedInstanceState)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-    }
-
-    override fun onStart() {
-        super.onStart()
+        activity = requireActivity()
     }
 
     override fun onResume() {
@@ -94,17 +70,21 @@ open class BaseFragment : Fragment(), RequestLifecycle {
         }
     }
 
-    override fun onPause() {
-        super.onPause()
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        rootView = inflater.inflate(getLayoutResId(), container, false)
+        initView(rootView)
+        return rootView
     }
 
-    override fun onStop() {
-        super.onStop()
+    open fun initView(rootView: View) {
+        loading = rootView.findViewById(R.id.loading_layout)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-    }
+    abstract fun getLayoutResId(): Int
 
     @CallSuper
     override fun startLoading() {
@@ -120,17 +100,6 @@ open class BaseFragment : Fragment(), RequestLifecycle {
     @CallSuper
     override fun loadFailed(msg: String?) {
         loading?.visibility = View.GONE
-    }
-
-    /**
-     * 在Fragment基类中获取通用的控件，会将传入的View实例原封不动返回。
-     * @param view Fragment中inflate出来的View实例。
-     * @return  Fragment中inflate出来的View实例原封不动返回。
-     */
-    fun onCreateView(view: View): View {
-        rootView = view
-        loading = view.findViewById(R.id.loading_layout)
-        return view
     }
 
     /**
@@ -150,16 +119,14 @@ open class BaseFragment : Fragment(), RequestLifecycle {
             loadErrorView?.visibility = View.VISIBLE
             return
         }
-        if (rootView != null) {
-            val viewStub = rootView?.findViewById<ViewStub>(R.id.loadErrorView)
-            if (viewStub != null) {
-                loadErrorView = viewStub.inflate()
-                val loadErrorText = loadErrorView?.findViewById<TextView>(R.id.loadErrorText)
-                loadErrorText?.text = tip
-                val loadErrorRootView = loadErrorView?.findViewById<View>(R.id.loadErrorRootView)
-                loadErrorRootView?.setOnClickListener {
-                    it?.block()
-                }
+        val viewStub = rootView.findViewById<ViewStub>(R.id.loadErrorView)
+        if (viewStub != null) {
+            loadErrorView = viewStub.inflate()
+            val loadErrorText = loadErrorView?.findViewById<TextView>(R.id.loadErrorText)
+            loadErrorText?.text = tip
+            val loadErrorRootView = loadErrorView?.findViewById<View>(R.id.loadErrorRootView)
+            loadErrorRootView?.setOnClickListener {
+                it?.block()
             }
         }
     }

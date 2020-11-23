@@ -30,7 +30,7 @@ abstract class BaseVPFragment : BaseFragment() {
     protected var pageChangeCallback: PageChangeCallback? = null
 
     protected val adapter: VpAdapter by lazy {
-        VpAdapter(getActivity()!!).apply {
+        VpAdapter(requireActivity()).apply {
             addFragments(
                 createFragments
             )
@@ -66,8 +66,8 @@ abstract class BaseVPFragment : BaseFragment() {
     }
 
     protected fun initViewPager() {
-        viewPager = rootView?.findViewById(R.id.viewPager)
-        tabLayout = rootView?.findViewById(R.id.tabLayout)
+        viewPager = rootView.findViewById(R.id.viewPager)
+        tabLayout = rootView.findViewById(R.id.tabLayout)
 
         viewPager?.offscreenPageLimit = offscreenPageLimit
         viewPager?.adapter = adapter

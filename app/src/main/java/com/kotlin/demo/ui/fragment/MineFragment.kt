@@ -21,14 +21,8 @@ import kotlinx.android.synthetic.main.fragment_mine.*
  */
 class MineFragment : BaseFragment() {
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View? {
-        return super.onCreateView(inflater.inflate(R.layout.fragment_mine,
-            container,
-            false))
+    override fun getLayoutResId(): Int {
+        return R.layout.fragment_mine
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

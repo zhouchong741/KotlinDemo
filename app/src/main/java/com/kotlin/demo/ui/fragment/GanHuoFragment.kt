@@ -41,18 +41,8 @@ class GanHuoFragment : BaseFragment() {
         ViewModelProvider(this, InjectUtil.getGanHuoFactory()).get(GanHuoViewModel::class.java)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View? {
-        return super.onCreateView(
-            inflater.inflate(
-                R.layout.fragment_ganhuo,
-                container,
-                false
-            )
-        )
+    override fun getLayoutResId(): Int {
+        return R.layout.fragment_ganhuo
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

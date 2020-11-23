@@ -37,18 +37,8 @@ class MeiZiFragment : BaseFragment() {
         ViewModelProvider(this, InjectUtil.getMeiZiFactory()).get(MeiZiViewModel::class.java)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View? {
-        return super.onCreateView(
-            inflater.inflate(
-                R.layout.fragment_meizi,
-                container,
-                false
-            )
-        )
+    override fun getLayoutResId(): Int {
+        return R.layout.fragment_meizi
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
