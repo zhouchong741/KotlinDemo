@@ -7,6 +7,7 @@ import com.kotlin.demo.R
 import com.kotlin.demo.base.BaseActivity
 import com.kotlin.demo.gank.DataStoreViewModel
 import com.kotlin.demo.gank.DataStoreViewModel.PreferencesKeys
+import com.kotlin.demo.util.ClickUtil
 import com.kotlin.demo.util.InjectUtil
 import com.kotlin.demo.util.ToastUtils
 import kotlinx.android.synthetic.main.activity_data_store.*
@@ -35,14 +36,21 @@ class DataStoreActivity : BaseActivity() {
 
     override fun initView() {
         tvTitle.text = getString(R.string.data_store)
-        btnWrite.setOnClickListener {
-            viewModel.saveDataByDataStore(PreferencesKeys.KEY_GITHUB)
-        }
-        btnRead.setOnClickListener {
-            viewModel.getDataByDataStore(PreferencesKeys.KEY_GITHUB).observe(this) {
-                ToastUtils.showToast(this, it.toString())
+
+        ClickUtil.setOnClickListener(btnWrite, btnRead) {
+            when (this) {
+                btnWrite -> {
+                    viewModel.saveDataByDataStore(PreferencesKeys.KEY_GITHUB)
+                }
+                btnRead -> {
+                    viewModel.getDataByDataStore(PreferencesKeys.KEY_GITHUB)
+                        .observe(this@DataStoreActivity) {
+                            ToastUtils.showToast(this@DataStoreActivity, it.toString())
+                        }
+                }
             }
         }
+
     }
 
     companion object {

@@ -74,21 +74,24 @@ class MainActivity : BaseActivity() {
 
         observe()
 
-        // btn
-        btnGanHuo.setOnClickListener {
-            GanHuoActivity.startActivity(this)
-        }
+        ClickUtil.setOnClickListener(btnGanHuo, btnMeizi, btnVerification, btnArticle) {
+            when (this) {
+                btnGanHuo -> {
+                    GanHuoActivity.startActivity(this@MainActivity)
+                }
 
-        btnMeizi.setOnClickListener {
-            MeiZiActivity.startActivity(this)
-        }
+                btnMeizi -> {
+                    MeiZiActivity.startActivity(this@MainActivity)
+                }
 
-        btnVerification.setOnClickListener {
-            VerificationActivity.startActivity(this)
-        }
+                btnVerification -> {
+                    VerificationActivity.startActivity(this@MainActivity)
+                }
 
-        btnArticle.setOnClickListener {
-            ArticleActivity.startActivity(this)
+                btnArticle -> {
+                    ArticleActivity.startActivity(this@MainActivity)
+                }
+            }
         }
 
         // for test

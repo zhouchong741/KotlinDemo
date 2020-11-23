@@ -69,16 +69,21 @@ class LoginActivity : BaseActivity() {
                 }
             })*/
         }
-        tvJump.setOnClickListener {
-            Main2Activity.startActivity(this)
-            finish()
-        }
-        // 共享元素 转场动画
-        ivLogo.setOnClickListener {
-            ShareElementActivity.startActivity(
-                this,
-                CommonUtils.makeSceneTransitionAnimation(this, ivLogo, "logo")
-            )
+
+        ClickUtil.setOnClickListener(tvJump, ivLogo){
+            when(this){
+                tvJump -> {
+                    Main2Activity.startActivity(this@LoginActivity)
+                    finish()
+                }
+                ivLogo -> {
+                    // 共享元素 转场动画
+                    ShareElementActivity.startActivity(
+                        this@LoginActivity,
+                        CommonUtils.makeSceneTransitionAnimation(this@LoginActivity, ivLogo, "logo")
+                    )
+                }
+            }
         }
     }
 

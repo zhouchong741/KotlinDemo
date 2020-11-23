@@ -21,10 +21,7 @@ import com.kotlin.demo.ui.activity.datastore.DataStoreActivity
 import com.kotlin.demo.ui.activity.ganhuo.GanHuoActivity
 import com.kotlin.demo.ui.activity.meizi.MeiZiActivity
 import com.kotlin.demo.ui.activity.room.RoomActivity
-import com.kotlin.demo.util.CommonUtils
-import com.kotlin.demo.util.InjectUtil
-import com.kotlin.demo.util.ResponseHandler
-import com.kotlin.demo.util.ToastUtils
+import com.kotlin.demo.util.*
 import com.scwang.smart.refresh.layout.constant.RefreshState
 import kotlinx.android.synthetic.main.activity_main.btnArticle
 import kotlinx.android.synthetic.main.activity_main.btnGanHuo
@@ -86,34 +83,46 @@ class MainFragment : BaseFragment() {
 
         observe()
 
-        // btn
-        btnGanHuo.setOnClickListener {
-            GanHuoActivity.startActivity(activity)
+        ClickUtil.setOnClickListener(
+            btnGanHuo,
+            btnMeizi,
+            btnVerification,
+            btnArticle,
+            btnDataStore,
+            btnRoom,
+            btnBottomNavView
+        ) {
+            when (this) {
+                btnGanHuo -> {
+                    GanHuoActivity.startActivity(activity)
+                }
+
+                btnMeizi -> {
+                    MeiZiActivity.startActivity(activity)
+                }
+
+                btnVerification -> {
+                    VerificationActivity.startActivity(activity)
+                }
+
+                btnArticle -> {
+                    ArticleActivity.startActivity(activity)
+                }
+
+                btnDataStore -> {
+                    DataStoreActivity.startActivity(activity)
+                }
+
+                btnRoom -> {
+                    RoomActivity.startActivity(activity)
+                }
+
+                btnBottomNavView -> {
+                    BottomNavigationViewActivity.startActivity(activity)
+                }
+            }
         }
 
-        btnMeizi.setOnClickListener {
-            MeiZiActivity.startActivity(activity)
-        }
-
-        btnVerification.setOnClickListener {
-            VerificationActivity.startActivity(activity)
-        }
-
-        btnArticle.setOnClickListener {
-            ArticleActivity.startActivity(activity)
-        }
-
-        btnDataStore.setOnClickListener {
-            DataStoreActivity.startActivity(activity)
-        }
-
-        btnRoom.setOnClickListener {
-            RoomActivity.startActivity(activity)
-        }
-
-        btnBottomNavView.setOnClickListener {
-            BottomNavigationViewActivity.startActivity(activity)
-        }
     }
 
     override fun loadDataFirst() {

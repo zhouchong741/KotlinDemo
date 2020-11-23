@@ -10,6 +10,7 @@ import com.kotlin.demo.extension.logD
 import com.kotlin.demo.gank.RoomViewModel
 import com.kotlin.demo.livedata.observeOnce
 import com.kotlin.demo.model.User
+import com.kotlin.demo.util.ClickUtil
 import com.kotlin.demo.util.InjectUtil
 import com.kotlin.demo.util.ToastUtils
 import kotlinx.android.synthetic.main.activity_room.*
@@ -25,52 +26,67 @@ class RoomActivity : BaseActivity() {
             InjectUtil.getRoomFactory()
         ).get(RoomViewModel::class.java)
     }
+
     override fun getLayoutResId(): Int {
         return R.layout.activity_room
     }
 
     override fun initView() {
         tvTitle.text = getString(R.string.room)
-        // insert
-        btnWrite.setOnClickListener {
-            if (etName.text.toString().isNotEmpty()) {
-                viewModel.insert(User(0, etName.text.toString(), etAge.text.toString().toInt()))
-            } else {
-                ToastUtils.showToast(this, getString(R.string.can_not_be_empty))
-            }
-        }
-        btnRead.setOnClickListener {
-            if (etName.text.toString().isNotEmpty()) {
-                // 查询全部
-                viewModel.getAllUser.observe(this, Observer {
-                    ToastUtils.showToast(this, "name=" + it[0].userName + ";age=" + it[0].age)
-                    logD(TAG, it.toString())
-                })
-                // 查询单个
-                viewModel.getUser(etName.text.toString()).observe(this, Observer {
-                    ToastUtils.showToast(this, "name=" + it.userName + ";age=" + it.age)
-                    currentId = it.id
-                    logD(TAG, it.toString())
-                })
-            } else {
-                ToastUtils.showToast(this, getString(R.string.can_not_be_empty))
-            }
-            btnUpdate.setOnClickListener {
-                if (etName.text.toString().isNotEmpty()) {
-                    // 使用 observeOnce 只获取一次观察结果
-                    viewModel.getUserById(currentId).observeOnce(this, Observer {
-                        it.age = etAge.text.toString().toInt()
-                        viewModel.updateUser(it)
-                    })
-                    // suspend 方法获取 user
-                    val user: User = viewModel.getUserByIdOnce(currentId)
-                    user.age = etAge.text.toString().toInt()
-                    viewModel.updateUser(user)
-                } else {
-                    ToastUtils.showToast(this, getString(R.string.can_not_be_empty))
+
+        ClickUtil.setOnClickListener(btnWrite, btnRead, btnUpdate) {
+            when (this) {
+                btnWrite -> {
+                    if (etName.text.toString().isNotEmpty()) {
+                        viewModel.insert(
+                            User(
+                                0,
+                                etName.text.toString(),
+                                etAge.text.toString().toInt()
+                            )
+                        )
+                    } else {
+                        ToastUtils.showToast(this@RoomActivity, getString(R.string.can_not_be_empty))
+                    }
+                }
+                btnRead -> {
+                    if (etName.text.toString().isNotEmpty()) {
+                        // 查询全部
+                        viewModel.getAllUser.observe(this@RoomActivity, Observer {
+                            ToastUtils.showToast(
+                                this@RoomActivity,
+                                "name=" + it[0].userName + ";age=" + it[0].age
+                            )
+                            logD(TAG, it.toString())
+                        })
+                        // 查询单个
+                        viewModel.getUser(etName.text.toString()).observe(this@RoomActivity, Observer {
+                            ToastUtils.showToast(this@RoomActivity, "name=" + it.userName + ";age=" + it.age)
+                            currentId = it.id
+                            logD(TAG, it.toString())
+                        })
+                    } else {
+                        ToastUtils.showToast(this@RoomActivity, getString(R.string.can_not_be_empty))
+                    }
+                }
+                btnUpdate -> {
+                    if (etName.text.toString().isNotEmpty()) {
+                        // 使用 observeOnce 只获取一次观察结果
+                        viewModel.getUserById(currentId).observeOnce(this@RoomActivity, Observer {
+                            it.age = etAge.text.toString().toInt()
+                            viewModel.updateUser(it)
+                        })
+                        // suspend 方法获取 user
+                        val user: User = viewModel.getUserByIdOnce(currentId)
+                        user.age = etAge.text.toString().toInt()
+                        viewModel.updateUser(user)
+                    } else {
+                        ToastUtils.showToast(this@RoomActivity, getString(R.string.can_not_be_empty))
+                    }
                 }
             }
         }
+
     }
 
     companion object {
