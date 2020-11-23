@@ -27,23 +27,24 @@ class BottomNavigationViewActivity : BaseActivity() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.navHostFragmentView) as NavHostFragment
         bottomNavView.setupWithNavController(navHostFragment.navController)
-        bottomNavView.setOnNavigationItemSelectedListener { it ->
-            when (it.itemId) {
-                R.id.mainFragment -> {
-                    ToastUtils.showToast(this, it.title.toString())
-                }
-                R.id.ganHuoFragment -> {
-                    ToastUtils.showToast(this, it.title.toString())
-                }
-                R.id.meiZiFragment -> {
-                    ToastUtils.showToast(this, it.title.toString())
-                }
-                R.id.mineFragment -> {
-                    ToastUtils.showToast(this, it.title.toString())
-                }
-            }
-            true
-        }
+        // 添加点击事件不切换了 。。。
+//        bottomNavView.setOnNavigationItemSelectedListener { it ->
+//            when (it.itemId) {
+//                R.id.mainFragment -> {
+//                    ToastUtils.showToast(this, it.title.toString())
+//                }
+//                R.id.ganHuoFragment -> {
+//                    ToastUtils.showToast(this, it.title.toString())
+//                }
+//                R.id.meiZiFragment -> {
+//                    ToastUtils.showToast(this, it.title.toString())
+//                }
+//                R.id.mineFragment -> {
+//                    ToastUtils.showToast(this, it.title.toString())
+//                }
+//            }
+//            true
+//        }
     }
 
     companion object {
