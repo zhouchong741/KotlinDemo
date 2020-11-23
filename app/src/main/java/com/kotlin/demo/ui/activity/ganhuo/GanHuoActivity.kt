@@ -2,7 +2,6 @@ package com.kotlin.demo.ui.activity.ganhuo
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -36,31 +35,24 @@ class GanHuoActivity : BaseActivity() {
         ViewModelProvider(this, InjectUtil.getGanHuoFactory()).get(GanHuoViewModel::class.java)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_gan_huo)
+    override fun getLayoutResId(): Int {
+        return R.layout.activity_gan_huo
+    }
 
-        initView()
-
+    override fun initView() {
         refreshLayout.setOnRefreshListener {
             viewModel.onRefresh()
         }
-
         refreshLayout.setOnLoadMoreListener {
             viewModel.onLoad()
         }
         observe()
-    }
 
-    private fun initView() {
         tvTitle.text = getString(R.string.str_ganhuo)
-
         val linerLayoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = linerLayoutManager
-
         adapter = GanHuoAdapter(viewModel.dataList, this)
         recyclerView.adapter = adapter
-
         adapter.setICallback(object : GanHuoAdapter.ICallback {
             override fun onClick(view: View, data: GanHuoModel.Item) {
                 WebViewActivity.startActivity(
@@ -87,9 +79,11 @@ class GanHuoActivity : BaseActivity() {
 
     override fun loadFailed(msg: String?) {
         super.loadFailed(msg)
-        showLoadErrorView(msg ?: GankBaseApplication.context.getString(
-            R.string.unknown_error
-        )) {
+        showLoadErrorView(
+            msg ?: GankBaseApplication.context.getString(
+                R.string.unknown_error
+            )
+        ) {
             startLoading()
         }
     }
@@ -99,7 +93,10 @@ class GanHuoActivity : BaseActivity() {
             val response = result.getOrNull()
             if (response == null) {
                 ResponseHandler.getFailureTips(result.exceptionOrNull()).let {
-                    if (viewModel.dataList.isNullOrEmpty()) loadFailed(it) else ToastUtils.showToast(this, it)
+                    if (viewModel.dataList.isNullOrEmpty()) loadFailed(it) else ToastUtils.showToast(
+                        this,
+                        it
+                    )
                 }
                 refreshLayout.closeHeaderOrFooter()
                 return@Observer

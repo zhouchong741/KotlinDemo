@@ -2,7 +2,6 @@ package com.kotlin.demo.ui.activity.main
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -37,10 +36,11 @@ class MainActivity : BaseActivity() {
         )
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+    override fun getLayoutResId(): Int {
+        return R.layout.activity_main
+    }
 
+    override fun initView() {
         val linerLayoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = linerLayoutManager
         linerLayoutManager.orientation = RecyclerView.HORIZONTAL
@@ -107,6 +107,7 @@ class MainActivity : BaseActivity() {
         viewModel.onRefresh()
     }
 
+
     override fun loadFailed(msg: String?) {
         super.loadFailed(msg)
         showLoadErrorView(
@@ -125,7 +126,8 @@ class MainActivity : BaseActivity() {
                 ResponseHandler.getFailureTips(result.exceptionOrNull()).let {
                     if (viewModel.dataList.isNullOrEmpty()) loadFailed(it) else ToastUtils.showToast(
                         this,
-                        it)
+                        it
+                    )
                 }
                 refreshLayout.closeHeaderOrFooter()
                 return@Observer

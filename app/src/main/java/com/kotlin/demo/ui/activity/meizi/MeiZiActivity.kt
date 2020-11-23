@@ -2,7 +2,6 @@ package com.kotlin.demo.ui.activity.meizi
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -28,18 +27,15 @@ class MeiZiActivity : BaseActivity() {
         ViewModelProvider(this, InjectUtil.getMeiZiFactory()).get(MeiZiViewModel::class.java)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_meizi)
+    override fun getLayoutResId(): Int {
+        return R.layout.activity_meizi
+    }
 
-        initView()
-
+    override fun initView() {
         val gridLayoutManager = GridLayoutManager(this, 2)
         rvMeiZi.layoutManager = gridLayoutManager
-
         adapter = MeiZiAdapter(viewModel.dataList, this)
         rvMeiZi.adapter = adapter
-
         adapter.setICallback(object : MeiZiAdapter.ICallback {
             override fun onClick(view: View, imgUrl: String) {
                 PictureActivity.startActivity(
@@ -49,14 +45,11 @@ class MeiZiActivity : BaseActivity() {
                 )
             }
         })
-    }
 
-    private fun initView() {
         tvTitle.text = getString(R.string.str_meizi)
         refreshLayout.setOnRefreshListener {
             viewModel.onRefresh()
         }
-
         refreshLayout.setOnLoadMoreListener {
             viewModel.onLoad()
         }

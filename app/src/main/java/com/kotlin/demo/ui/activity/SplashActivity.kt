@@ -3,7 +3,6 @@ package com.kotlin.demo.ui.activity
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.animation.PropertyValuesHolder
-import android.os.Bundle
 import android.view.animation.AccelerateInterpolator
 import com.kotlin.demo.R
 import com.kotlin.demo.base.BaseActivity
@@ -30,11 +29,11 @@ class SplashActivity : BaseActivity() {
     private val durationTime = 4000L
     private val delayTime = 5000L
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splash)
+    override fun getLayoutResId(): Int {
+        return R.layout.activity_splash
+    }
 
-        // 首次进入判断
+    override fun initView() {
         if (isFirstEnterApp) {
             setAnim
             CoroutineScope(job).launch {

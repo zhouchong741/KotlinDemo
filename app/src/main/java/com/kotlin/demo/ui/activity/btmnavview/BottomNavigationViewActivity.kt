@@ -2,7 +2,6 @@ package com.kotlin.demo.ui.activity.btmnavview
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.kotlin.demo.R
@@ -19,18 +18,15 @@ import kotlinx.android.synthetic.main.activity_bottom_navigation_view.*
  * 迭代说明：
  */
 class BottomNavigationViewActivity : BaseActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_bottom_navigation_view)
 
-        initView()
+    override fun getLayoutResId(): Int {
+        return R.layout.activity_bottom_navigation_view
     }
 
-    private fun initView() {
+    override fun initView() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.navHostFragmentView) as NavHostFragment
         bottomNavView.setupWithNavController(navHostFragment.navController)
-
         bottomNavView.setOnNavigationItemSelectedListener { it ->
             when (it.itemId) {
                 R.id.mainFragment -> {

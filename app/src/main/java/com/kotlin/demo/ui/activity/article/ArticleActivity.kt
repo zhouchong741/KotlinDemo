@@ -2,9 +2,6 @@ package com.kotlin.demo.ui.activity.article
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
-import android.opengl.Visibility
-import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -18,7 +15,6 @@ import com.kotlin.demo.entity.TabEntity
 import com.kotlin.demo.ui.fragment.AlreadyReadFragment
 import com.kotlin.demo.ui.fragment.NotReadFragment
 import com.kotlin.demo.util.CommonUtils
-import com.kotlin.demo.util.StatusBarUtils
 import com.kotlin.demo.util.ToastUtils
 import kotlinx.android.synthetic.main.activity_article.*
 import kotlinx.android.synthetic.main.layout_title_bar.*
@@ -36,11 +32,13 @@ class ArticleActivity : BaseActivity() {
     private var fragmentList: Array<Fragment> =
         arrayOf(AlreadyReadFragment(this), NotReadFragment(this))
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_article)
-//        initView1()
+    override fun getLayoutResId(): Int {
+        return R.layout.activity_article
+    }
+
+    override fun initView() {
         initView2()
+        // initView1()
         search()
     }
 

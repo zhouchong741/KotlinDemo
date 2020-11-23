@@ -2,11 +2,9 @@ package com.kotlin.demo.ui.activity
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
 import androidx.core.app.ActivityOptionsCompat
 import com.kotlin.demo.R
 import com.kotlin.demo.base.BaseActivity
-import com.kotlin.demo.util.GlideUtils.load
 import kotlinx.android.synthetic.main.activity_web_view.*
 import kotlinx.android.synthetic.main.layout_title_bar.*
 
@@ -20,23 +18,8 @@ import kotlinx.android.synthetic.main.layout_title_bar.*
  */
 class WebViewActivity : BaseActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_web_view)
-
-        initView()
-
-        ivBack.setOnClickListener {
-            finishAfterTransition()
-        }
-    }
-
-    private fun initView() {
-        val link = intent.getStringExtra("LINK_URL")
-        val title = intent.getStringExtra("TITLE")
-        val imgUrl = intent.getStringExtra("IMG_URL")
-        tvTitle.text = title
-        initWevView(link)
+    override fun getLayoutResId(): Int {
+        return R.layout.activity_web_view
     }
 
     private fun initWevView(link: String?) {
@@ -53,6 +36,17 @@ class WebViewActivity : BaseActivity() {
         }
 
         webView.loadUrl(link!!)
+    }
+
+    override fun initView() {
+        ivBack.setOnClickListener {
+            finishAfterTransition()
+        }
+        val link = intent.getStringExtra("LINK_URL")
+        val title = intent.getStringExtra("TITLE")
+        val imgUrl = intent.getStringExtra("IMG_URL")
+        tvTitle.text = title
+        initWevView(link)
     }
 
     override fun onBackPressed() {

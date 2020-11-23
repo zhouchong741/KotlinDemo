@@ -2,7 +2,6 @@ package com.kotlin.demo.ui.activity
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
 import com.kotlin.demo.R
 import com.kotlin.demo.base.BaseActivity
 import com.kotlin.demo.util.GlideUtils.load
@@ -17,17 +16,14 @@ import kotlinx.android.synthetic.main.activity_image_detail.*
  * 迭代说明：
  */
 class ImageDetailActivity : BaseActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_image_detail)
 
-        initView()
+    override fun getLayoutResId(): Int {
+        return R.layout.activity_image_detail
     }
 
-    private fun initView() {
+    override fun initView() {
         val imgUrl = intent.getStringExtra("IMG_URL")
         ivDetail.load(imgUrl!!)
-
         ivDetail.setOnClickListener {
             finish()
         }

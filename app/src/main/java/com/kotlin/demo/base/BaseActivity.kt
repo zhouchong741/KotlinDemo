@@ -21,12 +21,12 @@ import com.tencent.mmkv.MMKV
 /**
  * @author: zhouchong
  * 创建日期: 2020/9/2 13:28
- * 描述:
+ * 描述: Activity 基类
  * 修改人:
  * 迭代版本:
  * 迭代说明:
  */
-open class BaseActivity : AppCompatActivity(), RequestLifecycle {
+abstract class BaseActivity : AppCompatActivity(), RequestLifecycle {
     /**
      * 基类里面使用
      */
@@ -37,32 +37,10 @@ open class BaseActivity : AppCompatActivity(), RequestLifecycle {
      */
     private lateinit var activity: Activity
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        activity = this
-
-        BaseAppManager.getInstance()?.addActivity(activity)
-
-        loadDataFirst()
-
-
-        // 设置状态栏透明
-//        StatusBarUtils.setStatusBarColor(this, Color.TRANSPARENT)
-        // 设置状态栏
-//        StatusBarUtils.setStatusBarLightMode(this, true)
-    }
-
-    override fun onResume() {
-        super.onResume()
-    }
-
     /**
      * 页面首次可见时调用一次该方法，在这里可以请求网络数据等。
      */
-    open fun loadDataFirst() {
-
-    }
+    open fun loadDataFirst() {}
 
     /**
      * 遮罩
@@ -73,6 +51,50 @@ open class BaseActivity : AppCompatActivity(), RequestLifecycle {
      * loading 文字
      */
     private var loadingText: TextView? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(getLayoutResId())
+        setupViews()
+        activity = this
+
+        BaseAppManager.getInstance()?.addActivity(activity)
+
+        loadDataFirst()
+        initView()
+
+        /*// 设置状态栏透明
+        StatusBarUtils.setStatusBarColor(this, Color.TRANSPARENT)
+        // 设置状态栏
+        StatusBarUtils.setStatusBarLightMode(this, true)*/
+    }
+
+    /**
+     * 返回 layout 布局
+     * @return Int
+     */
+    abstract fun getLayoutResId(): Int
+
+    /**
+     * 初始化操作
+     */
+    abstract fun initView()
+
+    /**
+     * 设置布局
+     */
+    protected open fun setupViews() {
+        loading = findViewById(R.id.loading_layout)
+        loadingText = findViewById(R.id.loading_msg)
+        // 使用根错误布局即可
+        rootView = findViewById(R.id.loadErrorView)
+
+        val ivBack = findViewById<ImageView>(R.id.ivBack)
+        val tvTitle = findViewById<TextView>(R.id.tvTitle)
+        val ivRight = findViewById<ImageView>(R.id.ivRight)
+
+        ivBack?.setOnClickListener { finish() }
+    }
 
     /**
      * 开始加载，将加载等待控件显示。
@@ -96,27 +118,6 @@ open class BaseActivity : AppCompatActivity(), RequestLifecycle {
     @CallSuper
     override fun loadFinished() {
         loading?.visibility = View.GONE
-    }
-
-    override fun setContentView(layoutResID: Int) {
-        super.setContentView(layoutResID)
-        setupViews()
-    }
-
-    /**
-     * 获取 loading
-     */
-    protected open fun setupViews() {
-        loading = findViewById(R.id.loading_layout)
-        loadingText = findViewById(R.id.loading_msg)
-        // 使用根错误布局即可
-        rootView = findViewById(R.id.loadErrorView)
-
-        val ivBack = findViewById<ImageView>(R.id.ivBack)
-        val tvTitle = findViewById<TextView>(R.id.tvTitle)
-        val ivRight = findViewById<ImageView>(R.id.ivRight)
-
-        ivBack?.setOnClickListener { finish() }
     }
 
     /**

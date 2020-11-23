@@ -3,7 +3,6 @@ package com.kotlin.demo.ui.activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
-import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.kotlin.demo.R
@@ -29,24 +28,19 @@ class LoginActivity : BaseActivity() {
         ViewModelProvider(this, InjectUtil.postLoginFactory()).get(LoginViewModel::class.java)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
-
-        initView()
-
-        setStatusBar()
-    }
-
     private fun setStatusBar() {
         StatusBarUtils.setStatusBarColor(this, Color.TRANSPARENT)
     }
 
-    private fun initView() {
+    override fun getLayoutResId(): Int {
+        return R.layout.activity_login
+    }
+
+    override fun initView() {
+        setStatusBar()
         // 直接获取 mmkv
         userNameET.setText(mmkv.decodeString(Constant.USER_NAME))
         passwordET.setText(mmkv.decodeString(Constant.PASSWORD))
-
         btnLogin.setOnClickListener {
             if (userNameET.text.isNullOrBlank() || passwordET.text.isNullOrBlank()) {
                 ToastUtils.showToast(this, getString(R.string.user_name_and_pwd_can_not_be_empty))
@@ -55,22 +49,18 @@ class LoginActivity : BaseActivity() {
             lottieView.visibility = View.VISIBLE
             btnLogin.text = ""
             viewModel.onLogin(LoginParams(userNameET.text.toString(), passwordET.text.toString()))
-
             observe()
-
             /*原始未封装 Retrofit 请求
             val retrofit = Retrofit.Builder()
                 .baseUrl("http://121.43.123.76/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
-
             val retrofitService = retrofit.create(MainPageService::class.java)
             val apiCall = retrofitService.login(userNameET.text.toString(), passwordET.text.toString())
             apiCall.enqueue(object : Callback<LoginModel?> {
                 override fun onFailure(call: Call<LoginModel?>, t: Throwable) {
                     logE("Error", t.message, t)
                 }
-
                 override fun onResponse(
                     call: Call<LoginModel?>,
                     response: Response<LoginModel?>
@@ -79,12 +69,10 @@ class LoginActivity : BaseActivity() {
                 }
             })*/
         }
-
         tvJump.setOnClickListener {
             Main2Activity.startActivity(this)
             finish()
         }
-
         // 共享元素 转场动画
         ivLogo.setOnClickListener {
             ShareElementActivity.startActivity(
@@ -129,4 +117,5 @@ class LoginActivity : BaseActivity() {
             context.startActivity(Intent(context, LoginActivity::class.java))
         }
     }
+
 }

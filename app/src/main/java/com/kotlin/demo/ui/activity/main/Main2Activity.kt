@@ -4,8 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.TypedArray
 import android.graphics.Color
-import android.os.Bundle
-import android.view.Menu
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -15,17 +13,14 @@ import com.flyco.tablayout.listener.OnTabSelectListener
 import com.kotlin.demo.R
 import com.kotlin.demo.base.BaseActivity
 import com.kotlin.demo.entity.TabEntity
-import com.kotlin.demo.extension.logD
 import com.kotlin.demo.ui.fragment.GanHuoFragment
 import com.kotlin.demo.ui.fragment.MainFragment
 import com.kotlin.demo.ui.fragment.MeiZiFragment
 import com.kotlin.demo.ui.fragment.MineFragment
-import com.kotlin.demo.util.CommonUtils
 import com.kotlin.demo.util.StatusBarUtils
 import com.kotlin.demo.util.ToastUtils
 import kotlinx.android.synthetic.main.activity_main2.*
-import kotlinx.android.synthetic.main.fragment_main_container.*
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Job
 
 /**
  * @author: zhouchong
@@ -47,46 +42,15 @@ class Main2Activity : BaseActivity() {
             MineFragment()
         )
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main2)
-        initView()
-
-        // 协程
-        CoroutineScope(job).launch(Dispatchers.Main) {
-            ioCode()
-            uiCode()
-            ioCode1()
-            uiCode1()
-        }
-
-    }
-
     private fun setStatusBar() {
         StatusBarUtils.setStatusBarColor(this, Color.TRANSPARENT)
     }
 
-    private suspend fun ioCode() {
-        withContext(Dispatchers.IO) {
-            logD(TAG, "IO")
-        }
+    override fun getLayoutResId(): Int {
+        return R.layout.activity_main2
     }
 
-    private fun uiCode() {
-        logD(TAG, "MAIN")
-    }
-
-    private suspend fun ioCode1() {
-        withContext(Dispatchers.IO) {
-            logD(TAG, "IO1")
-        }
-    }
-
-    private fun uiCode1() {
-        logD(TAG, "MAIN1")
-    }
-
-    private fun initView() {
+    override fun initView() {
         val titles: Array<String> = resources.getStringArray(R.array.title_array)
         val selectIds: TypedArray = resources.obtainTypedArray(R.array.select_icon_array)
         val unSelectIds: TypedArray = resources.obtainTypedArray(R.array.unselect_icon_array)
@@ -100,13 +64,11 @@ class Main2Activity : BaseActivity() {
                 )
             )
         }
-
         val adapter: ViewPager2Adapter by lazy {
             ViewPager2Adapter(this).apply {
                 addFragment(fragmentList)
             }
         }
-
         homeViewPager.adapter = adapter
         homeViewPager.offscreenPageLimit = 1
         bottomTabLayout.setTabData(titleData)
@@ -116,12 +78,9 @@ class Main2Activity : BaseActivity() {
             }
 
             override fun onTabReselect(position: Int) {
-
             }
         })
-
         homeViewPager.registerOnPageChangeCallback(PageChangeCallBack())
-
         // 禁止滑动
         homeViewPager.isUserInputEnabled = false
     }

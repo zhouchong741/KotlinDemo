@@ -2,7 +2,6 @@ package com.kotlin.demo.ui.activity.datastore
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import com.kotlin.demo.R
 import com.kotlin.demo.base.BaseActivity
@@ -30,14 +29,11 @@ class DataStoreActivity : BaseActivity() {
         ).get(DataStoreViewModel::class.java)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_data_store)
-
-        initView()
+    override fun getLayoutResId(): Int {
+        return R.layout.activity_data_store
     }
 
-    private fun initView() {
+    override fun initView() {
         tvTitle.text = getString(R.string.data_store)
         btnWrite.setOnClickListener {
             viewModel.saveDataByDataStore(PreferencesKeys.KEY_GITHUB)
@@ -49,10 +45,10 @@ class DataStoreActivity : BaseActivity() {
         }
     }
 
-
     companion object {
         fun startActivity(context: Context) {
             context.startActivity(Intent(context, DataStoreActivity::class.java))
         }
     }
+
 }

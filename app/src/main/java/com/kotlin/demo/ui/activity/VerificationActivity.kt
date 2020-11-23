@@ -2,7 +2,6 @@ package com.kotlin.demo.ui.activity
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
 import com.kotlin.demo.R
 import com.kotlin.demo.base.BaseActivity
 import com.kotlin.demo.util.CommonUtils
@@ -22,39 +21,32 @@ import kotlinx.android.synthetic.main.layout_title_bar.*
  */
 class VerificationActivity : BaseActivity() {
     private var doubleDuration = 0L
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_verification)
+    override fun getLayoutResId(): Int {
+        return R.layout.activity_verification
+    }
 
-        initView()
+    override fun initView() {
+        tvTitle.text = getString(R.string.str_verification_code)
 
         clearVerification.setOnClickListener {
             verificationCodeView.clearInputContent()
         }
-
         verificationCodeView.setInputCompleteListener(object : InputCompleteListener {
             override fun inputComplete() {
                 // 隐藏键盘
                 if (KeyboardUtil.isSoftShow(this@VerificationActivity)) {
                     KeyboardUtil.toggleKeyboard(this@VerificationActivity)
                 }
-
                 // 模拟请求验证
 //                startLoading(getString(R.string.str_verfication_in_progress))
-
                 ToastUtils.showToast(this@VerificationActivity,
                     "${CommonUtils.getString(R.string.app_name)}-${CommonUtils.getString(R.string.str_toast)}")
             }
-
             override fun deleteContent() {
                 ToastUtils.showToast(this@VerificationActivity,
                     CommonUtils.getString(R.string.str_clear))
             }
         })
-    }
-
-    private fun initView() {
-        tvTitle.text = getString(R.string.str_verification_code)
     }
 
     /**

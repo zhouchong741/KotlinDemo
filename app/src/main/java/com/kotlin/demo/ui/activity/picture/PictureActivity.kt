@@ -1,10 +1,8 @@
 package com.kotlin.demo.ui.activity.picture
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
-import android.os.Bundle
 import android.view.ViewGroup
 import androidx.core.app.ActivityOptionsCompat
 import androidx.viewpager2.widget.ViewPager2
@@ -17,7 +15,6 @@ import com.kotlin.demo.extension.visibleAlphaAnimation
 import com.kotlin.demo.util.ClickUtil
 import com.kotlin.demo.util.CommonUtils
 import com.kotlin.demo.util.StatusBarUtils
-import com.kotlin.demo.util.ToastUtils
 import com.kotlin.demo.util.helper.ZoomViewPagerTransformer
 import com.kotlin.demo.wigets.dialog.ShareBottomDialog
 import com.zhpan.indicator.enums.IndicatorSlideMode
@@ -36,14 +33,16 @@ class PictureActivity : BaseActivity() {
 
     private lateinit var imgUrl: String
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    private fun setStatusBar() {
+        StatusBarUtils.setStatusBarColor(this, Color.TRANSPARENT)
+    }
 
-        setContentView(R.layout.activity_picture)
+    override fun getLayoutResId(): Int {
+        return R.layout.activity_picture
+    }
 
-        initView()
+    override fun initView() {
         setStatusBar()
-
         ClickUtil.setOnClickListener(
             ivArrowClose,
             ivPrevious,
@@ -78,18 +77,7 @@ class PictureActivity : BaseActivity() {
                 }
             }
         }
-    }
 
-    private fun showShare() {
-        ShareBottomDialog(this).showDialog(this, imgUrl)
-    }
-
-    private fun setStatusBar() {
-        StatusBarUtils.setStatusBarColor(this, Color.TRANSPARENT)
-    }
-
-    @SuppressLint("SetTextI18n")
-    private fun initView() {
         imgUrl = intent.getStringExtra("IMG_URL").toString()
         val dataList = mutableListOf<String>()
         dataList.add(imgUrl)
@@ -97,19 +85,14 @@ class PictureActivity : BaseActivity() {
         dataList.add(imgUrl)
         val adapter = PictureAdapter(dataList, this)
         viewPager.adapter = adapter
-
         viewPager.offscreenPageLimit = 1
-
         tvPosition.text = "1 / ${dataList.size}"
-
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 tvPosition.text = "${position + 1} / ${dataList.size}"
             }
         })
-
-
         // indicator
         indicator.apply {
             setSliderColor(
@@ -124,16 +107,13 @@ class PictureActivity : BaseActivity() {
             setIndicatorStyle(IndicatorStyle.CIRCLE)
             setupWithViewPager(viewPager)
         }
-
         // 设置画廊效果
         viewPager.setPageTransformer(ZoomViewPagerTransformer())
-
         adapter.setICallback(object : PictureAdapter.ICallback {
             override fun onClick() {
                 toggleImage()
             }
         })
-
         // tablayout indicator
         TabLayoutMediator(
             tabLayout,
@@ -144,6 +124,10 @@ class PictureActivity : BaseActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         this.finishAfterTransition()
+    }
+
+    private fun showShare() {
+        ShareBottomDialog(this).showDialog(this, imgUrl)
     }
 
     private fun toggleImage() {
