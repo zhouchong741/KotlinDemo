@@ -61,15 +61,6 @@ abstract class BaseFragment : Fragment(), RequestLifecycle {
         activity = requireActivity()
     }
 
-    override fun onResume() {
-        super.onResume()
-        // 当Fragment在屏幕上可见并且没有加载过数据时调用
-        if (!mHasLoadedData) {
-            loadDataFirst()
-            mHasLoadedData = true
-        }
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -85,6 +76,15 @@ abstract class BaseFragment : Fragment(), RequestLifecycle {
     }
 
     abstract fun getLayoutResId(): Int
+
+    override fun onResume() {
+        super.onResume()
+        // 当Fragment在屏幕上可见并且没有加载过数据时调用
+        if (!mHasLoadedData) {
+            loadDataFirst()
+            mHasLoadedData = true
+        }
+    }
 
     @CallSuper
     override fun startLoading() {

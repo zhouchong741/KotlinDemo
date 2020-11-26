@@ -13,7 +13,7 @@ import kotlin.math.max
  * 迭代版本：
  * 迭代说明：
  */
-class ZoomViewPagerTransformer : ViewPager2.PageTransformer {
+class ZoomOutViewPagerTransformer : ViewPager2.PageTransformer {
     private val minScale = 0.9f
     private val minAlpha = 0.5f
 

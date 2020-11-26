@@ -15,7 +15,8 @@ import com.kotlin.demo.extension.visibleAlphaAnimation
 import com.kotlin.demo.util.ClickUtil
 import com.kotlin.demo.util.CommonUtils
 import com.kotlin.demo.util.StatusBarUtils
-import com.kotlin.demo.util.helper.ZoomViewPagerTransformer
+import com.kotlin.demo.util.helper.DepthPageTransformer
+import com.kotlin.demo.util.helper.ZoomOutViewPagerTransformer
 import com.kotlin.demo.wigets.dialog.ShareBottomDialog
 import com.zhpan.indicator.enums.IndicatorSlideMode
 import com.zhpan.indicator.enums.IndicatorStyle
@@ -107,8 +108,11 @@ class PictureActivity : BaseActivity() {
             setIndicatorStyle(IndicatorStyle.CIRCLE)
             setupWithViewPager(viewPager)
         }
-        // 设置画廊效果
-        viewPager.setPageTransformer(ZoomViewPagerTransformer())
+        // 缩小页面 设置画廊效果
+        viewPager.setPageTransformer(ZoomOutViewPagerTransformer())
+
+        // 深度页面 需要设置 viewpager2 android:layout_width="match_parent"
+//        viewPager.setPageTransformer(DepthPageTransformer())
         adapter.setICallback(object : PictureAdapter.ICallback {
             override fun onClick() {
                 toggleImage()
