@@ -2,6 +2,7 @@ package com.kotlin.demo.ui.activity.btmnavview
 
 import android.content.Context
 import android.content.Intent
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.kotlin.demo.R
@@ -24,27 +25,33 @@ class BottomNavigationViewActivity : BaseActivity() {
     }
 
     override fun initView() {
+        // 切换点击的 view 绑定
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.navHostFragmentView) as NavHostFragment
         bottomNavView.setupWithNavController(navHostFragment.navController)
-        // 添加点击事件不切换了 。。。
-//        bottomNavView.setOnNavigationItemSelectedListener { it ->
-//            when (it.itemId) {
-//                R.id.mainFragment -> {
-//                    ToastUtils.showToast(this, it.title.toString())
-//                }
-//                R.id.ganHuoFragment -> {
-//                    ToastUtils.showToast(this, it.title.toString())
-//                }
-//                R.id.meiZiFragment -> {
-//                    ToastUtils.showToast(this, it.title.toString())
-//                }
-//                R.id.mineFragment -> {
-//                    ToastUtils.showToast(this, it.title.toString())
-//                }
-//            }
-//            true
-//        }
+        // 处理点击事件
+        bottomNavView.setOnNavigationItemSelectedListener {
+            val navController = Navigation.findNavController(navHostFragmentView)
+            when (it.itemId) {
+                R.id.mainFragment -> {
+                    navController.navigate(R.id.mainFragment)
+                    ToastUtils.showToast(this, it.title.toString())
+                }
+                R.id.ganHuoFragment -> {
+                    navController.navigate(R.id.ganHuoFragment)
+                    ToastUtils.showToast(this, it.title.toString())
+                }
+                R.id.meiZiFragment -> {
+                    navController.navigate(R.id.meiZiFragment)
+                    ToastUtils.showToast(this, it.title.toString())
+                }
+                R.id.mineFragment -> {
+                    navController.navigate(R.id.mineFragment)
+                    ToastUtils.showToast(this, it.title.toString())
+                }
+            }
+            true
+        }
     }
 
     companion object {
