@@ -7,6 +7,7 @@
     android:layout_gravity="center"
     android:background="@drawable/material_card"
     android:gravity="center"
+    android:visibility="gone"
     android:orientation="vertical"
     android:padding="20dp">
 

@@ -32,6 +32,7 @@ class MeiZiActivity : BaseActivity() {
     }
 
     override fun initView() {
+        tvTitle.text = getString(R.string.str_meizi)
         val gridLayoutManager = GridLayoutManager(this, 2)
         rvMeiZi.layoutManager = gridLayoutManager
         adapter = MeiZiAdapter(viewModel.dataList, this)
@@ -46,7 +47,6 @@ class MeiZiActivity : BaseActivity() {
             }
         })
 
-        tvTitle.text = getString(R.string.str_meizi)
         refreshLayout.setOnRefreshListener {
             viewModel.onRefresh()
         }
@@ -82,7 +82,10 @@ class MeiZiActivity : BaseActivity() {
             val response = result.getOrNull()
             if (response == null) {
                 ResponseHandler.getFailureTips(result.exceptionOrNull()).let {
-                    if (viewModel.dataList.isNullOrEmpty()) loadFailed(it) else ToastUtils.showToast(this, it)
+                    if (viewModel.dataList.isNullOrEmpty()) loadFailed(it) else ToastUtils.showToast(
+                        this,
+                        it
+                    )
                 }
                 refreshLayout.closeHeaderOrFooter()
                 return@Observer
