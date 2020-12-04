@@ -1,9 +1,7 @@
 package com.kotlin.demo.ui.fragment
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.view.animation.Interpolator
 import androidx.lifecycle.Observer
@@ -14,7 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kotlin.demo.GankBaseApplication
 import com.kotlin.demo.R
 import com.kotlin.demo.adapter.GanHuoAdapter
-import com.kotlin.demo.base.BaseFragment
+import com.kotlin.demo.base.BaseViewBindingFragment
+import com.kotlin.demo.databinding.FragmentGanhuoBinding
 import com.kotlin.demo.gank.GanHuoViewModel
 import com.kotlin.demo.model.GanHuoModel
 import com.kotlin.demo.ui.activity.WebViewActivity
@@ -34,15 +33,17 @@ import java.util.*
  * 迭代版本:
  * 迭代说明:
  */
-class GanHuoFragment : BaseFragment() {
+class GanHuoFragment : BaseViewBindingFragment() {
 
+    private lateinit var viewBinding: FragmentGanhuoBinding
     private lateinit var adapter: GanHuoAdapter
     private val viewModel by lazy {
         ViewModelProvider(this, InjectUtil.getGanHuoFactory()).get(GanHuoViewModel::class.java)
     }
 
-    override fun getLayoutResId(): Int {
-        return R.layout.fragment_ganhuo
+    override fun getViewBindingLayoutResId(): View {
+        viewBinding = FragmentGanhuoBinding.inflate(layoutInflater)
+        return viewBinding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -62,10 +63,10 @@ class GanHuoFragment : BaseFragment() {
 
     private fun initView() {
         val linerLayoutManager = LinearLayoutManager(activity)
-        recyclerView.layoutManager = linerLayoutManager
+        viewBinding.recyclerView.layoutManager = linerLayoutManager
 
         adapter = GanHuoAdapter(viewModel.dataList, activity)
-        recyclerView.adapter = adapter
+        viewBinding.recyclerView.adapter = adapter
 
         adapter.setICallback(object : GanHuoAdapter.ICallback {
             override fun onClick(view: View, data: GanHuoModel.Item) {
@@ -78,7 +79,6 @@ class GanHuoFragment : BaseFragment() {
                 )
             }
         })
-
 
         // 拖动排序
         val itemTouchHelper = ItemTouchHelper(mCallBack)
@@ -148,18 +148,18 @@ class GanHuoFragment : BaseFragment() {
                         it
                     )
                 }
-                refreshLayout.closeHeaderOrFooter()
+                viewBinding.refreshLayout.closeHeaderOrFooter()
                 return@Observer
             }
             loadFinished()
             if (response.itemList.isNullOrEmpty() && viewModel.dataList.isEmpty()) {
                 // 首次进入页面时，获取数据条目为0时处理。
-                refreshLayout.closeHeaderOrFooter()
+                viewBinding.refreshLayout.closeHeaderOrFooter()
                 return@Observer
             }
             if (response.itemList.isNullOrEmpty() && viewModel.dataList.isNotEmpty()) {
                 // 上拉加载数据时，返回数据条目为0时处理。
-                refreshLayout.finishLoadMoreWithNoMoreData()
+                viewBinding.refreshLayout.finishLoadMoreWithNoMoreData()
                 return@Observer
             }
             when (refreshLayout.state) {
@@ -169,7 +169,7 @@ class GanHuoFragment : BaseFragment() {
                     val resId = R.anim.layout_animation_from_bottom
                     val layoutAnimationController =
                         AnimationUtils.loadLayoutAnimation(activity, resId)
-                    recyclerView.layoutAnimation = layoutAnimationController
+                    viewBinding.recyclerView.layoutAnimation = layoutAnimationController
                     adapter.notifyDataSetChanged()
                 }
                 RefreshState.Loading -> {
@@ -182,9 +182,9 @@ class GanHuoFragment : BaseFragment() {
             }
 
             if (response.page < response.page_count) {
-                refreshLayout.closeHeaderOrFooter()
+                viewBinding.refreshLayout.closeHeaderOrFooter()
             } else {
-                refreshLayout.finishLoadMoreWithNoMoreData()
+                viewBinding.refreshLayout.finishLoadMoreWithNoMoreData()
             }
 
         })

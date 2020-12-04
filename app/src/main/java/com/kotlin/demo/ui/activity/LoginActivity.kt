@@ -6,7 +6,8 @@ import android.graphics.Color
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.kotlin.demo.R
-import com.kotlin.demo.base.BaseActivity
+import com.kotlin.demo.base.BaseViewBindingActivity
+import com.kotlin.demo.databinding.ActivityLoginBinding
 import com.kotlin.demo.gank.LoginViewModel
 import com.kotlin.demo.param.LoginParams
 import com.kotlin.demo.ui.activity.main.Main2Activity
@@ -22,8 +23,9 @@ import kotlinx.android.synthetic.main.activity_login.*
  * 迭代版本：
  * 迭代说明：
  */
-class LoginActivity : BaseActivity() {
+class LoginActivity : BaseViewBindingActivity() {
 
+    private lateinit var viewBinding: ActivityLoginBinding
     private val viewModel by lazy {
         ViewModelProvider(this, InjectUtil.postLoginFactory()).get(LoginViewModel::class.java)
     }
@@ -32,16 +34,17 @@ class LoginActivity : BaseActivity() {
         StatusBarUtils.setStatusBarColor(this, Color.TRANSPARENT)
     }
 
-    override fun getLayoutResId(): Int {
-        return R.layout.activity_login
+    override fun getViewBindingLayoutResId(): View {
+        viewBinding = ActivityLoginBinding.inflate(layoutInflater)
+        return viewBinding.root
     }
 
     override fun initView() {
         setStatusBar()
         // 直接获取 mmkv
-        userNameET.setText(mmkv.decodeString(Constant.USER_NAME))
-        passwordET.setText(mmkv.decodeString(Constant.PASSWORD))
-        btnLogin.setOnClickListener {
+        viewBinding.userNameET.setText(mmkv.decodeString(Constant.USER_NAME))
+        viewBinding.passwordET.setText(mmkv.decodeString(Constant.PASSWORD))
+        viewBinding.btnLogin.setOnClickListener {
             if (userNameET.text.isNullOrBlank() || passwordET.text.isNullOrBlank()) {
                 ToastUtils.showToast(this, getString(R.string.user_name_and_pwd_can_not_be_empty))
                 return@setOnClickListener
@@ -70,8 +73,8 @@ class LoginActivity : BaseActivity() {
             })*/
         }
 
-        ClickUtil.setOnClickListener(tvJump, ivLogo){
-            when(this){
+        ClickUtil.setOnClickListener(viewBinding.tvJump, viewBinding.ivLogo) {
+            when (this) {
                 tvJump -> {
                     Main2Activity.startActivity(this@LoginActivity)
                     finish()
