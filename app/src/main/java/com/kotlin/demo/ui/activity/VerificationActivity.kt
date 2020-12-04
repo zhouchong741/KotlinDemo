@@ -2,8 +2,11 @@ package com.kotlin.demo.ui.activity
 
 import android.content.Context
 import android.content.Intent
+import android.view.View
 import com.kotlin.demo.R
-import com.kotlin.demo.base.BaseActivity
+import com.kotlin.demo.base.BaseViewBindingActivity
+import com.kotlin.demo.databinding.ActivityVerificationBinding
+import com.kotlin.demo.databinding.LayoutTitleBarBinding
 import com.kotlin.demo.util.CommonUtils
 import com.kotlin.demo.util.KeyboardUtil
 import com.kotlin.demo.util.ToastUtils
@@ -19,19 +22,24 @@ import kotlinx.android.synthetic.main.layout_title_bar.*
  * 迭代版本：
  * 迭代说明：
  */
-class VerificationActivity : BaseActivity() {
+class VerificationActivity : BaseViewBindingActivity() {
+
+    private lateinit var viewBinding: ActivityVerificationBinding
+    private lateinit var includeViewBinding: LayoutTitleBarBinding
     private var doubleDuration = 0L
-    override fun getLayoutResId(): Int {
-        return R.layout.activity_verification
+    override fun getViewBindingLayoutResId(): View {
+        viewBinding = ActivityVerificationBinding.inflate(layoutInflater)
+        includeViewBinding = viewBinding.include
+        return viewBinding.root
     }
 
     override fun initView() {
-        tvTitle.text = getString(R.string.str_verification_code)
+        includeViewBinding.tvTitle.text = getString(R.string.str_verification_code)
 
-        clearVerification.setOnClickListener {
+        viewBinding.clearVerification.setOnClickListener {
             verificationCodeView.clearInputContent()
         }
-        verificationCodeView.setInputCompleteListener(object : InputCompleteListener {
+        viewBinding.verificationCodeView.setInputCompleteListener(object : InputCompleteListener {
             override fun inputComplete() {
                 // 隐藏键盘
                 if (KeyboardUtil.isSoftShow(this@VerificationActivity)) {
@@ -42,6 +50,7 @@ class VerificationActivity : BaseActivity() {
                 ToastUtils.showToast(this@VerificationActivity,
                     "${CommonUtils.getString(R.string.app_name)}-${CommonUtils.getString(R.string.str_toast)}")
             }
+
             override fun deleteContent() {
                 ToastUtils.showToast(this@VerificationActivity,
                     CommonUtils.getString(R.string.str_clear))

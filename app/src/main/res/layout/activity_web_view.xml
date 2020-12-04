@@ -6,7 +6,7 @@
     android:orientation="vertical"
     tools:context=".ui.activity.WebViewActivity">
 
-    <include layout="@layout/layout_title_bar" />
+    <include android:id="@+id/include" layout="@layout/layout_title_bar" />
 
     <com.kotlin.demo.wigets.webview.ProgressWebView
         android:id="@+id/webView"

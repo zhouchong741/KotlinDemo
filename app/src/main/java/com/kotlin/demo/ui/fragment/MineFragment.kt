@@ -1,15 +1,9 @@
 package com.kotlin.demo.ui.fragment
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import com.kotlin.demo.R
-import com.kotlin.demo.base.BaseFragment
-import com.kotlin.demo.ui.activity.main.Main2Activity
-import com.kotlin.demo.util.StatusBarUtils
-import com.kotlin.demo.util.ToastUtils
-import kotlinx.android.synthetic.main.fragment_mine.*
+import com.kotlin.demo.base.BaseViewBindingFragment
+import com.kotlin.demo.databinding.FragmentMineBinding
 
 /**
  * @author: zhouchong
@@ -19,16 +13,19 @@ import kotlinx.android.synthetic.main.fragment_mine.*
  * 迭代版本:
  * 迭代说明:
  */
-class MineFragment : BaseFragment() {
+class MineFragment : BaseViewBindingFragment() {
 
-    override fun getLayoutResId(): Int {
-        return R.layout.fragment_mine
+    private lateinit var viewBinding: FragmentMineBinding
+
+    override fun getViewBindingLayoutResId(): View {
+        viewBinding = FragmentMineBinding.inflate(layoutInflater)
+        return viewBinding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        floatButton.setOnClickListener {
+        viewBinding.floatButton.setOnClickListener {
 //            ToastUtils.showToast(activity, getString(R.string.not_open_yet))
         }
     }

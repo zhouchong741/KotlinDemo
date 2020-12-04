@@ -3,9 +3,10 @@ package com.kotlin.demo.ui.activity
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.animation.PropertyValuesHolder
+import android.view.View
 import android.view.animation.AccelerateInterpolator
-import com.kotlin.demo.R
-import com.kotlin.demo.base.BaseActivity
+import com.kotlin.demo.base.BaseViewBindingActivity
+import com.kotlin.demo.databinding.ActivitySplashBinding
 import com.kotlin.demo.util.SharePreferenceUtils
 import com.kotlin.demo.util.SharePreferenceUtils.edit
 import kotlinx.android.synthetic.main.activity_splash.*
@@ -22,15 +23,18 @@ import kotlinx.coroutines.launch
  * 迭代版本：
  * 迭代说明：
  */
-class SplashActivity : BaseActivity() {
+class SplashActivity : BaseViewBindingActivity() {
+
+    private lateinit var viewBinding: ActivitySplashBinding
 
     private val job by lazy { Job() }
 
     private val durationTime = 4000L
     private val delayTime = 5000L
 
-    override fun getLayoutResId(): Int {
-        return R.layout.activity_splash
+    override fun getViewBindingLayoutResId(): View {
+        viewBinding = ActivitySplashBinding.inflate(layoutInflater)
+        return viewBinding.root
     }
 
     override fun initView() {
@@ -52,7 +56,7 @@ class SplashActivity : BaseActivity() {
         AnimatorSet().apply {
             playTogether(
                 ObjectAnimator.ofPropertyValuesHolder(
-                    tvHello,
+                    viewBinding.tvHello,
                     PropertyValuesHolder.ofFloat("alpha", 0f, 1f),
                     PropertyValuesHolder.ofFloat("ScaleX", 1f, 2f),
                     PropertyValuesHolder.ofFloat("ScaleY", 1f, 2f),
@@ -62,7 +66,7 @@ class SplashActivity : BaseActivity() {
                     }
                 ),
                 ObjectAnimator.ofPropertyValuesHolder(
-                    ivHeader,
+                    viewBinding.ivHeader,
                     PropertyValuesHolder.ofFloat("alpha", 0f, 1f),
                     PropertyValuesHolder.ofFloat("ScaleX", 1f, 1.5f),
                     PropertyValuesHolder.ofFloat("ScaleY", 1f, 1.5f),

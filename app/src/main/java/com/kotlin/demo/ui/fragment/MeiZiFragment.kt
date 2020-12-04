@@ -1,17 +1,15 @@
 package com.kotlin.demo.ui.fragment
 
-import android.app.Activity
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.kotlin.demo.GankBaseApplication
 import com.kotlin.demo.R
 import com.kotlin.demo.adapter.MeiZiAdapter
-import com.kotlin.demo.base.BaseFragment
+import com.kotlin.demo.base.BaseViewBindingFragment
+import com.kotlin.demo.databinding.FragmentMeiziBinding
 import com.kotlin.demo.gank.MeiZiViewModel
 import com.kotlin.demo.ui.activity.picture.PictureActivity
 import com.kotlin.demo.util.CommonUtils
@@ -29,16 +27,18 @@ import kotlinx.android.synthetic.main.activity_meizi.*
  * 迭代版本:
  * 迭代说明:
  */
-class MeiZiFragment : BaseFragment() {
+class MeiZiFragment : BaseViewBindingFragment() {
 
+    private lateinit var viewBinding: FragmentMeiziBinding
     private lateinit var adapter: MeiZiAdapter
 
     private val viewModel by lazy {
         ViewModelProvider(this, InjectUtil.getMeiZiFactory()).get(MeiZiViewModel::class.java)
     }
 
-    override fun getLayoutResId(): Int {
-        return R.layout.fragment_meizi
+    override fun getViewBindingLayoutResId(): View {
+        viewBinding = FragmentMeiziBinding.inflate(layoutInflater)
+        return viewBinding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -47,10 +47,10 @@ class MeiZiFragment : BaseFragment() {
         initView()
 
         val gridLayoutManager = GridLayoutManager(activity, 2)
-        rvMeiZi.layoutManager = gridLayoutManager
+        viewBinding.rvMeiZi.layoutManager = gridLayoutManager
 
         adapter = MeiZiAdapter(viewModel.dataList, activity)
-        rvMeiZi.adapter = adapter
+        viewBinding.rvMeiZi.adapter = adapter
 
         adapter.setICallback(object : MeiZiAdapter.ICallback {
             override fun onClick(view: View, imgUrl: String) {
@@ -64,11 +64,11 @@ class MeiZiFragment : BaseFragment() {
     }
 
     private fun initView() {
-        refreshLayout.setOnRefreshListener {
+        viewBinding.refreshLayout.setOnRefreshListener {
             viewModel.onRefresh()
         }
 
-        refreshLayout.setOnLoadMoreListener {
+        viewBinding.refreshLayout.setOnLoadMoreListener {
             viewModel.onLoad()
         }
         observe()
@@ -105,7 +105,7 @@ class MeiZiFragment : BaseFragment() {
                         it
                     )
                 }
-                refreshLayout.closeHeaderOrFooter()
+                viewBinding.refreshLayout.closeHeaderOrFooter()
                 return@Observer
             }
 
@@ -113,15 +113,15 @@ class MeiZiFragment : BaseFragment() {
 
             if (response.itemList.isNullOrEmpty() && viewModel.dataList.isNotEmpty()) {
                 //上拉加载数据时，返回数据条目为0时处理。
-                refreshLayout.finishLoadMoreWithNoMoreData()
+                viewBinding.refreshLayout.finishLoadMoreWithNoMoreData()
                 return@Observer
             }
             if (response.itemList.isNullOrEmpty() && viewModel.dataList.isNotEmpty()) {
                 //上拉加载数据时，返回数据条目为0时处理。
-                refreshLayout.finishLoadMoreWithNoMoreData()
+                viewBinding.refreshLayout.finishLoadMoreWithNoMoreData()
                 return@Observer
             }
-            when (refreshLayout.state) {
+            when (viewBinding.refreshLayout.state) {
                 RefreshState.None, RefreshState.Refreshing -> {
                     viewModel.dataList.clear()
                     viewModel.dataList.addAll(response.itemList)
@@ -137,9 +137,9 @@ class MeiZiFragment : BaseFragment() {
             }
 
             if (response.page < response.page_count) {
-                refreshLayout.closeHeaderOrFooter()
+                viewBinding.refreshLayout.closeHeaderOrFooter()
             } else {
-                refreshLayout.finishLoadMoreWithNoMoreData()
+                viewBinding.refreshLayout.finishLoadMoreWithNoMoreData()
             }
         })
     }

@@ -9,7 +9,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.kotlin.demo.GankBaseApplication
 import com.kotlin.demo.R
 import com.kotlin.demo.adapter.MeiZiAdapter
-import com.kotlin.demo.base.BaseActivity
+import com.kotlin.demo.base.BaseViewBindingActivity
+import com.kotlin.demo.databinding.ActivityMeiziBinding
+import com.kotlin.demo.databinding.LayoutTitleBarBinding
 import com.kotlin.demo.gank.MeiZiViewModel
 import com.kotlin.demo.ui.activity.picture.PictureActivity
 import com.kotlin.demo.util.CommonUtils
@@ -20,23 +22,29 @@ import com.scwang.smart.refresh.layout.constant.RefreshState
 import kotlinx.android.synthetic.main.activity_meizi.*
 import kotlinx.android.synthetic.main.layout_title_bar.*
 
-class MeiZiActivity : BaseActivity() {
+class MeiZiActivity : BaseViewBindingActivity() {
+
+    private lateinit var viewBinding: ActivityMeiziBinding
+    private lateinit var includeViewBinding: LayoutTitleBarBinding
+
     private lateinit var adapter: MeiZiAdapter
 
     private val viewModel by lazy {
         ViewModelProvider(this, InjectUtil.getMeiZiFactory()).get(MeiZiViewModel::class.java)
     }
 
-    override fun getLayoutResId(): Int {
-        return R.layout.activity_meizi
+    override fun getViewBindingLayoutResId(): View {
+        viewBinding = ActivityMeiziBinding.inflate(layoutInflater)
+        includeViewBinding = viewBinding.include
+        return viewBinding.root
     }
 
     override fun initView() {
-        tvTitle.text = getString(R.string.str_meizi)
+        includeViewBinding.tvTitle.text = getString(R.string.str_meizi)
         val gridLayoutManager = GridLayoutManager(this, 2)
-        rvMeiZi.layoutManager = gridLayoutManager
+        viewBinding.rvMeiZi.layoutManager = gridLayoutManager
         adapter = MeiZiAdapter(viewModel.dataList, this)
-        rvMeiZi.adapter = adapter
+        viewBinding.rvMeiZi.adapter = adapter
         adapter.setICallback(object : MeiZiAdapter.ICallback {
             override fun onClick(view: View, imgUrl: String) {
                 PictureActivity.startActivity(
@@ -47,10 +55,10 @@ class MeiZiActivity : BaseActivity() {
             }
         })
 
-        refreshLayout.setOnRefreshListener {
+        viewBinding.refreshLayout.setOnRefreshListener {
             viewModel.onRefresh()
         }
-        refreshLayout.setOnLoadMoreListener {
+        viewBinding.refreshLayout.setOnLoadMoreListener {
             viewModel.onLoad()
         }
         onObserve()
@@ -87,7 +95,7 @@ class MeiZiActivity : BaseActivity() {
                         it
                     )
                 }
-                refreshLayout.closeHeaderOrFooter()
+                viewBinding.refreshLayout.closeHeaderOrFooter()
                 return@Observer
             }
 
@@ -95,10 +103,10 @@ class MeiZiActivity : BaseActivity() {
 
             if (response.itemList.isNullOrEmpty() && viewModel.dataList.isNotEmpty()) {
                 //上拉加载数据时，返回数据条目为0时处理。
-                refreshLayout.finishLoadMoreWithNoMoreData()
+                viewBinding.refreshLayout.finishLoadMoreWithNoMoreData()
                 return@Observer
             }
-            when (refreshLayout.state) {
+            when (viewBinding.refreshLayout.state) {
                 RefreshState.None, RefreshState.Refreshing -> {
                     viewModel.dataList.clear()
                     viewModel.dataList.addAll(response.itemList)
@@ -114,9 +122,9 @@ class MeiZiActivity : BaseActivity() {
             }
 
             if (response.page < response.page_count) {
-                refreshLayout.closeHeaderOrFooter()
+                viewBinding.refreshLayout.closeHeaderOrFooter()
             } else {
-                refreshLayout.finishLoadMoreWithNoMoreData()
+                viewBinding.refreshLayout.finishLoadMoreWithNoMoreData()
             }
         })
     }

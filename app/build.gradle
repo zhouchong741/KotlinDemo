@@ -34,8 +34,8 @@ android {
         freeCompilerArgs += ["-Xopt-in=kotlin.RequiresOptIn"]
     }
 
-    viewBinding {
-        enabled = true
+    buildFeatures {
+        viewBinding = true
     }
 }
 
@@ -64,7 +64,7 @@ dependencies {
     implementation Deps.logging_interceptor
 
     implementation Deps.glide
-    annotationProcessor Deps.glide_compiler
+    kapt Deps.glide_compiler
     implementation Deps.glide_transformations
     implementation Deps.flycoTabLayout
     implementation Deps.viewpager2

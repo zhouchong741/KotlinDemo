@@ -2,10 +2,10 @@ package com.kotlin.demo.ui.activity
 
 import android.content.Context
 import android.content.Intent
-import com.kotlin.demo.R
-import com.kotlin.demo.base.BaseActivity
+import android.view.View
+import com.kotlin.demo.base.BaseViewBindingActivity
+import com.kotlin.demo.databinding.ActivityImageDetailBinding
 import com.kotlin.demo.util.GlideUtils.load
-import kotlinx.android.synthetic.main.activity_image_detail.*
 
 /**
  * @author zhouchong
@@ -15,16 +15,18 @@ import kotlinx.android.synthetic.main.activity_image_detail.*
  * 迭代版本：
  * 迭代说明：
  */
-class ImageDetailActivity : BaseActivity() {
+class ImageDetailActivity : BaseViewBindingActivity() {
 
-    override fun getLayoutResId(): Int {
-        return R.layout.activity_image_detail
+    private lateinit var viewBinding: ActivityImageDetailBinding
+    override fun getViewBindingLayoutResId(): View {
+        viewBinding = ActivityImageDetailBinding.inflate(layoutInflater)
+        return viewBinding.root
     }
 
     override fun initView() {
         val imgUrl = intent.getStringExtra("IMG_URL")
-        ivDetail.load(imgUrl!!)
-        ivDetail.setOnClickListener {
+        viewBinding.ivDetail.load(imgUrl!!)
+        viewBinding.ivDetail.setOnClickListener {
             finish()
         }
     }

@@ -3,20 +3,32 @@ package com.kotlin.demo.ui.activity.shareelement
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.view.View
 import androidx.core.app.ActivityOptionsCompat
-import com.kotlin.demo.R
-import com.kotlin.demo.base.BaseActivity
+import com.kotlin.demo.base.BaseViewBindingActivity
+import com.kotlin.demo.databinding.ActivityShareElementBinding
 import com.kotlin.demo.util.StatusBarUtils
 import kotlinx.android.synthetic.main.activity_share_element.*
 
-class ShareElementActivity : BaseActivity() {
-    override fun getLayoutResId(): Int {
-        return R.layout.activity_share_element
+/**
+ * @author zhouchong
+ * 创建日期: 2020/12/4 15:58
+ * 描述：共享元素
+ * 修改人：
+ * 迭代版本：
+ * 迭代说明：
+ */
+class ShareElementActivity : BaseViewBindingActivity() {
+
+    private lateinit var viewBinding: ActivityShareElementBinding
+    override fun getViewBindingLayoutResId(): View {
+        viewBinding = ActivityShareElementBinding.inflate(layoutInflater)
+        return viewBinding.root
     }
 
     override fun initView() {
         setStatusBar()
-        ivShareElementLogo.setOnClickListener {
+        viewBinding.ivShareElementLogo.setOnClickListener {
             finishAfterTransition()
         }
     }

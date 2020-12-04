@@ -162,7 +162,7 @@ class GanHuoFragment : BaseViewBindingFragment() {
                 viewBinding.refreshLayout.finishLoadMoreWithNoMoreData()
                 return@Observer
             }
-            when (refreshLayout.state) {
+            when (viewBinding.refreshLayout.state) {
                 RefreshState.None, RefreshState.Refreshing -> {
                     viewModel.dataList.clear()
                     viewModel.dataList.addAll(response.itemList)

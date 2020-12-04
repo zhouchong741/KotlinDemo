@@ -10,6 +10,9 @@ import com.kotlin.demo.GankBaseApplication
 import com.kotlin.demo.R
 import com.kotlin.demo.adapter.GanHuoAdapter
 import com.kotlin.demo.base.BaseActivity
+import com.kotlin.demo.base.BaseViewBindingActivity
+import com.kotlin.demo.databinding.ActivityGanHuoBinding
+import com.kotlin.demo.databinding.LayoutTitleBarBinding
 import com.kotlin.demo.gank.GanHuoViewModel
 import com.kotlin.demo.model.GanHuoModel
 import com.kotlin.demo.ui.activity.WebViewActivity
@@ -29,30 +32,34 @@ import kotlinx.android.synthetic.main.layout_title_bar.*
  * 迭代版本：
  * 迭代说明：
  */
-class GanHuoActivity : BaseActivity() {
+class GanHuoActivity : BaseViewBindingActivity() {
+    private lateinit var viewBinding: ActivityGanHuoBinding
+    private lateinit var includeViewBinding: LayoutTitleBarBinding
     private lateinit var adapter: GanHuoAdapter
     private val viewModel by lazy {
         ViewModelProvider(this, InjectUtil.getGanHuoFactory()).get(GanHuoViewModel::class.java)
     }
 
-    override fun getLayoutResId(): Int {
-        return R.layout.activity_gan_huo
+    override fun getViewBindingLayoutResId(): View {
+        viewBinding = ActivityGanHuoBinding.inflate(layoutInflater)
+        includeViewBinding = viewBinding.include
+        return viewBinding.root
     }
 
     override fun initView() {
-        refreshLayout.setOnRefreshListener {
+        viewBinding.refreshLayout.setOnRefreshListener {
             viewModel.onRefresh()
         }
-        refreshLayout.setOnLoadMoreListener {
+        viewBinding.refreshLayout.setOnLoadMoreListener {
             viewModel.onLoad()
         }
         observe()
 
-        tvTitle.text = getString(R.string.str_ganhuo)
+        includeViewBinding.tvTitle.text = getString(R.string.str_ganhuo)
         val linerLayoutManager = LinearLayoutManager(this)
-        recyclerView.layoutManager = linerLayoutManager
+        viewBinding.recyclerView.layoutManager = linerLayoutManager
         adapter = GanHuoAdapter(viewModel.dataList, this)
-        recyclerView.adapter = adapter
+        viewBinding.recyclerView.adapter = adapter
         adapter.setICallback(object : GanHuoAdapter.ICallback {
             override fun onClick(view: View, data: GanHuoModel.Item) {
                 WebViewActivity.startActivity(
@@ -98,21 +105,21 @@ class GanHuoActivity : BaseActivity() {
                         it
                     )
                 }
-                refreshLayout.closeHeaderOrFooter()
+                viewBinding.refreshLayout.closeHeaderOrFooter()
                 return@Observer
             }
             loadFinished()
             if (response.itemList.isNullOrEmpty() && viewModel.dataList.isEmpty()) {
                 // 首次进入页面时，获取数据条目为0时处理。
-                refreshLayout.closeHeaderOrFooter()
+                viewBinding.refreshLayout.closeHeaderOrFooter()
                 return@Observer
             }
             if (response.itemList.isNullOrEmpty() && viewModel.dataList.isNotEmpty()) {
                 // 上拉加载数据时，返回数据条目为0时处理。
-                refreshLayout.finishLoadMoreWithNoMoreData()
+                viewBinding.refreshLayout.finishLoadMoreWithNoMoreData()
                 return@Observer
             }
-            when (refreshLayout.state) {
+            when (viewBinding.refreshLayout.state) {
                 RefreshState.None, RefreshState.Refreshing -> {
                     viewModel.dataList.clear()
                     viewModel.dataList.addAll(response.itemList)
@@ -128,9 +135,9 @@ class GanHuoActivity : BaseActivity() {
             }
 
             if (response.page < response.page_count) {
-                refreshLayout.closeHeaderOrFooter()
+                viewBinding.refreshLayout.closeHeaderOrFooter()
             } else {
-                refreshLayout.finishLoadMoreWithNoMoreData()
+                viewBinding.refreshLayout.finishLoadMoreWithNoMoreData()
             }
 
         })

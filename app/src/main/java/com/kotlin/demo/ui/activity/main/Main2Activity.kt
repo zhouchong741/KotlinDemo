@@ -3,7 +3,7 @@ package com.kotlin.demo.ui.activity.main
 import android.content.Context
 import android.content.Intent
 import android.content.res.TypedArray
-import android.graphics.Color
+import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -11,15 +11,14 @@ import androidx.viewpager2.widget.ViewPager2
 import com.flyco.tablayout.listener.CustomTabEntity
 import com.flyco.tablayout.listener.OnTabSelectListener
 import com.kotlin.demo.R
-import com.kotlin.demo.base.BaseActivity
+import com.kotlin.demo.base.BaseViewBindingActivity
+import com.kotlin.demo.databinding.ActivityMain2Binding
 import com.kotlin.demo.entity.TabEntity
 import com.kotlin.demo.ui.fragment.GanHuoFragment
 import com.kotlin.demo.ui.fragment.MainFragment
 import com.kotlin.demo.ui.fragment.MeiZiFragment
 import com.kotlin.demo.ui.fragment.MineFragment
-import com.kotlin.demo.util.StatusBarUtils
 import com.kotlin.demo.util.ToastUtils
-import kotlinx.android.synthetic.main.activity_main2.*
 import kotlinx.coroutines.Job
 
 /**
@@ -30,7 +29,8 @@ import kotlinx.coroutines.Job
  * 迭代版本:
  * 迭代说明:
  */
-class Main2Activity : BaseActivity() {
+class Main2Activity : BaseViewBindingActivity() {
+    private lateinit var viewBinding: ActivityMain2Binding
     private val job by lazy { Job() }
     private val TAG = this.javaClass.simpleName
     private var doubleDuration = 0L
@@ -42,12 +42,9 @@ class Main2Activity : BaseActivity() {
             MineFragment()
         )
 
-    private fun setStatusBar() {
-        StatusBarUtils.setStatusBarColor(this, Color.TRANSPARENT)
-    }
-
-    override fun getLayoutResId(): Int {
-        return R.layout.activity_main2
+    override fun getViewBindingLayoutResId(): View {
+        viewBinding = ActivityMain2Binding.inflate(layoutInflater)
+        return viewBinding.root
     }
 
     override fun initView() {
@@ -69,20 +66,20 @@ class Main2Activity : BaseActivity() {
                 addFragment(fragmentList)
             }
         }
-        homeViewPager.adapter = adapter
-        homeViewPager.offscreenPageLimit = 1
-        bottomTabLayout.setTabData(titleData)
-        bottomTabLayout.setOnTabSelectListener(object : OnTabSelectListener {
+        viewBinding.homeViewPager.adapter = adapter
+        viewBinding.homeViewPager.offscreenPageLimit = 1
+        viewBinding.bottomTabLayout.setTabData(titleData)
+        viewBinding.bottomTabLayout.setOnTabSelectListener(object : OnTabSelectListener {
             override fun onTabSelect(position: Int) {
-                homeViewPager.currentItem = position
+                viewBinding.homeViewPager.currentItem = position
             }
 
             override fun onTabReselect(position: Int) {
             }
         })
-        homeViewPager.registerOnPageChangeCallback(PageChangeCallBack())
+        viewBinding.homeViewPager.registerOnPageChangeCallback(PageChangeCallBack())
         // 禁止滑动
-        homeViewPager.isUserInputEnabled = false
+        viewBinding.homeViewPager.isUserInputEnabled = false
     }
 
     inner class ViewPager2Adapter(fragmentActivity: FragmentActivity) :
@@ -100,7 +97,7 @@ class Main2Activity : BaseActivity() {
     inner class PageChangeCallBack : ViewPager2.OnPageChangeCallback() {
         override fun onPageSelected(position: Int) {
             super.onPageSelected(position)
-            bottomTabLayout.currentTab = position
+            viewBinding.bottomTabLayout.currentTab = position
         }
     }
 

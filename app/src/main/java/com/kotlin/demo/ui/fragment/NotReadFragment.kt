@@ -1,15 +1,14 @@
 package com.kotlin.demo.ui.fragment
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.kotlin.demo.R
 import com.kotlin.demo.adapter.ArticleNotReadAdapter
-import com.kotlin.demo.base.BaseFragment
+import com.kotlin.demo.base.BaseViewBindingFragment
+import com.kotlin.demo.databinding.FragmentNotReadBinding
 import com.kotlin.demo.gank.MeiZiViewModel
 import com.kotlin.demo.ui.activity.article.ArticleActivity
 import com.kotlin.demo.util.InjectUtil
@@ -26,7 +25,9 @@ import kotlinx.android.synthetic.main.fragment_not_read.*
  * 迭代版本:
  * 迭代说明:
  */
-class NotReadFragment(private val articleActivity: ArticleActivity) : BaseFragment() {
+class NotReadFragment(private val articleActivity: ArticleActivity) : BaseViewBindingFragment() {
+
+    private lateinit var viewBinding: FragmentNotReadBinding
 
     private lateinit var articleNotReadAdapter: ArticleNotReadAdapter
 
@@ -34,8 +35,9 @@ class NotReadFragment(private val articleActivity: ArticleActivity) : BaseFragme
         ViewModelProvider(this, InjectUtil.getMeiZiFactory()).get(MeiZiViewModel::class.java)
     }
 
-    override fun getLayoutResId(): Int {
-        return R.layout.fragment_not_read
+    override fun getViewBindingLayoutResId(): View {
+        viewBinding = FragmentNotReadBinding.inflate(layoutInflater)
+        return viewBinding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -46,16 +48,16 @@ class NotReadFragment(private val articleActivity: ArticleActivity) : BaseFragme
 
     private fun initView() {
         val gridLayoutManager = GridLayoutManager(articleActivity, 2)
-        recyclerView.layoutManager = gridLayoutManager
+        viewBinding.recyclerView.layoutManager = gridLayoutManager
 
         articleNotReadAdapter = ArticleNotReadAdapter(viewModel.dataList, articleActivity)
-        recyclerView.adapter = articleNotReadAdapter
+        viewBinding.recyclerView.adapter = articleNotReadAdapter
 
-        refreshLayout.setOnRefreshListener {
+        viewBinding.refreshLayout.setOnRefreshListener {
             viewModel.onRefresh()
         }
 
-        refreshLayout.setOnLoadMoreListener {
+        viewBinding.refreshLayout.setOnLoadMoreListener {
             viewModel.onLoad()
         }
 
@@ -88,21 +90,21 @@ class NotReadFragment(private val articleActivity: ArticleActivity) : BaseFragme
                         articleActivity,
                         it)
                 }
-                refreshLayout.closeHeaderOrFooter()
+                viewBinding.refreshLayout.closeHeaderOrFooter()
                 return@Observer
             }
             loadFinished()
             if (response.itemList.isNullOrEmpty() && viewModel.dataList.isEmpty()) {
                 // 首次进入 数据为0
-                refreshLayout.closeHeaderOrFooter()
+                viewBinding.refreshLayout.closeHeaderOrFooter()
                 return@Observer
             }
             if (response.itemList.isNullOrEmpty() && viewModel.dataList.isNotEmpty()) {
                 // 上拉加载 返回数据为0
-                refreshLayout.finishLoadMoreWithNoMoreData()
+                viewBinding.refreshLayout.finishLoadMoreWithNoMoreData()
                 return@Observer
             }
-            when (refreshLayout.state) {
+            when (viewBinding.refreshLayout.state) {
                 RefreshState.None, RefreshState.Refreshing -> {
                     viewModel.dataList.clear()
                     viewModel.dataList.addAll(response.itemList)
@@ -119,9 +121,9 @@ class NotReadFragment(private val articleActivity: ArticleActivity) : BaseFragme
             }
 
             if (response.page < response.page_count) {
-                refreshLayout.closeHeaderOrFooter()
+                viewBinding.refreshLayout.closeHeaderOrFooter()
             } else {
-                refreshLayout.finishLoadMoreWithNoMoreData()
+                viewBinding.refreshLayout.finishLoadMoreWithNoMoreData()
             }
         })
     }

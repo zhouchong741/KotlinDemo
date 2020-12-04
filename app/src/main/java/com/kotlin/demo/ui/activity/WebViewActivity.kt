@@ -1,12 +1,13 @@
 package com.kotlin.demo.ui.activity
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.view.View
 import androidx.core.app.ActivityOptionsCompat
-import com.kotlin.demo.R
-import com.kotlin.demo.base.BaseActivity
-import kotlinx.android.synthetic.main.activity_web_view.*
-import kotlinx.android.synthetic.main.layout_title_bar.*
+import com.kotlin.demo.base.BaseViewBindingActivity
+import com.kotlin.demo.databinding.ActivityWebViewBinding
+import com.kotlin.demo.databinding.LayoutTitleBarBinding
 
 /**
  * @author zhouchong
@@ -16,14 +17,20 @@ import kotlinx.android.synthetic.main.layout_title_bar.*
  * 迭代版本：
  * 迭代说明：
  */
-class WebViewActivity : BaseActivity() {
+class WebViewActivity : BaseViewBindingActivity() {
 
-    override fun getLayoutResId(): Int {
-        return R.layout.activity_web_view
+    private lateinit var viewBinding: ActivityWebViewBinding
+    private lateinit var includeViewBinding: LayoutTitleBarBinding
+
+    override fun getViewBindingLayoutResId(): View {
+        viewBinding = ActivityWebViewBinding.inflate(layoutInflater)
+        includeViewBinding = viewBinding.include
+        return viewBinding.root
     }
 
-    private fun initWevView(link: String?) {
-        webView.settings.run {
+    @SuppressLint("SetJavaScriptEnabled")
+    private fun initWebView(link: String?) {
+        viewBinding.webView.settings.run {
             javaScriptEnabled = true
             allowContentAccess = true
             databaseEnabled = true
@@ -35,18 +42,18 @@ class WebViewActivity : BaseActivity() {
             setSupportZoom(true)
         }
 
-        webView.loadUrl(link!!)
+        viewBinding.webView.loadUrl(link!!)
     }
 
     override fun initView() {
-        ivBack.setOnClickListener {
+        includeViewBinding.ivBack.setOnClickListener {
             finishAfterTransition()
         }
         val link = intent.getStringExtra("LINK_URL")
         val title = intent.getStringExtra("TITLE")
         val imgUrl = intent.getStringExtra("IMG_URL")
-        tvTitle.text = title
-        initWevView(link)
+        includeViewBinding.tvTitle.text = title
+        initWebView(link)
     }
 
     override fun onBackPressed() {

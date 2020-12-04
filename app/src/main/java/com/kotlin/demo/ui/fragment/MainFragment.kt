@@ -10,7 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kotlin.demo.GankBaseApplication
 import com.kotlin.demo.R
 import com.kotlin.demo.adapter.BannerAdapter
-import com.kotlin.demo.base.BaseFragment
+import com.kotlin.demo.base.BaseViewBindingFragment
+import com.kotlin.demo.databinding.FragmentMainBinding
 import com.kotlin.demo.gank.BannerViewModel
 import com.kotlin.demo.model.BannerModel
 import com.kotlin.demo.ui.activity.VerificationActivity
@@ -23,10 +24,6 @@ import com.kotlin.demo.ui.activity.meizi.MeiZiActivity
 import com.kotlin.demo.ui.activity.room.RoomActivity
 import com.kotlin.demo.util.*
 import com.scwang.smart.refresh.layout.constant.RefreshState
-import kotlinx.android.synthetic.main.activity_main.btnArticle
-import kotlinx.android.synthetic.main.activity_main.btnGanHuo
-import kotlinx.android.synthetic.main.activity_main.btnMeizi
-import kotlinx.android.synthetic.main.activity_main.btnVerification
 import kotlinx.android.synthetic.main.activity_main.recyclerView
 import kotlinx.android.synthetic.main.activity_main.refreshLayout
 import kotlinx.android.synthetic.main.fragment_main.*
@@ -39,8 +36,9 @@ import kotlinx.android.synthetic.main.fragment_main.*
  * 迭代版本:
  * 迭代说明:
  */
-class MainFragment : BaseFragment() {
+class MainFragment : BaseViewBindingFragment() {
 
+    private lateinit var viewBinding: FragmentMainBinding
     private lateinit var adapter: BannerAdapter
 
     private val viewModel by lazy {
@@ -49,18 +47,19 @@ class MainFragment : BaseFragment() {
         )
     }
 
-    override fun getLayoutResId(): Int {
-        return R.layout.fragment_main
+    override fun getViewBindingLayoutResId(): View {
+        viewBinding = FragmentMainBinding.inflate(layoutInflater)
+        return viewBinding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
         val linerLayoutManager = LinearLayoutManager(activity)
-        recyclerView.layoutManager = linerLayoutManager
+        viewBinding.recyclerView.layoutManager = linerLayoutManager
         linerLayoutManager.orientation = RecyclerView.HORIZONTAL
         adapter = BannerAdapter(viewModel.dataList, activity)
-        recyclerView.adapter = adapter
+        viewBinding.recyclerView.adapter = adapter
 
         adapter.setICallback(object : BannerAdapter.ICallback {
             override fun onClick(view: View, data: BannerModel.Item) {
@@ -84,40 +83,40 @@ class MainFragment : BaseFragment() {
         observe()
 
         ClickUtil.setOnClickListener(
-            btnGanHuo,
-            btnMeizi,
-            btnVerification,
-            btnArticle,
-            btnDataStore,
-            btnRoom,
-            btnBottomNavView
+            viewBinding.btnGanHuo,
+            viewBinding.btnMeizi,
+            viewBinding.btnVerification,
+            viewBinding.btnArticle,
+            viewBinding.btnDataStore,
+            viewBinding.btnRoom,
+            viewBinding.btnBottomNavView
         ) {
             when (this) {
-                btnGanHuo -> {
+                viewBinding.btnGanHuo -> {
                     GanHuoActivity.startActivity(activity)
                 }
 
-                btnMeizi -> {
+                viewBinding.btnMeizi -> {
                     MeiZiActivity.startActivity(activity)
                 }
 
-                btnVerification -> {
+                viewBinding.btnVerification -> {
                     VerificationActivity.startActivity(activity)
                 }
 
-                btnArticle -> {
+                viewBinding.btnArticle -> {
                     ArticleActivity.startActivity(activity)
                 }
 
-                btnDataStore -> {
+                viewBinding.btnDataStore -> {
                     DataStoreActivity.startActivity(activity)
                 }
 
-                btnRoom -> {
+                viewBinding.btnRoom -> {
                     RoomActivity.startActivity(activity)
                 }
 
-                btnBottomNavView -> {
+                viewBinding.btnBottomNavView -> {
                     BottomNavigationViewActivity.startActivity(activity)
                 }
             }
@@ -134,7 +133,7 @@ class MainFragment : BaseFragment() {
         super.startLoading()
 //        viewModel.onRefresh()
         // 有下拉加载的动画
-        refreshLayout.autoRefresh(0)
+        viewBinding.refreshLayout.autoRefresh(0)
     }
 
     override fun loadFailed(msg: String?) {
@@ -158,15 +157,15 @@ class MainFragment : BaseFragment() {
                         it
                     )
                 }
-                refreshLayout.closeHeaderOrFooter()
+                viewBinding.refreshLayout.closeHeaderOrFooter()
                 return@Observer
             }
             loadFinished()
             if (response.itemList.isNullOrEmpty() && viewModel.dataList.isEmpty()) {
-                refreshLayout.closeHeaderOrFooter()
+                viewBinding.refreshLayout.closeHeaderOrFooter()
                 return@Observer
             }
-            when (refreshLayout.state) {
+            when (viewBinding.refreshLayout.state) {
                 RefreshState.None, RefreshState.Refreshing -> {
                     viewModel.dataList.clear()
                     viewModel.dataList.addAll(response.itemList)
@@ -176,8 +175,7 @@ class MainFragment : BaseFragment() {
                 }
             }
 
-            refreshLayout.closeHeaderOrFooter()
-
+            viewBinding.refreshLayout.closeHeaderOrFooter()
         })
     }
 

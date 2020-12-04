@@ -3,6 +3,7 @@ package com.kotlin.demo.ui.activity.picture
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityOptionsCompat
 import androidx.viewpager2.widget.ViewPager2
@@ -10,6 +11,8 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.kotlin.demo.R
 import com.kotlin.demo.adapter.PictureAdapter
 import com.kotlin.demo.base.BaseActivity
+import com.kotlin.demo.base.BaseViewBindingActivity
+import com.kotlin.demo.databinding.ActivityPictureBinding
 import com.kotlin.demo.extension.invisibleAlphaAnimation
 import com.kotlin.demo.extension.visibleAlphaAnimation
 import com.kotlin.demo.util.ClickUtil
@@ -30,50 +33,53 @@ import kotlinx.android.synthetic.main.activity_picture.*
  * 迭代版本：
  * 迭代说明：
  */
-class PictureActivity : BaseActivity() {
+class PictureActivity : BaseViewBindingActivity() {
 
+    private lateinit var viewBinding: ActivityPictureBinding
     private lateinit var imgUrl: String
 
     private fun setStatusBar() {
         StatusBarUtils.setStatusBarColor(this, Color.TRANSPARENT)
     }
 
-    override fun getLayoutResId(): Int {
-        return R.layout.activity_picture
+    override fun getViewBindingLayoutResId(): View {
+        viewBinding = ActivityPictureBinding.inflate(layoutInflater)
+        return viewBinding.root
+
     }
 
     override fun initView() {
         setStatusBar()
         ClickUtil.setOnClickListener(
-            ivArrowClose,
-            ivPrevious,
-            ivNext,
-            ivLike,
-            ivCollection,
-            ivMessage,
-            ivShare
+            viewBinding.ivArrowClose,
+            viewBinding.ivPrevious,
+            viewBinding.ivNext,
+            viewBinding.ivLike,
+            viewBinding.ivCollection,
+            viewBinding.ivMessage,
+            viewBinding.ivShare
         ) {
             when (this) {
-                ivShare -> {
+                viewBinding.ivShare -> {
                     showShare()
                 }
-                ivPrevious -> {
+                viewBinding.ivPrevious -> {
                     // 模拟滑动
-                    viewPager.beginFakeDrag()
+                    viewBinding.viewPager.beginFakeDrag()
                     // 负数表示下一页，正数表示上一页
-                    viewPager.fakeDragBy(500f)
+                    viewBinding.viewPager.fakeDragBy(500f)
                     // 结束滑动
-                    viewPager.endFakeDrag()
+                    viewBinding.viewPager.endFakeDrag()
                 }
-                ivNext -> {
+                viewBinding.ivNext -> {
                     // 模拟滑动
-                    viewPager.beginFakeDrag()
+                    viewBinding.viewPager.beginFakeDrag()
                     // 负数表示下一页，正数表示上一页
-                    viewPager.fakeDragBy(-500f)
+                    viewBinding.viewPager.fakeDragBy(-500f)
                     // 结束滑动
-                    viewPager.endFakeDrag()
+                    viewBinding.viewPager.endFakeDrag()
                 }
-                ivArrowClose -> {
+                viewBinding.ivArrowClose -> {
                     finishAfterTransition()
                 }
             }
@@ -85,17 +91,17 @@ class PictureActivity : BaseActivity() {
         dataList.add(imgUrl)
         dataList.add(imgUrl)
         val adapter = PictureAdapter(dataList, this)
-        viewPager.adapter = adapter
-        viewPager.offscreenPageLimit = 1
-        tvPosition.text = "1 / ${dataList.size}"
-        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+        viewBinding.viewPager.adapter = adapter
+        viewBinding.viewPager.offscreenPageLimit = 1
+        viewBinding.tvPosition.text = "1 / ${dataList.size}"
+        viewBinding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-                tvPosition.text = "${position + 1} / ${dataList.size}"
+                viewBinding.tvPosition.text = "${position + 1} / ${dataList.size}"
             }
         })
         // indicator
-        indicator.apply {
+        viewBinding.indicator.apply {
             setSliderColor(
                 CommonUtils.getColor(context, R.color.white),
                 CommonUtils.getColor(context, R.color.colorAccent)
@@ -109,10 +115,10 @@ class PictureActivity : BaseActivity() {
             setupWithViewPager(viewPager)
         }
         // 缩小页面 设置画廊效果
-        viewPager.setPageTransformer(ZoomOutViewPagerTransformer())
+        viewBinding.viewPager.setPageTransformer(ZoomOutViewPagerTransformer())
 
         // 深度页面 需要设置 viewpager2 android:layout_width="match_parent"
-//        viewPager.setPageTransformer(DepthPageTransformer())
+//        viewBinding.viewPager.setPageTransformer(DepthPageTransformer())
         adapter.setICallback(object : PictureAdapter.ICallback {
             override fun onClick() {
                 toggleImage()
@@ -120,8 +126,8 @@ class PictureActivity : BaseActivity() {
         })
         // tablayout indicator
         TabLayoutMediator(
-            tabLayout,
-            viewPager
+            viewBinding.tabLayout,
+            viewBinding.viewPager
         ) { tab, position -> }.attach()
     }
 
@@ -135,19 +141,19 @@ class PictureActivity : BaseActivity() {
     }
 
     private fun toggleImage() {
-        if (ivArrowClose.visibility == ViewGroup.VISIBLE) {
-            ivArrowClose.invisibleAlphaAnimation()
-            ivShare.invisibleAlphaAnimation()
-            ivLike.invisibleAlphaAnimation()
-            ivCollection.invisibleAlphaAnimation()
-            ivMessage.invisibleAlphaAnimation()
+        if (viewBinding.ivArrowClose.visibility == ViewGroup.VISIBLE) {
+            viewBinding.ivArrowClose.invisibleAlphaAnimation()
+            viewBinding.ivShare.invisibleAlphaAnimation()
+            viewBinding.ivLike.invisibleAlphaAnimation()
+            viewBinding.ivCollection.invisibleAlphaAnimation()
+            viewBinding.ivMessage.invisibleAlphaAnimation()
 //            StatusBarUtils.setStatusBarVisibility(this, false)
         } else {
-            ivArrowClose.visibleAlphaAnimation()
-            ivShare.visibleAlphaAnimation()
-            ivLike.visibleAlphaAnimation()
-            ivCollection.visibleAlphaAnimation()
-            ivMessage.visibleAlphaAnimation()
+            viewBinding.ivArrowClose.visibleAlphaAnimation()
+            viewBinding.ivShare.visibleAlphaAnimation()
+            viewBinding.ivLike.visibleAlphaAnimation()
+            viewBinding.ivCollection.visibleAlphaAnimation()
+            viewBinding.ivMessage.visibleAlphaAnimation()
 //            StatusBarUtils.setStatusBarVisibility(this, true)
         }
     }

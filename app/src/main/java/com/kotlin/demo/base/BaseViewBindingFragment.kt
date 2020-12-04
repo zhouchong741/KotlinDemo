@@ -11,7 +11,6 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.CallSuper
 import androidx.fragment.app.Fragment
-import androidx.viewbinding.ViewBinding
 import com.kotlin.demo.R
 import com.kotlin.demo.callback.RequestLifecycle
 import com.tencent.mmkv.MMKV
@@ -65,7 +64,7 @@ abstract class BaseViewBindingFragment : Fragment(), RequestLifecycle {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         rootView = getViewBindingLayoutResId()
         initView(rootView)
@@ -109,6 +108,7 @@ abstract class BaseViewBindingFragment : Fragment(), RequestLifecycle {
     open fun loadDataFirst() {
 
     }
+
     /**
      * 当Fragment中的加载内容服务器返回失败或网络异常，通过此方法显示提示界面给用户。
      *

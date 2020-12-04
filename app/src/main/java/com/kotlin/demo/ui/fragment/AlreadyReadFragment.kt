@@ -1,15 +1,14 @@
 package com.kotlin.demo.ui.fragment
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kotlin.demo.R
 import com.kotlin.demo.adapter.ArticleAlreadyReadAdapter
-import com.kotlin.demo.base.BaseFragment
+import com.kotlin.demo.base.BaseViewBindingFragment
+import com.kotlin.demo.databinding.FragmentAlreadyReadBinding
 import com.kotlin.demo.gank.GanHuoViewModel
 import com.kotlin.demo.model.GanHuoModel
 import com.kotlin.demo.ui.activity.WebViewActivity
@@ -29,14 +28,17 @@ import kotlinx.android.synthetic.main.fragment_already_read.*
  * 迭代版本:
  * 迭代说明:
  */
-class AlreadyReadFragment(private val articleActivity: ArticleActivity) : BaseFragment() {
+class AlreadyReadFragment(private val articleActivity: ArticleActivity) :
+    BaseViewBindingFragment() {
+    private lateinit var viewBinding: FragmentAlreadyReadBinding
     private lateinit var articleAlreadyReadAdapter: ArticleAlreadyReadAdapter
     private val viewModel by lazy {
         ViewModelProvider(this, InjectUtil.getGanHuoFactory()).get(GanHuoViewModel::class.java)
     }
 
-    override fun getLayoutResId(): Int {
-        return R.layout.fragment_already_read
+    override fun getViewBindingLayoutResId(): View {
+        viewBinding = FragmentAlreadyReadBinding.inflate(layoutInflater)
+        return viewBinding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -44,11 +46,11 @@ class AlreadyReadFragment(private val articleActivity: ArticleActivity) : BaseFr
 
         initView()
 
-        refreshLayout.setOnRefreshListener {
+        viewBinding.refreshLayout.setOnRefreshListener {
             viewModel.onRefresh()
         }
 
-        refreshLayout.setOnLoadMoreListener {
+        viewBinding.refreshLayout.setOnLoadMoreListener {
             viewModel.onLoad()
         }
 
@@ -57,10 +59,10 @@ class AlreadyReadFragment(private val articleActivity: ArticleActivity) : BaseFr
 
     private fun initView() {
         val linearLayoutManager = LinearLayoutManager(activity)
-        recyclerView.layoutManager = linearLayoutManager
+        viewBinding.recyclerView.layoutManager = linearLayoutManager
 
         articleAlreadyReadAdapter = ArticleAlreadyReadAdapter(viewModel.dataList, articleActivity)
-        recyclerView.adapter = articleAlreadyReadAdapter
+        viewBinding.recyclerView.adapter = articleAlreadyReadAdapter
 
         articleAlreadyReadAdapter.setICallback(object : ArticleAlreadyReadAdapter.ICallback {
             override fun onClick(view: View, data: GanHuoModel.Item) {
@@ -101,22 +103,22 @@ class AlreadyReadFragment(private val articleActivity: ArticleActivity) : BaseFr
                         activity,
                         it)
                 }
-                refreshLayout.closeHeaderOrFooter()
+                viewBinding.refreshLayout.closeHeaderOrFooter()
                 return@Observer
             }
             loadFinished()
             if (response.itemList.isNullOrEmpty() && viewModel.dataList.isEmpty()) {
                 // 首次进入页面时，获取数据条目为0时处理。
-                refreshLayout.closeHeaderOrFooter()
+                viewBinding.refreshLayout.closeHeaderOrFooter()
                 return@Observer
             }
             if (response.itemList.isNullOrEmpty() && viewModel.dataList.isNotEmpty()) {
                 // 上拉加载数据时，返回数据条目为0时处理。
-                refreshLayout.finishLoadMoreWithNoMoreData()
+                viewBinding.refreshLayout.finishLoadMoreWithNoMoreData()
                 return@Observer
             }
 
-            when (refreshLayout.state) {
+            when (viewBinding.refreshLayout.state) {
                 RefreshState.None, RefreshState.Refreshing -> {
                     viewModel.dataList.clear()
                     viewModel.dataList.addAll(response.itemList)
@@ -125,16 +127,17 @@ class AlreadyReadFragment(private val articleActivity: ArticleActivity) : BaseFr
                 RefreshState.Loading -> {
                     val itemCount = viewModel.dataList.size
                     viewModel.dataList.addAll(response.itemList)
-                    articleAlreadyReadAdapter.notifyItemRangeChanged(itemCount, response.itemList.size)
+                    articleAlreadyReadAdapter.notifyItemRangeChanged(itemCount,
+                        response.itemList.size)
                 }
                 else -> {
 
                 }
             }
             if (response.page < response.page_count) {
-                refreshLayout.closeHeaderOrFooter()
+                viewBinding.refreshLayout.closeHeaderOrFooter()
             } else {
-                refreshLayout.finishLoadMoreWithNoMoreData()
+                viewBinding.refreshLayout.finishLoadMoreWithNoMoreData()
             }
 
         })
