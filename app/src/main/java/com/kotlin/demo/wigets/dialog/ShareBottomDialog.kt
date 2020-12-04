@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.kotlin.demo.R
+import com.kotlin.demo.databinding.ShareBottomDialogBinding
 import com.kotlin.demo.ui.activity.picture.PictureActivity
 import com.kotlin.demo.util.ClickUtil
 import com.kotlin.demo.util.Constant
 import com.kotlin.demo.util.ShareUtils.share
-import kotlinx.android.synthetic.main.share_bottom_dialog.*
 
 /**
  * @author: zhouchong
@@ -22,14 +22,17 @@ import kotlinx.android.synthetic.main.share_bottom_dialog.*
  * 迭代说明：
  */
 class ShareBottomDialog(private val activity: PictureActivity) : BottomSheetDialogFragment() {
+
+    private lateinit var viewBinding: ShareBottomDialogBinding
     private lateinit var shareContent: String
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.share_bottom_dialog, container, false)
+        savedInstanceState: Bundle?,
+    ): View {
+        viewBinding = ShareBottomDialogBinding.inflate(layoutInflater)
+        return viewBinding.root
     }
 
     // 必须在这个地方使用
@@ -43,29 +46,34 @@ class ShareBottomDialog(private val activity: PictureActivity) : BottomSheetDial
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        ClickUtil.setOnClickListener(tvQQ, tvWeChat, tvMoments, tvQQZone, tvMore, tvCancel) {
+        ClickUtil.setOnClickListener(viewBinding.tvQQ,
+            viewBinding.tvWeChat,
+            viewBinding.tvMoments,
+            viewBinding.tvQQZone,
+            viewBinding.tvMore,
+            viewBinding.tvCancel) {
             when (this) {
-                tvQQ -> {
+                viewBinding.tvQQ -> {
                     share(activity, shareContent, Constant.SHARE_QQ)
                     dismiss()
                 }
-                tvWeChat -> {
+                viewBinding.tvWeChat -> {
                     share(activity, shareContent, Constant.SHARE_WECHAT)
                     dismiss()
                 }
-                tvMoments -> {
+                viewBinding.tvMoments -> {
                     share(activity, shareContent, Constant.SHARE_WECHAT_MEMORIES)
                     dismiss()
                 }
-                tvQQZone -> {
+                viewBinding.tvQQZone -> {
                     share(activity, shareContent, Constant.SHARE_QQZONE)
                     dismiss()
                 }
-                tvMore -> {
+                viewBinding.tvMore -> {
                     share(activity, shareContent, Constant.SHARE_MORE)
                     dismiss()
                 }
-                tvCancel -> {
+                viewBinding.tvCancel -> {
                     dismiss()
                 }
             }
