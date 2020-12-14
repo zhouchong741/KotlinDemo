@@ -52,6 +52,11 @@ class BottomNavigationViewActivity : BaseActivity() {
             }
             true
         }
+
+        // 处理重复点击时页面刷新问题 看源码就清除
+        bottomNavView.setOnNavigationItemReselectedListener {
+
+        }
     }
 
     companion object {
