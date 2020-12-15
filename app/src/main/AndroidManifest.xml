@@ -17,7 +17,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".ui.activity.btmnavview.BottomNavigationViewActivity"/>
+        <activity android:name=".ui.test.TestActivity" />
+        <activity android:name=".ui.activity.btmnavview.BottomNavigationViewActivity" />
         <activity android:name=".ui.activity.meizi.MeiZiActivity" />
         <activity android:name=".ui.activity.ganhuo.GanHuoActivity" />
         <activity android:name=".ui.activity.main.MainActivity" />
