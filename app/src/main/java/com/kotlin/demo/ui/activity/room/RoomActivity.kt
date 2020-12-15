@@ -19,7 +19,14 @@ import com.kotlin.demo.util.ToastUtils
 import kotlinx.android.synthetic.main.activity_room.*
 import kotlinx.android.synthetic.main.item_test.*
 
-
+/**
+ * @author zhouchong
+ * 创建日期: 2020/12/15 13:20
+ * 描述：Room 学习使用
+ * 修改人：
+ * 迭代版本：
+ * 迭代说明：
+ */
 class RoomActivity : BaseViewBindingActivity() {
 
     private lateinit var viewBinding: ActivityRoomBinding
@@ -42,7 +49,9 @@ class RoomActivity : BaseViewBindingActivity() {
     override fun initView() {
         includeViewBinding.tvTitle.text = getString(R.string.room)
 
-        ClickUtil.setOnClickListener(viewBinding.btnWrite, viewBinding.btnRead, viewBinding.btnUpdate) {
+        ClickUtil.setOnClickListener(viewBinding.btnWrite,
+            viewBinding.btnRead,
+            viewBinding.btnUpdate) {
             when (this) {
                 viewBinding.btnWrite -> {
                     if (viewBinding.etName.text.toString().isNotEmpty()) {

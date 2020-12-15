@@ -27,7 +27,7 @@ object Versions {
     const val viewpager2 = "1.0.0"
 
     const val lifecycle = "2.2.0"
-    const val datastore = "1.0.0-alpha02"
+    const val datastore = "1.0.0-alpha03"
     const val smart_refresh_layout = "2.0.1"
 
     const val room = "2.2.5"

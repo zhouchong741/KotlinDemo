@@ -1,6 +1,6 @@
 package com.kotlin.demo.respository
 
-import androidx.datastore.preferences.Preferences
+import androidx.datastore.preferences.core.Preferences
 import kotlinx.coroutines.flow.Flow
 
 /**

@@ -1,12 +1,11 @@
 package com.kotlin.demo.respository
 
 import android.content.Context
-import androidx.datastore.DataStore
+import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.*
-import com.kotlin.demo.dao.MainPageDao
-import com.kotlin.demo.network.GankNetWork
-import com.kotlin.demo.network.MainPageRepository
-import com.kotlin.demo.respository.IDataStoreRepository
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.emptyPreferences
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
@@ -33,7 +32,6 @@ class DataStoreRepository(val context: Context) : IDataStoreRepository {
             mutablePreferences[key] = !value
         }
     }
-
 
     override fun readData(key: Preferences.Key<Boolean>): Flow<Boolean> =
         dataStore.data.catch {

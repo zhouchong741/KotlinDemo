@@ -40,13 +40,22 @@ class DataStoreActivity : BaseActivity() {
         ClickUtil.setOnClickListener(btnWrite, btnRead) {
             when (this) {
                 btnWrite -> {
-                    viewModel.saveDataByDataStore(PreferencesKeys.KEY_GITHUB)
+//                    viewModel.saveDataByDataStore(PreferencesKeys.KEY_GITHUB)
+                    suspend {
+                        viewModel.saveStringData("Hello World")
+                    }
                 }
                 btnRead -> {
-                    viewModel.getDataByDataStore(PreferencesKeys.KEY_GITHUB)
+//                    viewModel.getDataByDataStore(PreferencesKeys.KEY_GITHUB)
+//                        .observe(this@DataStoreActivity) {
+//                            ToastUtils.showToast(this@DataStoreActivity, it.toString())
+//                        }
+
+                    viewModel.getStringData(PreferencesKeys.STRING_KEY)
                         .observe(this@DataStoreActivity) {
-                            ToastUtils.showToast(this@DataStoreActivity, it.toString())
+                            ToastUtils.showToast(this@DataStoreActivity, it)
                         }
+
                 }
             }
         }

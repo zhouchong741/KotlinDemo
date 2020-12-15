@@ -4,6 +4,8 @@
     package="com.kotlin.demo">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".GankBaseApplication"
@@ -15,8 +17,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".ui.activity.btmnavview.BottomNavigationViewActivity"></activity>
-        <activity android:name=".ui.activity.TestActivity" />
+        <activity android:name=".ui.activity.btmnavview.BottomNavigationViewActivity"/>
         <activity android:name=".ui.activity.meizi.MeiZiActivity" />
         <activity android:name=".ui.activity.ganhuo.GanHuoActivity" />
         <activity android:name=".ui.activity.main.MainActivity" />
