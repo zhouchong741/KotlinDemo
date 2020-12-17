@@ -25,9 +25,10 @@ class ImageDetailActivity : BaseViewBindingActivity() {
 
     override fun initView() {
         val imgUrl = intent.getStringExtra("IMG_URL")
-        viewBinding.ivDetail.load(imgUrl!!)
+        imgUrl?.let { viewBinding.ivDetail.load(it) }
+//        viewBinding.ivDetail.loadTrans(imgUrl!!)
         viewBinding.ivDetail.setOnClickListener {
-            finish()
+            finishAfterTransition()
         }
     }
 
