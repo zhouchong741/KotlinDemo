@@ -1,6 +1,5 @@
 package com.kotlin.demo.adapter
 
-import android.content.Intent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -10,7 +9,6 @@ import com.kotlin.demo.extension.inflate
 import com.kotlin.demo.model.MeiZiModel
 import com.kotlin.demo.ui.activity.ImageDetailActivity
 import com.kotlin.demo.ui.activity.article.ArticleActivity
-import com.kotlin.demo.util.CommonUtils
 import com.kotlin.demo.util.GlideUtils.load
 
 /**
