@@ -9,6 +9,7 @@ import com.kotlin.demo.extension.inflate
 import com.kotlin.demo.model.MeiZiModel
 import com.kotlin.demo.ui.activity.ImageDetailActivity
 import com.kotlin.demo.ui.activity.article.ArticleActivity
+import com.kotlin.demo.util.CommonUtils
 import com.kotlin.demo.util.GlideUtils.load
 
 /**
@@ -35,12 +36,11 @@ class ArticleNotReadAdapter(
         }
 
         holder.itemView.setOnClickListener {
-//            val optionsCompat =
-//                CommonUtils.makeSceneTransitionAnimation(articleActivity, holder.ivImg, "meizi")
-//            val intent = Intent(articleActivity, ImageDetailActivity::class.java)
-//            intent.putExtra("IMG_URL", dataList[position].images[0])
-//            articleActivity.startActivity(intent, optionsCompat.toBundle())
-            ImageDetailActivity.startActivity(articleActivity, dataList[position].images[0])
+//            ImageDetailActivity.startActivity(articleActivity, dataList[position].images[0])
+            ImageDetailActivity.startActivity(articleActivity,
+                CommonUtils.makeSceneTransitionAnimation(articleActivity, holder.ivImg, "meizi"),
+                dataList[position].images[0]
+            )
         }
     }
 

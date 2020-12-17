@@ -54,7 +54,8 @@
         <activity
             android:name=".ui.activity.ImageDetailActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/PictureTheme" />
     </application>
 
 </manifest>

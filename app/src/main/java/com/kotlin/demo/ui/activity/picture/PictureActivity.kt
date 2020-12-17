@@ -45,7 +45,6 @@ class PictureActivity : BaseViewBindingActivity() {
     override fun getViewBindingLayoutResId(): View {
         viewBinding = ActivityPictureBinding.inflate(layoutInflater)
         return viewBinding.root
-
     }
 
     override fun initView() {
