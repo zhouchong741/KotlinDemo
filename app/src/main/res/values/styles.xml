@@ -27,9 +27,15 @@
         <item name="android:windowIsTranslucent">true</item><!-- 半透明,设置为false无透明效果 -->
         <item name="android:backgroundDimEnabled">true</item><!-- 模糊 -->
         <item name="android:windowTranslucentStatus">true</item>
+<!--        <item name="animationMode">@style/fade</item>-->
         <item name="android:fitsSystemWindows">true</item>
     </style>
-
+<!--    <style name="fade" parent="@android:style/Animation.Activity">-->
+<!--        <item name="android:activityOpenEnterAnimation">@anim/fade_in</item>-->
+<!--        <item name="android:activityOpenExitAnimation">@anim/fade_out</item>-->
+<!--        <item name="android:activityCloseEnterAnimation">@anim/fade_in</item>-->
+<!--        <item name="android:activityCloseExitAnimation">@anim/fade_out</item>-->
+<!--    </style>-->
     <!--共享元素动画-->
     <style name="BaseAppTheme" parent="android:Theme.Material">
         <!-- enable window content transitions -->

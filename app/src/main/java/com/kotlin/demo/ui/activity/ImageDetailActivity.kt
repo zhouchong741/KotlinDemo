@@ -7,7 +7,6 @@ import android.view.View
 import androidx.core.app.ActivityOptionsCompat
 import com.kotlin.demo.base.BaseViewBindingActivity
 import com.kotlin.demo.databinding.ActivityImageDetailBinding
-import com.kotlin.demo.util.GlideUtils.load
 import com.kotlin.demo.util.GlideUtils.loadTrans
 import com.kotlin.demo.util.StatusBarUtils
 
@@ -31,10 +30,17 @@ class ImageDetailActivity : BaseViewBindingActivity() {
         setStatusBar()
         val imgUrl = intent.getStringExtra("IMG_URL")
 //        imgUrl?.let { viewBinding.ivDetail.load(it) }
-        imgUrl?.let { viewBinding.ivDetail.loadTrans(it) }
+        imgUrl?.let {
+            viewBinding.ivDetail.loadTrans(it, 4f)
+        }
         viewBinding.ivDetail.setOnClickListener {
             finishAfterTransition()
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finishAfterTransition()
     }
 
     private fun setStatusBar() {
@@ -42,14 +48,6 @@ class ImageDetailActivity : BaseViewBindingActivity() {
     }
 
     companion object {
-//        fun startActivity(context: Context, data: String) {
-//            val intent: Intent by lazy {
-//                Intent(context, ImageDetailActivity::class.java).apply {
-//                    putExtra("IMG_URL", data)
-//                }
-//            }
-//            context.startActivity(intent)
-//        }
         // 共享元素
         fun startActivity(context: Context, options: ActivityOptionsCompat, data: String) {
             val intent: Intent by lazy {

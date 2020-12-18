@@ -9,6 +9,7 @@
         android:id="@+id/ivPicture"
         android:layout_width="match_parent"
         android:layout_height="500dp"
+        android:contentDescription="@null"
         android:transitionName="meizi"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
