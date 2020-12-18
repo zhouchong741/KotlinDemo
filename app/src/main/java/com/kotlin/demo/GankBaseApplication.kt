@@ -25,7 +25,7 @@ class GankBaseApplication : Application() {
             layout.setEnableAutoLoadMore(true)
             layout.setEnableLoadMoreWhenContentNotFull(true)
             // 设置是否启在下拉 Header 的同时下拉内容
-            layout.setEnableHeaderTranslationContent(false)
+            layout.setEnableHeaderTranslationContent(true)
             MaterialHeader(context).setColorSchemeResources(
                 R.color.colorAccent,
                 R.color.colorAccent,

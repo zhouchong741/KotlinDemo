@@ -49,7 +49,7 @@ class LoginActivity : BaseViewBindingActivity() {
                 ToastUtils.showToast(this, getString(R.string.user_name_and_pwd_can_not_be_empty))
                 return@setOnClickListener
             }
-            lottieView.visibility = View.VISIBLE
+            viewBinding.lottieView.visibility = View.VISIBLE
             btnLogin.text = ""
             viewModel.onLogin(LoginParams(userNameET.text.toString(), passwordET.text.toString()))
             observe()

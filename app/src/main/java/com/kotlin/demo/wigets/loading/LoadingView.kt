@@ -160,7 +160,7 @@ class LoadingView : View {
         val paddingTop = this.paddingTop
         val paddingRight = this.paddingRight
         val paddingBottom = this.paddingBottom
-        easyArcPadding = if (easyArcPadding > 0.0f) easyArcPadding else Math.min(
+        easyArcPadding = if (easyArcPadding > 0.0f) easyArcPadding else min(
             viewWidth,
             viewHeight
         ) * DEFAULT_ARC_PADDING_SIDE_LENGTH_RATIO
