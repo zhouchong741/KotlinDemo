@@ -72,7 +72,7 @@ dependencies {
     //Android Jetpack 组件
     implementation Deps.viewmodel
     implementation Deps.livedata
-    implementation Deps.extensions
+//    implementation Deps.extensions
     implementation Deps.runtime
     implementation Deps.room_runtime
     kapt Deps.room_compiler
