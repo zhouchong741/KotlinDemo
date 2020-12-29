@@ -35,6 +35,7 @@ class WebViewActivity : BaseViewBindingActivity() {
             allowContentAccess = true
             databaseEnabled = true
             domStorageEnabled = true
+            @Suppress("DEPRECATION")
             setAppCacheEnabled(true)
             useWideViewPort = true
             loadWithOverviewMode = true
@@ -51,7 +52,7 @@ class WebViewActivity : BaseViewBindingActivity() {
         }
         val link = intent.getStringExtra("LINK_URL")
         val title = intent.getStringExtra("TITLE")
-        val imgUrl = intent.getStringExtra("IMG_URL")
+//        val imgUrl = intent.getStringExtra("IMG_URL")
         includeViewBinding.tvTitle.text = title
         initWebView(link)
     }

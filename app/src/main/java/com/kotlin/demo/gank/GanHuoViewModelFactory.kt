@@ -14,6 +14,7 @@ import com.kotlin.demo.network.MainPageRepository
  */
 class GanHuoViewModelFactory(private val repository: MainPageRepository):ViewModelProvider.NewInstanceFactory(){
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        @Suppress("UNCHECKED_CAST")
         return GanHuoViewModel(repository) as T
     }
 }

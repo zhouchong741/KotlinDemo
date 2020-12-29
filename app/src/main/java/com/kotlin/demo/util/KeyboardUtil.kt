@@ -45,8 +45,10 @@ object KeyboardUtil {
 
     private fun getSoftBottomBarHeight(activity: Activity): Int {
         val displayMetrics = DisplayMetrics()
+        @Suppress("DEPRECATION")
         activity.windowManager.defaultDisplay.getMetrics(displayMetrics)
         val usableHeight = displayMetrics.heightPixels
+        @Suppress("DEPRECATION")
         activity.windowManager.defaultDisplay.getRealMetrics(displayMetrics)
         val realHeight = displayMetrics.heightPixels
 

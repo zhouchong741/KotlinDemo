@@ -64,6 +64,7 @@ fun logE(tag: String, msg: String?, tr: Throwable) {
 }
 
 
+@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 val LINE_SEPARATOR: String = System.getProperty("line.separator")
 
 fun printLine(tag: String?, isTop: Boolean) {

@@ -27,7 +27,7 @@ abstract class BaseVPFragment : BaseFragment() {
 
     protected var tabLayout: CommonTabLayout? = null
 
-    protected var pageChangeCallback: PageChangeCallback? = null
+    private var pageChangeCallback: PageChangeCallback? = null
 
     protected val adapter: VpAdapter by lazy {
         VpAdapter(requireActivity()).apply {
@@ -37,7 +37,7 @@ abstract class BaseVPFragment : BaseFragment() {
         }
     }
 
-    protected var offscreenPageLimit = 1
+    private var offscreenPageLimit = 1
 
     abstract val createTitles: ArrayList<CustomTabEntity>
 

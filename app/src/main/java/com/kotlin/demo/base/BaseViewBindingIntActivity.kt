@@ -99,8 +99,8 @@ abstract class BaseViewBindingIntActivity : AppCompatActivity(), RequestLifecycl
         rootView = findViewById(R.id.loadErrorView)
 
         val ivBack = findViewById<ImageView>(R.id.ivBack)
-        val tvTitle = findViewById<TextView>(R.id.tvTitle)
-        val ivRight = findViewById<ImageView>(R.id.ivRight)
+//        val tvTitle = findViewById<TextView>(R.id.tvTitle)
+//        val ivRight = findViewById<ImageView>(R.id.ivRight)
 
         ivBack?.setOnClickListener { finish() }
     }

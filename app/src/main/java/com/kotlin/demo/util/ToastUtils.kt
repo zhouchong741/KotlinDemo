@@ -33,6 +33,7 @@ object ToastUtils {
         val mToast = Toast(context)
         val view = View.inflate(context, R.layout.layout_toast_position, null)
         val textView = view.findViewById<TextView>(R.id.tv_toast_position)
+        @Suppress("DEPRECATION")
         mToast.view = view
         textView.text = text
         mToast.setGravity(gravity, 0, 0)
@@ -47,6 +48,7 @@ object ToastUtils {
         val mToast = Toast(context)
         val view = View.inflate(context, R.layout.layout_toast_position, null)
         val textView = view.findViewById<TextView>(R.id.tv_toast_position)
+        @Suppress("DEPRECATION")
         mToast.view = view
         textView.text = text
         mToast.setGravity(gravity, 0, 0)

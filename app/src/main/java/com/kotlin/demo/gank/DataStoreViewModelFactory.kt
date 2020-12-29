@@ -14,6 +14,7 @@ import com.kotlin.demo.respository.DataStoreRepository
  */
 class DataStoreViewModelFactory(private val repository: DataStoreRepository):ViewModelProvider.NewInstanceFactory(){
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        @Suppress("UNCHECKED_CAST")
         return DataStoreViewModel(repository) as T
     }
 }

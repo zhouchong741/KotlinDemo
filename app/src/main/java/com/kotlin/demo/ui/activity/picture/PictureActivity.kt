@@ -125,7 +125,7 @@ class PictureActivity : BaseViewBindingActivity() {
         TabLayoutMediator(
             viewBinding.tabLayout,
             viewBinding.viewPager
-        ) { tab, position -> }.attach()
+        ) { _, _ -> }.attach()
     }
 
     override fun onBackPressed() {

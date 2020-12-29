@@ -1,6 +1,7 @@
 package com.kotlin.demo.util
 
 import android.R
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
@@ -25,6 +26,7 @@ import java.util.*
  * 迭代版本:
  * 迭代说明:
  */
+@Suppress("DEPRECATION", "UNREACHABLE_CODE")
 object StatusBarUtils {
     ///////////////////////////////////////////////////////////////////////////
     // status bar
@@ -42,7 +44,7 @@ object StatusBarUtils {
     fun setStatusBarColor(
         @NonNull activity: Activity,
         @ColorInt color: Int,
-    ): View? {
+    ): View {
         return setStatusBarColor(activity, color, false)
     }
 
@@ -54,11 +56,11 @@ object StatusBarUtils {
      * @param isDecor  True to add fake status bar in DecorView,
      * false to add fake status bar in ContentView.
      */
-    fun setStatusBarColor(
+    private fun setStatusBarColor(
         @NonNull activity: Activity,
         @ColorInt color: Int,
         isDecor: Boolean,
-    ): View? {
+    ): View {
         transparentStatusBar(activity)
         return applyStatusBarColor(activity, color, isDecor)
     }
@@ -73,7 +75,7 @@ object StatusBarUtils {
     fun setStatusBarColor(
         @NonNull window: Window,
         @ColorInt color: Int,
-    ): View? {
+    ): View {
         return setStatusBarColor(window, color, false)
     }
 
@@ -85,11 +87,11 @@ object StatusBarUtils {
      * @param isDecor True to add fake status bar in DecorView,
      * false to add fake status bar in ContentView.
      */
-    fun setStatusBarColor(
+    private fun setStatusBarColor(
         @NonNull window: Window,
         @ColorInt color: Int,
         isDecor: Boolean,
-    ): View? {
+    ): View {
         transparentStatusBar(window)
         return applyStatusBarColor(window, color, isDecor)
     }
@@ -113,7 +115,7 @@ object StatusBarUtils {
         fakeStatusBar.setBackgroundColor(color)
     }
 
-    fun transparentStatusBar(activity: Activity) {
+    private fun transparentStatusBar(activity: Activity) {
         transparentStatusBar(activity.window)
     }
 
@@ -130,7 +132,7 @@ object StatusBarUtils {
         activity: Activity,
         color: Int,
         isDecor: Boolean,
-    ): View? {
+    ): View {
         return applyStatusBarColor(activity.window, color, isDecor)
     }
 
@@ -138,7 +140,7 @@ object StatusBarUtils {
         window: Window,
         color: Int,
         isDecor: Boolean,
-    ): View? {
+    ): View {
         val parent =
             if (isDecor) window.decorView as ViewGroup else (window.findViewById<View>(R.id.content) as ViewGroup)
         var fakeStatusBarView =
@@ -156,7 +158,7 @@ object StatusBarUtils {
         return fakeStatusBarView
     }
 
-    fun getStatusBarHeight(): Int {
+    private fun getStatusBarHeight(): Int {
         val resources = Resources.getSystem()
         val resourceId = resources.getIdentifier("status_bar_height", "dimen", "android")
         return resources.getDimensionPixelSize(resourceId)
@@ -166,7 +168,7 @@ object StatusBarUtils {
     private fun createStatusBarView(
         context: Context,
         color: Int,
-    ): View? {
+    ): View {
         val statusBarView = View(context)
         statusBarView.layoutParams = ViewGroup.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
@@ -177,46 +179,47 @@ object StatusBarUtils {
         return statusBarView
     }
 
-    fun getActivityByContext(context: Context): Activity? {
+    private fun getActivityByContext(context: Context): Activity? {
         val activity = getActivityByContextInner(context)
         return if (!isActivityAlive(activity)) null else activity
     }
 
-    fun isActivityAlive(activity: Activity?): Boolean {
+    @SuppressLint("ObsoleteSdkInt")
+    private fun isActivityAlive(activity: Activity?): Boolean {
         return (activity != null && !activity.isFinishing
                 && (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1 || !activity.isDestroyed))
     }
 
     private fun getActivityByContextInner(context: Context): Activity? {
-        var context: Context? = context ?: return null
-        val list: MutableList<Context> = ArrayList()
+        @Suppress("NAME_SHADOWING")
+        var context: Context? = context
+//        val list: MutableList<Context> = ArrayList()
         while (context is ContextWrapper) {
             if (context is Activity) {
                 return context
             }
-            val activity: Activity =
-                getActivityFromDecorContext(context)!!
-            if (activity != null) return activity
-            list.add(context)
+            return (getActivityFromDecorContext(context) as Activity?)!!
+//            list.add(context)
             context = context.baseContext
+            @Suppress("UnusedEquals")
             if (context == null) {
                 return null
             }
-            if (list.contains(context)) {
-                // loop context
-                return null
-            }
+//            if (list.contains(context)) {
+//                // loop context
+//                return null
+//            }
         }
         return null
     }
 
-    private fun getActivityFromDecorContext(context: Context?): Activity? {
+    private fun getActivityFromDecorContext(context: Context?): Any? {
         if (context == null) return null
         if (context.javaClass.name == "com.android.internal.policy.DecorContext") {
             try {
                 val mActivityContextField = context.javaClass.getDeclaredField("mActivityContext")
                 mActivityContextField.isAccessible = true
-                return (mActivityContextField[context] as WeakReference<Activity?>).get()
+                return (mActivityContextField[context] as WeakReference<*>).get()
             } catch (ignore: Exception) {
             }
         }
@@ -232,7 +235,7 @@ object StatusBarUtils {
      */
     fun setStatusBarLightMode(
         @NonNull activity: Activity,
-        isLightMode: Boolean
+        isLightMode: Boolean,
     ) {
         setStatusBarLightMode(activity.window, isLightMode)
     }
@@ -243,9 +246,9 @@ object StatusBarUtils {
      * @param window      The window.
      * @param isLightMode True to set status bar light mode, false otherwise.
      */
-    fun setStatusBarLightMode(
+    private fun setStatusBarLightMode(
         @NonNull window: Window,
-        isLightMode: Boolean
+        isLightMode: Boolean,
     ) {
         val decorView = window.decorView
         var vis = decorView.systemUiVisibility
@@ -265,7 +268,7 @@ object StatusBarUtils {
      */
     fun setStatusBarVisibility(
         @NonNull activity: Activity,
-        isVisible: Boolean
+        isVisible: Boolean,
     ) {
         setStatusBarVisibility(activity.window, isVisible)
     }
@@ -276,9 +279,9 @@ object StatusBarUtils {
      * @param window    The window.
      * @param isVisible True to set status bar visible, false otherwise.
      */
-    fun setStatusBarVisibility(
+    private fun setStatusBarVisibility(
         @NonNull window: Window,
-        isVisible: Boolean
+        isVisible: Boolean,
     ) {
         if (isVisible) {
             window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
@@ -324,7 +327,7 @@ object StatusBarUtils {
      *
      * @param view The view.
      */
-    fun subtractMarginTopEqualStatusBarHeight(@NonNull view: View) {
+    private fun subtractMarginTopEqualStatusBarHeight(@NonNull view: View) {
         val haveSetOffset = view.getTag(KEY_OFFSET)
         if (haveSetOffset == null || !(haveSetOffset as Boolean)) return
         val layoutParams = view.layoutParams as MarginLayoutParams
@@ -349,7 +352,7 @@ object StatusBarUtils {
      *
      * @param view The view.
      */
-    fun addMarginTopEqualStatusBarHeight(@NonNull view: View) {
+    private fun addMarginTopEqualStatusBarHeight(@NonNull view: View) {
         view.tag = TAG_OFFSET
         val haveSetOffset = view.getTag(KEY_OFFSET)
         if (haveSetOffset != null && haveSetOffset as Boolean) return

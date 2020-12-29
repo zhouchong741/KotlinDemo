@@ -4,6 +4,7 @@ import android.util.DisplayMetrics
 import android.view.View
 import androidx.recyclerview.widget.*
 import androidx.recyclerview.widget.RecyclerView.SmoothScroller.ScrollVectorProvider
+import kotlin.math.*
 
 /**
  * @author: zhouchong
@@ -27,7 +28,7 @@ class GalleryPagerSnapHelper : SnapHelper() {
     override fun calculateDistanceToFinalSnap(
         layoutManager: RecyclerView.LayoutManager,
         targetView: View,
-    ): IntArray? {
+    ): IntArray {
         val out = IntArray(2)
         if (layoutManager.canScrollHorizontally()) {
             out[0] = distanceToStart(targetView, getHorizontalHelper(layoutManager))
@@ -48,9 +49,9 @@ class GalleryPagerSnapHelper : SnapHelper() {
             ) {
                 val snapDistances =
                     calculateDistanceToFinalSnap(mRecyclerView!!.layoutManager!!, targetView)
-                val dx = snapDistances!![0]
-                val dy = snapDistances!![1]
-                val time = calculateTimeForDeceleration(Math.max(Math.abs(dx), Math.abs(dy)))
+                val dx = snapDistances[0]
+                val dy = snapDistances[1]
+                val time = calculateTimeForDeceleration(max(abs(dx), abs(dy)))
                 if (time > 0) {
                     action.update(dx, dy, time, mDecelerateInterpolator)
                 }
@@ -141,11 +142,11 @@ class GalleryPagerSnapHelper : SnapHelper() {
     ): View? {
         return if (layoutManager is LinearLayoutManager) {
             val firstChildPosition =
-                (layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+                layoutManager.findFirstVisibleItemPosition()
             if (firstChildPosition == RecyclerView.NO_POSITION) {
                 return null
             }
-            if ((layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition() == layoutManager.getItemCount() - 1) {
+            if (layoutManager.findLastCompletelyVisibleItemPosition() == layoutManager.getItemCount() - 1) {
                 return null
             }
             val firstChildView = layoutManager.findViewByPosition(firstChildPosition)
@@ -172,9 +173,9 @@ class GalleryPagerSnapHelper : SnapHelper() {
         }
         val distance = distances[0]
         return if (distance > 0) {
-            Math.floor(distance / distancePerChild.toDouble()).toInt()
+            floor(distance / distancePerChild.toDouble()).toInt()
         } else {
-            Math.ceil(distance / distancePerChild.toDouble()).toInt()
+            ceil(distance / distancePerChild.toDouble()).toInt()
         }
     }
 
@@ -208,9 +209,9 @@ class GalleryPagerSnapHelper : SnapHelper() {
         if (minPosView == null || maxPosView == null) {
             return INVALID_DISTANCE
         }
-        val start = Math.min(helper.getDecoratedStart(minPosView),
+        val start = min(helper.getDecoratedStart(minPosView),
             helper.getDecoratedStart(maxPosView))
-        val end = Math.max(helper.getDecoratedEnd(minPosView),
+        val end = max(helper.getDecoratedEnd(minPosView),
             helper.getDecoratedEnd(maxPosView))
         val distance = end - start
         return if (distance == 0) {
