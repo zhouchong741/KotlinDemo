@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import com.kotlin.demo.R
-import com.kotlin.demo.base.BaseActivity
+import com.kotlin.demo.base.BaseViewBindingIntActivity
 import com.kotlin.demo.gank.DataStoreViewModel
 import com.kotlin.demo.gank.DataStoreViewModel.PreferencesKeys
 import com.kotlin.demo.util.ClickUtil
@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.item_test.*
  * 迭代版本：
  * 迭代说明：
  */
-class DataStoreActivity : BaseActivity() {
+class DataStoreActivity : BaseViewBindingIntActivity() {
 
     private val viewModel by lazy {
         ViewModelProvider(
@@ -30,7 +30,11 @@ class DataStoreActivity : BaseActivity() {
         ).get(DataStoreViewModel::class.java)
     }
 
-    override fun getLayoutResId(): Int {
+//    override fun getViewBindingLayoutResId(): View? {
+//        return super.getViewBindingLayoutResId()
+//    }
+
+    override fun getNormalLayoutResId(): Int {
         return R.layout.activity_data_store
     }
 

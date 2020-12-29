@@ -24,8 +24,6 @@ import com.kotlin.demo.ui.activity.meizi.MeiZiActivity
 import com.kotlin.demo.ui.activity.room.RoomActivity
 import com.kotlin.demo.util.*
 import com.scwang.smart.refresh.layout.constant.RefreshState
-import kotlinx.android.synthetic.main.activity_main.recyclerView
-import kotlinx.android.synthetic.main.activity_main.refreshLayout
 import kotlinx.android.synthetic.main.fragment_main.*
 
 /**

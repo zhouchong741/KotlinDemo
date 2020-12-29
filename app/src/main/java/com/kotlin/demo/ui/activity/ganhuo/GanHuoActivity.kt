@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.kotlin.demo.GankBaseApplication
 import com.kotlin.demo.R
 import com.kotlin.demo.adapter.GanHuoAdapter
-import com.kotlin.demo.base.BaseActivity
 import com.kotlin.demo.base.BaseViewBindingActivity
 import com.kotlin.demo.databinding.ActivityGanHuoBinding
 import com.kotlin.demo.databinding.LayoutTitleBarBinding

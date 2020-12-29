@@ -10,14 +10,15 @@ import androidx.viewpager2.widget.ViewPager2
 import com.flyco.tablayout.listener.CustomTabEntity
 import com.flyco.tablayout.listener.OnTabSelectListener
 import com.kotlin.demo.R
-import com.kotlin.demo.base.BaseActivity
+import com.kotlin.demo.base.BaseViewBindingIntActivity
+import com.kotlin.demo.databinding.ActivityArticleBinding
+import com.kotlin.demo.databinding.LayoutTitleBarBinding
 import com.kotlin.demo.entity.TabEntity
 import com.kotlin.demo.ui.fragment.AlreadyReadFragment
 import com.kotlin.demo.ui.fragment.NotReadFragment
 import com.kotlin.demo.util.CommonUtils
 import com.kotlin.demo.util.ToastUtils
 import kotlinx.android.synthetic.main.activity_article.*
-import kotlinx.android.synthetic.main.layout_title_bar.*
 
 /**
  * @author zhouchong
@@ -27,13 +28,20 @@ import kotlinx.android.synthetic.main.layout_title_bar.*
  * 迭代版本：
  * 迭代说明：
  */
-class ArticleActivity : BaseActivity() {
+class ArticleActivity : BaseViewBindingIntActivity() {
+    private lateinit var viewBinding: ActivityArticleBinding
+    private lateinit var includeViewBinding: LayoutTitleBarBinding
+
     // 通用 统一定义 Fragment
     private var fragmentList: Array<Fragment> =
         arrayOf(AlreadyReadFragment(this), NotReadFragment(this))
 
-    override fun getLayoutResId(): Int {
-        return R.layout.activity_article
+    override fun getNormalLayoutResId(): Int = 0
+
+    override fun getViewBindingLayoutResId(): View {
+        viewBinding = ActivityArticleBinding.inflate(layoutInflater)
+        includeViewBinding = viewBinding.include
+        return viewBinding.root
     }
 
     override fun initView() {
@@ -43,14 +51,14 @@ class ArticleActivity : BaseActivity() {
     }
 
     private fun search() {
-        tvRightText.visibility = View.VISIBLE
-        tvRightText.text = getString(R.string.share)
-        ivRight.visibility = View.VISIBLE
-        ivRight.setImageResource(R.mipmap.ic_search)
-        ivRight.setOnClickListener {
+        includeViewBinding.tvRightText.visibility = View.VISIBLE
+        includeViewBinding.tvRightText.text = getString(R.string.share)
+        includeViewBinding.ivRight.visibility = View.VISIBLE
+        includeViewBinding.ivRight.setImageResource(R.mipmap.ic_search)
+        includeViewBinding.ivRight.setOnClickListener {
             ToastUtils.showToast(this, getString(R.string.not_open_yet))
         }
-        tvRightText.setOnClickListener {
+        includeViewBinding.tvRightText.setOnClickListener {
             ToastUtils.showToast(this, getString(R.string.not_open_yet))
         }
     }
@@ -111,7 +119,7 @@ class ArticleActivity : BaseActivity() {
      * ViewPager2 xml 需要使用 ViewPager2
      */
     private fun initView2() {
-        tvTitle.text = CommonUtils.getString(R.string.str_article)
+        includeViewBinding.tvTitle.text = CommonUtils.getString(R.string.str_article)
 
         val titles: Array<String> = resources.getStringArray(R.array.read_array)
         val createTitles = ArrayList<CustomTabEntity>().apply {
@@ -129,11 +137,11 @@ class ArticleActivity : BaseActivity() {
         // 等同于下面的写法
 //        val adapter =  ViewPager2Adapter(this)
 //        adapter.addFragments(fragmentList)
-        viewPager.offscreenPageLimit = 1
-        viewPager.adapter = adapter
-        tabLayout.setTabData(createTitles)
+        viewBinding.viewPager.offscreenPageLimit = 1
+        viewBinding.viewPager.adapter = adapter
+        viewBinding.tabLayout.setTabData(createTitles)
         // 监听
-        tabLayout.setOnTabSelectListener(object : OnTabSelectListener {
+        viewBinding.tabLayout.setOnTabSelectListener(object : OnTabSelectListener {
             override fun onTabSelect(position: Int) {
                 viewPager?.currentItem = position
             }
@@ -143,7 +151,7 @@ class ArticleActivity : BaseActivity() {
             }
         })
 
-        viewPager.registerOnPageChangeCallback(PageChangeCallback())
+        viewBinding.viewPager.registerOnPageChangeCallback(PageChangeCallback())
     }
 
     inner class ViewPager2Adapter(fragmentActivity: FragmentActivity) :
@@ -163,7 +171,7 @@ class ArticleActivity : BaseActivity() {
     inner class PageChangeCallback : ViewPager2.OnPageChangeCallback() {
         override fun onPageSelected(position: Int) {
             super.onPageSelected(position)
-            tabLayout?.currentTab = position
+            viewBinding.tabLayout.currentTab = position
         }
     }
 

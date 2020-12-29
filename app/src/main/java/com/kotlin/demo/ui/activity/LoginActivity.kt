@@ -10,7 +10,7 @@ import com.kotlin.demo.base.BaseViewBindingActivity
 import com.kotlin.demo.databinding.ActivityLoginBinding
 import com.kotlin.demo.gank.LoginViewModel
 import com.kotlin.demo.param.LoginParams
-import com.kotlin.demo.ui.activity.main.Main2Activity
+import com.kotlin.demo.ui.activity.main.MainActivity
 import com.kotlin.demo.ui.activity.shareelement.ShareElementActivity
 import com.kotlin.demo.util.*
 import kotlinx.android.synthetic.main.activity_login.*
@@ -76,7 +76,7 @@ class LoginActivity : BaseViewBindingActivity() {
         ClickUtil.setOnClickListener(viewBinding.tvJump, viewBinding.ivLogo) {
             when (this) {
                 tvJump -> {
-                    Main2Activity.startActivity(this@LoginActivity)
+                    MainActivity.startActivity(this@LoginActivity)
                     finish()
                 }
                 ivLogo -> {
@@ -98,7 +98,7 @@ class LoginActivity : BaseViewBindingActivity() {
                 ToastUtils.showToast(this, getString(R.string.network_connect_error))
             } else if (result.isSuccess) {
                 if (result.toString().contains("ok")) {
-                    Main2Activity.startActivity(this)
+                    MainActivity.startActivity(this)
                     ToastUtils.showToast(this, getString(R.string.login_success))
                     // 保存 mmkv
                     saveInfo(userNameET.text.toString(), passwordET.text.toString())

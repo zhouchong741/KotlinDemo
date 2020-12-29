@@ -10,7 +10,6 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.kotlin.demo.R
 import com.kotlin.demo.adapter.PictureAdapter
-import com.kotlin.demo.base.BaseActivity
 import com.kotlin.demo.base.BaseViewBindingActivity
 import com.kotlin.demo.databinding.ActivityPictureBinding
 import com.kotlin.demo.extension.invisibleAlphaAnimation
@@ -18,7 +17,6 @@ import com.kotlin.demo.extension.visibleAlphaAnimation
 import com.kotlin.demo.util.ClickUtil
 import com.kotlin.demo.util.CommonUtils
 import com.kotlin.demo.util.StatusBarUtils
-import com.kotlin.demo.util.helper.DepthPageTransformer
 import com.kotlin.demo.util.helper.ZoomOutViewPagerTransformer
 import com.kotlin.demo.wigets.dialog.ShareBottomDialog
 import com.zhpan.indicator.enums.IndicatorSlideMode

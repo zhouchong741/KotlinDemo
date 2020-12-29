@@ -6,7 +6,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.kotlin.demo.R
-import com.kotlin.demo.base.BaseActivity
+import com.kotlin.demo.base.BaseViewBindingIntActivity
 import com.kotlin.demo.util.ToastUtils
 import kotlinx.android.synthetic.main.activity_bottom_navigation_view.*
 
@@ -18,9 +18,9 @@ import kotlinx.android.synthetic.main.activity_bottom_navigation_view.*
  * 迭代版本：
  * 迭代说明：
  */
-class BottomNavigationViewActivity : BaseActivity() {
+class BottomNavigationViewActivity : BaseViewBindingIntActivity() {
 
-    override fun getLayoutResId(): Int {
+    override fun getNormalLayoutResId(): Int {
         return R.layout.activity_bottom_navigation_view
     }
 
@@ -53,7 +53,7 @@ class BottomNavigationViewActivity : BaseActivity() {
             true
         }
 
-        // 处理重复点击时页面刷新问题 看源码就清除
+        // 处理重复点击时页面刷新问题 看源码就清楚
         bottomNavView.setOnNavigationItemReselectedListener {
 
         }

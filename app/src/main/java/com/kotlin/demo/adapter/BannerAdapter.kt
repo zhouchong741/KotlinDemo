@@ -7,11 +7,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.kotlin.demo.R
-import com.kotlin.demo.base.BaseActivity
 import com.kotlin.demo.extension.inflate
 import com.kotlin.demo.model.BannerModel
-import com.kotlin.demo.model.GanHuoModel
-import com.kotlin.demo.ui.activity.WebViewActivity
 import com.kotlin.demo.util.GlideUtils.load
 
 /**
