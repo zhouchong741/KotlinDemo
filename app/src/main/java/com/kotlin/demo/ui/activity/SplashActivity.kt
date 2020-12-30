@@ -9,7 +9,6 @@ import com.kotlin.demo.base.BaseViewBindingActivity
 import com.kotlin.demo.databinding.ActivitySplashBinding
 import com.kotlin.demo.util.SharePreferenceUtils
 import com.kotlin.demo.util.SharePreferenceUtils.edit
-import kotlinx.android.synthetic.main.activity_splash.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay

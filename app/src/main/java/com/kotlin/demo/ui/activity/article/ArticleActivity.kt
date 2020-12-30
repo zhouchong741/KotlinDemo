@@ -18,7 +18,6 @@ import com.kotlin.demo.ui.fragment.AlreadyReadFragment
 import com.kotlin.demo.ui.fragment.NotReadFragment
 import com.kotlin.demo.util.CommonUtils
 import com.kotlin.demo.util.ToastUtils
-import kotlinx.android.synthetic.main.activity_article.*
 
 /**
  * @author zhouchong
@@ -143,7 +142,7 @@ class ArticleActivity : BaseViewBindingIntActivity() {
         // 监听
         viewBinding.tabLayout.setOnTabSelectListener(object : OnTabSelectListener {
             override fun onTabSelect(position: Int) {
-                viewPager?.currentItem = position
+                viewBinding.viewPager.currentItem = position
             }
 
             override fun onTabReselect(position: Int) {

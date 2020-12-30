@@ -8,7 +8,6 @@ import androidx.core.app.ActivityOptionsCompat
 import com.kotlin.demo.base.BaseViewBindingActivity
 import com.kotlin.demo.databinding.ActivityShareElementBinding
 import com.kotlin.demo.util.StatusBarUtils
-import kotlinx.android.synthetic.main.activity_share_element.*
 
 /**
  * @author zhouchong

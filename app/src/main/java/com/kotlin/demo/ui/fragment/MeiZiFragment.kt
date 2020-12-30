@@ -17,7 +17,6 @@ import com.kotlin.demo.util.InjectUtil
 import com.kotlin.demo.util.ResponseHandler
 import com.kotlin.demo.util.ToastUtils
 import com.scwang.smart.refresh.layout.constant.RefreshState
-import kotlinx.android.synthetic.main.activity_meizi.*
 
 /**
  * @author: zhouchong

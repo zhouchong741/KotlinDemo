@@ -16,8 +16,6 @@ import com.kotlin.demo.model.User
 import com.kotlin.demo.util.ClickUtil
 import com.kotlin.demo.util.InjectUtil
 import com.kotlin.demo.util.ToastUtils
-import kotlinx.android.synthetic.main.activity_room.*
-import kotlinx.android.synthetic.main.item_test.*
 
 /**
  * @author zhouchong
@@ -78,7 +76,7 @@ class RoomActivity : BaseViewBindingActivity() {
                             logD(TAG, it.toString())
                         })
                         // 查询单个
-                        viewModel.getUser(etName.text.toString())
+                        viewModel.getUser(viewBinding.etName.text.toString())
                             .observe(this@RoomActivity, Observer {
                                 ToastUtils.showToast(this@RoomActivity,
                                     "name=" + it.userName + ";age=" + it.age)
@@ -94,12 +92,12 @@ class RoomActivity : BaseViewBindingActivity() {
                     if (viewBinding.etName.text.toString().isNotEmpty()) {
                         // 使用 observeOnce 只获取一次观察结果
                         viewModel.getUserById(currentId).observeOnce(this@RoomActivity, Observer {
-                            it.age = etAge.text.toString().toInt()
+                            it.age = viewBinding.etAge.text.toString().toInt()
                             viewModel.updateUser(it)
                         })
                         // suspend 方法获取 user
                         val user: User = viewModel.getUserByIdOnce(currentId)
-                        user.age = etAge.text.toString().toInt()
+                        user.age = viewBinding.etAge.text.toString().toInt()
                         viewModel.updateUser(user)
                     } else {
                         ToastUtils.showToast(this@RoomActivity,

@@ -11,8 +11,6 @@ import com.kotlin.demo.util.CommonUtils
 import com.kotlin.demo.util.KeyboardUtil
 import com.kotlin.demo.util.ToastUtils
 import com.kotlin.demo.wigets.verification.VerificationCodeView.InputCompleteListener
-import kotlinx.android.synthetic.main.activity_verification.*
-import kotlinx.android.synthetic.main.layout_title_bar.*
 
 /**
  * @author zhouchong
@@ -37,7 +35,7 @@ class VerificationActivity : BaseViewBindingActivity() {
         includeViewBinding.tvTitle.text = getString(R.string.str_verification_code)
 
         viewBinding.clearVerification.setOnClickListener {
-            verificationCodeView.clearInputContent()
+            viewBinding.verificationCodeView.clearInputContent()
         }
         viewBinding.verificationCodeView.setInputCompleteListener(object : InputCompleteListener {
             override fun inputComplete() {

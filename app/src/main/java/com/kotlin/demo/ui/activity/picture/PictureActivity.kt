@@ -21,7 +21,6 @@ import com.kotlin.demo.util.helper.ZoomOutViewPagerTransformer
 import com.kotlin.demo.wigets.dialog.ShareBottomDialog
 import com.zhpan.indicator.enums.IndicatorSlideMode
 import com.zhpan.indicator.enums.IndicatorStyle
-import kotlinx.android.synthetic.main.activity_picture.*
 
 /**
  * @author zhouchong
@@ -91,7 +90,8 @@ class PictureActivity : BaseViewBindingActivity() {
         viewBinding.viewPager.adapter = adapter
         viewBinding.viewPager.offscreenPageLimit = 1
         viewBinding.tvPosition.text = "1 / ${dataList.size}"
-        viewBinding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+        viewBinding.viewPager.registerOnPageChangeCallback(object :
+            ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 viewBinding.tvPosition.text = "${position + 1} / ${dataList.size}"
@@ -109,7 +109,7 @@ class PictureActivity : BaseViewBindingActivity() {
             )
             setSlideMode(IndicatorSlideMode.WORM)
             setIndicatorStyle(IndicatorStyle.CIRCLE)
-            setupWithViewPager(viewPager)
+            setupWithViewPager(viewBinding.viewPager)
         }
         // 缩小页面 设置画廊效果
         viewBinding.viewPager.setPageTransformer(ZoomOutViewPagerTransformer())

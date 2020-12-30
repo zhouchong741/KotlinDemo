@@ -13,7 +13,6 @@ import com.kotlin.demo.param.LoginParams
 import com.kotlin.demo.ui.activity.main.MainActivity
 import com.kotlin.demo.ui.activity.shareelement.ShareElementActivity
 import com.kotlin.demo.util.*
-import kotlinx.android.synthetic.main.activity_login.*
 
 /**
  * @author zhouchong
@@ -45,13 +44,13 @@ class LoginActivity : BaseViewBindingActivity() {
         viewBinding.userNameET.setText(mmkv.decodeString(Constant.USER_NAME))
         viewBinding.passwordET.setText(mmkv.decodeString(Constant.PASSWORD))
         viewBinding.btnLogin.setOnClickListener {
-            if (userNameET.text.isNullOrBlank() || passwordET.text.isNullOrBlank()) {
+            if (viewBinding.userNameET.text.isNullOrBlank() || viewBinding.passwordET.text.isNullOrBlank()) {
                 ToastUtils.showToast(this, getString(R.string.user_name_and_pwd_can_not_be_empty))
                 return@setOnClickListener
             }
             viewBinding.lottieView.visibility = View.VISIBLE
-            btnLogin.text = ""
-            viewModel.onLogin(LoginParams(userNameET.text.toString(), passwordET.text.toString()))
+            viewBinding.btnLogin.text = ""
+            viewModel.onLogin(LoginParams(viewBinding.userNameET.text.toString(), viewBinding.passwordET.text.toString()))
             observe()
             /*原始未封装 Retrofit 请求
             val retrofit = Retrofit.Builder()
@@ -75,15 +74,15 @@ class LoginActivity : BaseViewBindingActivity() {
 
         ClickUtil.setOnClickListener(viewBinding.tvJump, viewBinding.ivLogo) {
             when (this) {
-                tvJump -> {
+                viewBinding.tvJump -> {
                     MainActivity.startActivity(this@LoginActivity)
                     finish()
                 }
-                ivLogo -> {
+                viewBinding.ivLogo -> {
                     // 共享元素 转场动画
                     ShareElementActivity.startActivity(
                         this@LoginActivity,
-                        CommonUtils.makeSceneTransitionAnimation(this@LoginActivity, ivLogo, "logo")
+                        CommonUtils.makeSceneTransitionAnimation(this@LoginActivity, viewBinding.ivLogo, "logo")
                     )
                 }
             }
@@ -92,8 +91,8 @@ class LoginActivity : BaseViewBindingActivity() {
 
     private fun observe() {
         viewModel.dataListLiveData.observe(this, { result ->
-            lottieView.visibility = View.GONE
-            btnLogin.text = getString(R.string.login)
+            viewBinding.lottieView.visibility = View.GONE
+            viewBinding.btnLogin.text = getString(R.string.login)
             if (result.isFailure) {
                 ToastUtils.showToast(this, getString(R.string.network_connect_error))
             } else if (result.isSuccess) {
@@ -101,7 +100,7 @@ class LoginActivity : BaseViewBindingActivity() {
                     MainActivity.startActivity(this)
                     ToastUtils.showToast(this, getString(R.string.login_success))
                     // 保存 mmkv
-                    saveInfo(userNameET.text.toString(), passwordET.text.toString())
+                    saveInfo(viewBinding.userNameET.text.toString(), viewBinding.passwordET.text.toString())
                     finish()
                 } else {
                     ToastUtils.showToast(this, getString(R.string.login_failed_check))

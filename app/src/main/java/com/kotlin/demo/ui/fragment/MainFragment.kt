@@ -24,7 +24,6 @@ import com.kotlin.demo.ui.activity.meizi.MeiZiActivity
 import com.kotlin.demo.ui.activity.room.RoomActivity
 import com.kotlin.demo.util.*
 import com.scwang.smart.refresh.layout.constant.RefreshState
-import kotlinx.android.synthetic.main.fragment_main.*
 
 /**
  * @author: zhouchong
@@ -72,9 +71,9 @@ class MainFragment : BaseViewBindingFragment() {
         })
         // 画廊效果
         val pagerSnapHelper = PagerSnapHelper()
-        pagerSnapHelper.attachToRecyclerView(recyclerView)
+        pagerSnapHelper.attachToRecyclerView(viewBinding.recyclerView)
         // 监听
-        refreshLayout.setOnRefreshListener {
+        viewBinding.refreshLayout.setOnRefreshListener {
             viewModel.onRefresh()
         }
 

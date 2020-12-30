@@ -141,6 +141,7 @@ class VerificationCodeView : RelativeLayout {
     }
 
     //初始化TextView
+    @Suppress("DEPRECATION")
     private fun initTextViews(
         context: Context,
         etNumber: Int,
@@ -194,7 +195,7 @@ class VerificationCodeView : RelativeLayout {
         et.addTextChangedListener(myTextWatcher)
 
         // 监听删除按键
-        et.setOnKeyListener(OnKeyListener { v: View, keyCode, event ->
+        et.setOnKeyListener(OnKeyListener { _: View, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_DEL && event.action == KeyEvent.ACTION_DOWN) {
                 onKeyDelete()
                 return@OnKeyListener true

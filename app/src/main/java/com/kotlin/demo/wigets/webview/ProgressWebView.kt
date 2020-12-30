@@ -24,6 +24,7 @@ class ProgressWebView : WebView {
         initView(context)
     }
 
+    @Suppress("DEPRECATION")
     private fun initView(context: Context) {
         mProgressBar =
             ProgressBar(context, null, android.R.attr.progressBarStyleHorizontal)

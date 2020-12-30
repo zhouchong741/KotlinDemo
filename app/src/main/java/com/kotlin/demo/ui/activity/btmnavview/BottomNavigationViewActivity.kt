@@ -2,13 +2,16 @@ package com.kotlin.demo.ui.activity.btmnavview
 
 import android.content.Context
 import android.content.Intent
+import android.view.View
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.kotlin.demo.R
+import com.kotlin.demo.base.BaseViewBindingActivity
 import com.kotlin.demo.base.BaseViewBindingIntActivity
+import com.kotlin.demo.databinding.ActivityBottomNavigationViewBinding
+import com.kotlin.demo.databinding.ActivityLoginBinding
 import com.kotlin.demo.util.ToastUtils
-import kotlinx.android.synthetic.main.activity_bottom_navigation_view.*
 
 /**
  * @author zhouchong
@@ -18,20 +21,24 @@ import kotlinx.android.synthetic.main.activity_bottom_navigation_view.*
  * 迭代版本：
  * 迭代说明：
  */
-class BottomNavigationViewActivity : BaseViewBindingIntActivity() {
+class BottomNavigationViewActivity : BaseViewBindingActivity() {
 
-    override fun getNormalLayoutResId(): Int {
-        return R.layout.activity_bottom_navigation_view
+    private lateinit var viewBinding: ActivityBottomNavigationViewBinding
+
+
+    override fun getViewBindingLayoutResId(): View {
+        viewBinding = ActivityBottomNavigationViewBinding.inflate(layoutInflater)
+        return viewBinding.root
     }
 
     override fun initView() {
         // 切换点击的 view 绑定
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.navHostFragmentView) as NavHostFragment
-        bottomNavView.setupWithNavController(navHostFragment.navController)
+        viewBinding.bottomNavView.setupWithNavController(navHostFragment.navController)
         // 处理点击事件
-        bottomNavView.setOnNavigationItemSelectedListener {
-            val navController = Navigation.findNavController(navHostFragmentView)
+        viewBinding.bottomNavView.setOnNavigationItemSelectedListener {
+            val navController = Navigation.findNavController(viewBinding.navHostFragmentView)
             when (it.itemId) {
                 R.id.mainFragment -> {
                     navController.navigate(R.id.mainFragment)
@@ -54,7 +61,7 @@ class BottomNavigationViewActivity : BaseViewBindingIntActivity() {
         }
 
         // 处理重复点击时页面刷新问题 看源码就清楚
-        bottomNavView.setOnNavigationItemReselectedListener {
+        viewBinding.bottomNavView.setOnNavigationItemReselectedListener {
 
         }
     }

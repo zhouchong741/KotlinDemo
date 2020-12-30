@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.activity.datastore.DataStoreActivity">
 
-    <include layout="@layout/layout_title_bar" />
+    <include android:id="@+id/include" layout="@layout/layout_title_bar" />
 
     <Button
         android:id="@+id/btnWrite"

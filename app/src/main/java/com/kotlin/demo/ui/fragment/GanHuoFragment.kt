@@ -22,7 +22,6 @@ import com.kotlin.demo.util.InjectUtil
 import com.kotlin.demo.util.ResponseHandler
 import com.kotlin.demo.util.ToastUtils
 import com.scwang.smart.refresh.layout.constant.RefreshState
-import kotlinx.android.synthetic.main.activity_gan_huo.*
 import java.util.*
 
 /**
@@ -51,11 +50,11 @@ class GanHuoFragment : BaseViewBindingFragment() {
 
         initView()
 
-        refreshLayout.setOnRefreshListener {
+        viewBinding.refreshLayout.setOnRefreshListener {
             viewModel.onRefresh()
         }
 
-        refreshLayout.setOnLoadMoreListener {
+        viewBinding.refreshLayout.setOnLoadMoreListener {
             viewModel.onLoad()
         }
         observe()
@@ -82,7 +81,7 @@ class GanHuoFragment : BaseViewBindingFragment() {
 
         // 拖动排序
         val itemTouchHelper = ItemTouchHelper(mCallBack)
-        itemTouchHelper.attachToRecyclerView(recyclerView)
+        itemTouchHelper.attachToRecyclerView(viewBinding.recyclerView)
     }
 
     private val mCallBack: ItemTouchHelper.Callback = object : ItemTouchHelper.Callback() {

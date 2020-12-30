@@ -1,11 +1,13 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
+//apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 //apply plugin: 'dagger.hilt.android.plugin'
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
+
+    ndkVersion "18.1.5063045"
 
     defaultConfig {
         applicationId "com.kotlin.demo"
@@ -37,6 +39,8 @@ android {
     buildFeatures {
         viewBinding = true
     }
+
+
 }
 
 dependencies {

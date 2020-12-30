@@ -12,7 +12,7 @@ import com.kotlin.demo.R
 import com.kotlin.demo.util.ClickUtil
 import com.kotlin.demo.util.CommonUtils
 import com.kotlin.demo.util.ToastUtils
-import kotlinx.android.synthetic.main.layout_view_pager_title_bar.*
+//import kotlinx.android.synthetic.main.layout_view_pager_title_bar.*
 
 /**
  * @author: zhouchong
@@ -56,16 +56,16 @@ abstract class BaseVPFragment : BaseFragment() {
 
     open fun setupViews() {
         initViewPager()
-        ClickUtil.setOnClickListener(ivBack, ivSearch) {
-            ToastUtils.showToast(context, CommonUtils.getString(R.string.not_open_yet))
-//            if (this == ivBack) {
-//            } else if (this == ivSearch) {
-//                SearchFragment.switchFragment(activity)
-//            }
-        }
+//        ClickUtil.setOnClickListener(ivBack, ivSearch) {
+//            ToastUtils.showToast(context, CommonUtils.getString(R.string.not_open_yet))
+////            if (this == ivBack) {
+////            } else if (this == ivSearch) {
+////                SearchFragment.switchFragment(activity)
+////            }
+//        }
     }
 
-    protected fun initViewPager() {
+    private fun initViewPager() {
         viewPager = rootView.findViewById(R.id.viewPager)
         tabLayout = rootView.findViewById(R.id.tabLayout)
 
